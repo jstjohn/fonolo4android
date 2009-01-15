@@ -1,0 +1,9 @@
+package com.android.fonolo;
+
+public interface private_constants {
+	//Provided by fonolo for THIS program. When distributing this file please
+	//delete the value below
+	// Type in your fonolo developer key below, then rename this file to private_constants.java
+	// be sure not to add it to the SVN repository!
+	static final String AUTH_KEY = "*********************************"; 
+}
