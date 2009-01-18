@@ -131,7 +131,6 @@ public class fonolo_library implements private_constants{
       // localContext.setAttribute("content", c);
         
        // HttpResponse response = httpClient.execute(request, localContext);
-        request.
         HttpResponse response = httpClient.execute(request);
         StatusLine status = response.getStatusLine();
         Header[] headers = response.getAllHeaders();
