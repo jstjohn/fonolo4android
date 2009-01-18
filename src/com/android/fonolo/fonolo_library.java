@@ -1,44 +1,32 @@
 package com.android.fonolo;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-import org.json.JSONStringer;
+import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 
-//Copyright 2008 fonolo. All Rights Reserved.
-//
-// +---------------------------------------------------------------------------+
-// | fonolo Java API client                                                     |
-// +---------------------------------------------------------------------------+
-// | Copyright (c) 2008 fonolo.                                                |
-// | All rights reserved.                                                      |
-// |                                                                           |
-// | Redistribution and use in source and binary forms, with or without        |
-// | modification, are permitted provided that the following conditions        |
-// | are met:                                                                  |
-// |                                                                           |
-// | 1. Redistributions of source code must retain the above copyright         |
-// |    notice, this list of conditions and the following disclaimer.          |
-// | 2. Redistributions in binary form must reproduce the above copyright      |
-// |    notice, this list of conditions and the following disclaimer in the    |
-// |    documentation and/or other materials provided with the distribution.   |
-// |                                                                           |
-// | THIS SOFTWARE IS PROVIDED BY THE AUTHOR ``AS IS'' AND ANY EXPRESS OR      |
-// | IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED WARRANTIES |
-// | OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE DISCLAIMED.   |
-// | IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY DIRECT, INDIRECT,          |
-// | INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT  |
-// | NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, |
-// | DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY     |
-// | THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT       |
-// | (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF  |
-// | THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.         |
-// +---------------------------------------------------------------------------+
+import org.json.JSONObject;
+import org.apache.http.Header;
+import org.apache.http.HttpEntity;
+import org.apache.http.HttpResponse;
+import org.apache.http.HttpStatus;
+import org.apache.http.StatusLine;
+import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpPost;
+import org.apache.http.entity.StringEntity;
+import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.protocol.BasicHttpContext;
+import org.apache.http.protocol.HttpContext;
+
+import android.util.Log;
+
+
 
 
 public class fonolo_library implements private_constants{
 	private String auth_key = AUTH_KEY; //Stored in the private_constants interface!
 	private String response_server = "https://json-rpc.live.fonolo.com/"; //provided in fonolo API
-	private String version = "0.01";
+	private String version = "1.1";
 	private String user = "";
 	private String pass = "";
 	
@@ -53,59 +41,15 @@ public class fonolo_library implements private_constants{
 		pass = passwd;
 	}
 	
+	
 	//returns a JSON string from the server
-	public String get_json_contents(String method, String params, Boolean as_array, Boolean no_login){
-		String response = "";
+	public String get_json_contents(String method, String[] params, Boolean as_array, Boolean no_login){
+		String output = "";
 		//return an error message
 		if(auth_key.equals(null) || auth_key.length() != 32){
 			System.err.println("Invalid Auth Key!");
 		}
 		
-
-//		JSONObject content = new JSONObject();
-//		
-//		//JSONObjects throw JSONExceptions so we need to handle that stuff
-//		try {
-//			content.put("version", version);
-//			content.put("method", method);
-//			content.put("params", params);
-//		} catch (JSONException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
-//		
-//		JSONObject options = new JSONObject();
-//		JSONObject http = new JSONObject();
-//		if(no_login == true){
-//			try {
-//				http.put("method", "POST");
-//				http.put("header", "Content-Type: application/json");
-//				http.put("X-Fonolo-AUTH", auth_key);
-//				http.put("content", content);
-//			} catch (JSONException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}else{
-//			try {
-//				http.put("method", "POST");
-//				http.put("header", "Content-Type: application/json");
-//				http.put("X-Fonolo-Auth", auth_key);
-//				http.put("X-Fonolo-Username", user);
-//				http.put("X-Fonolo-Password", pass);
-//				http.put("content", content);
-//			} catch (JSONException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
-//		}
-//		//now we throw the http information into the options JSON array
-//		try {
-//			options.put("http", http);
-//		} catch (JSONException e) {
-//			// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
 		/**
 		 * We need to use something like the following example code.
 		 * Also we don't want a JSON request. we want an HTTP request, the response will be in JSON.
@@ -135,13 +79,111 @@ public class fonolo_library implements private_constants{
     }
 		 */
 	try{
+		//make the JSON content request
 		
+		
+		//formulate the params
+		String p = "[";
+		for(int i = 0; i < params.length; i++){
+			
+			p += '"';
+			p += params[i];
+			p += '"';
+			if(i != params.length -1){
+				p += ",";
+			}
+		}
+		p+="]";
+//		String p = "[3,0,Ô2008-12-15Õ]";
+//		JSONObject content = new JSONObject();
+//		content.put("version", version);
+//		content.put("method", method);
+//		content.put("params", p);
+//		String c = content.toString();
+		String c = "{\"version\":\""+version+"\",\"method\":\""+method+"\",\"params\":"+p+"}";
+		output += c;
+		
+		
+		StringEntity my_content = new StringEntity(c);
+		
+		//BasicNameValuePair cont = new BasicNameValuePair("content", c);
+		//UrlEncodedFormEntity entity = new UrlEncodedFormEntity(cont);
+	
+		HttpClient httpClient = new DefaultHttpClient();
+        HttpPost request = new HttpPost(response_server);
+        if(no_login == true){
+        	request.setHeader("Content-Type", "application/json");
+        	request.setHeader("X-Fonolo-Auth",auth_key);
+        	//request.setHeader("content",c);
+        	//request.setEntity(my_content);
+        	//request.setHeader("Content-Length", ""+my_content.getContentLength());
+        }else{
+        	request.setHeader("Content-Type", "application/json");
+        	request.setHeader("X-Fonolo-Auth",auth_key);
+        	request.setHeader("X-Fonolo-Username", user);
+        	request.setHeader("X-Fonolo-Password",pass);
+        	//request.setHeader("content", c);
+        	//request.setEntity(my_content);
+        	//request.setHeader("Content-Length", Long.toString(my_content.getContentLength()));
+        }
+        //maybe I need to throw content into a local context
+      // HttpContext localContext = new BasicHttpContext();
+      // localContext.setAttribute("content", c);
+        
+       // HttpResponse response = httpClient.execute(request, localContext);
+        request.
+        HttpResponse response = httpClient.execute(request);
+        StatusLine status = response.getStatusLine();
+        Header[] headers = response.getAllHeaders();
+        HttpEntity entity = response.getEntity();
+
+  
+
+        
+        if (status.getStatusCode() != HttpStatus.SC_OK) {
+        	
+        	InputStream is = response.getEntity().getContent();
+        	BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+            String line;
+            while ((line = rd.readLine()) != null) {
+                output += line.toString();
+            }
+            output += entity.getContentLength();
+            output += "Fail!";
+            output += "\n Headers: ";
+            for(int i = 0; i < headers.length; i++){
+            	output += "\n"+headers[i].getName();
+            	output += ":" + headers[i].getValue();
+            }
+            rd.close();
+        	is.close();
+        	
+        } else {
+        	//connection success!
+        	InputStream is = response.getEntity().getContent();
+        	BufferedReader rd = new BufferedReader(new InputStreamReader(is));
+            String line;
+            while ((line = rd.readLine()) != null) {
+                output += line.toString();
+            }
+            output += entity.getContentLength();
+            output += "it works!";
+            output += "\n Headers: ";
+            for(int i = 0; i < headers.length; i++){
+            	output += "\n"+headers[i].getName();
+            	output += ":" + headers[i].getValue();
+            }
+            rd.close();
+        	is.close();
+        }
+        
 	} catch(Exception e){
-		
+		e.printStackTrace();
+		output += e.toString();
 	}
 		
 		
-		return response;
+		return output;
 	}
 	
 	
