@@ -126,7 +126,7 @@ public class fonolo_library implements private_constants{
         	//request.setEntity(my_content);
         	//request.setHeader("Content-Length", Long.toString(my_content.getContentLength()));
         }
-        //maybe I need to throw content into a local context
+       // maybe I need to throw content into a local context
       // HttpContext localContext = new BasicHttpContext();
       // localContext.setAttribute("content", c);
         
