@@ -10,6 +10,7 @@ import org.apache.http.Header;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.HttpStatus;
+import org.apache.http.RequestLine;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
@@ -94,17 +95,15 @@ public class fonolo_library implements private_constants{
 			}
 		}
 		p+="]";
-//		String p = "[3,0,Ô2008-12-15Õ]";
-//		JSONObject content = new JSONObject();
-//		content.put("version", version);
-//		content.put("method", method);
-//		content.put("params", p);
-//		String c = content.toString();
+
 		String c = "{\"version\":\""+version+"\",\"method\":\""+method+"\",\"params\":"+p+"}";
 		output += c;
 		
 		
-		StringEntity my_content = new StringEntity(c);
+		//StringEntity my_content = new StringEntity(c);
+		//my_content.setContentType("application/json");
+		//my_content.setContentEncoding("UTF-8");
+		//my_content.setChunked(true);
 		
 		//BasicNameValuePair cont = new BasicNameValuePair("content", c);
 		//UrlEncodedFormEntity entity = new UrlEncodedFormEntity(cont);
@@ -122,6 +121,7 @@ public class fonolo_library implements private_constants{
         	request.setHeader("X-Fonolo-Auth",auth_key);
         	request.setHeader("X-Fonolo-Username", user);
         	request.setHeader("X-Fonolo-Password",pass);
+        	
         	//request.setHeader("content", c);
         	//request.setEntity(my_content);
         	//request.setHeader("Content-Length", Long.toString(my_content.getContentLength()));
@@ -184,6 +184,8 @@ public class fonolo_library implements private_constants{
 		
 		return output;
 	}
+	
+
 	
 	
 	
