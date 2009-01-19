@@ -16,12 +16,15 @@ public final class R {
     public static final class id {
         public static final int go_button=0x7f050005;
         public static final int output=0x7f050007;
-        public static final int pass=0x7f050004;
-        public static final int user=0x7f050001;
+        public static final int pass_field=0x7f050004;
+        public static final int pass_text=0x7f05000a;
+        public static final int scroll_vw=0x7f050006;
+        public static final int user_field=0x7f050001;
+        public static final int user_text=0x7f050009;
         public static final int widget28=0x7f050000;
         public static final int widget30=0x7f050002;
         public static final int widget31=0x7f050003;
-        public static final int widget35=0x7f050006;
+        public static final int widget81=0x7f050008;
     }
     public static final class layout {
         public static final int main=0x7f030000;

@@ -21,8 +21,8 @@ public class fonolo4android extends Activity implements private_constants, OnCli
         setContentView(R.layout.main);
         
         output = (TextView)this.findViewById(R.id.output);
-        user = (TextView)this.findViewById(R.id.user);
-        pass = (TextView)this.findViewById(R.id.pass);
+        user = (TextView)this.findViewById(R.id.user_field);
+        pass = (TextView)this.findViewById(R.id.pass_field);
         go = (Button)this.findViewById(R.id.go_button);
         go.setOnClickListener(this);        
         }
@@ -32,7 +32,7 @@ public class fonolo4android extends Activity implements private_constants, OnCli
     		String passwd = pass.getText().toString();
 	       
 	        if((uname.equals(""))||(passwd.equals(""))){
-	        	output.setText("Please input a username and password.");
+	        	output.setText("Please input a valid username and password.");
 	        }
 	        else{
 	        	fonolo_library fonolo = new fonolo_library();

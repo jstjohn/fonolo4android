@@ -7,7 +7,7 @@ android:layout_height="fill_parent"
 xmlns:android="http://schemas.android.com/apk/res/android"
 >
 <EditText
-android:id="@+id/user"
+android:id="@+id/user_field"
 android:layout_width="299px"
 android:layout_height="wrap_content"
 android:textSize="18sp"
@@ -38,7 +38,7 @@ android:layout_y="92px"
 >
 </TextView>
 <EditText
-android:id="@+id/pass"
+android:id="@+id/pass_field"
 android:layout_width="300px"
 android:layout_height="wrap_content"
 android:textSize="18sp"
@@ -61,7 +61,7 @@ android:layout_y="180px"
 >
 </Button>
 <ScrollView
-android:id="@+id/widget35"
+android:id="@+id/scroll_vw"
 android:layout_width="299px"
 android:layout_height="164px"
 android:layout_x="10px"
