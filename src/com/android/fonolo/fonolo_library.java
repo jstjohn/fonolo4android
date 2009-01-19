@@ -84,23 +84,23 @@ public class fonolo_library implements private_constants{
 		
 		
 		//formulate the params
-		String p = "[\n";
+		String p = "[ ";
 		for(int i = 0; i < params.length; i++){
 			
-			p += "\t\"";
+			p += "\"";
 			p += params[i];
 			p += '"';
 			if(i != params.length -1){
-				p += ",\n";
+				p += ", ";
 			}
 		}
-		p+="\n\t]";
+		p+=" ]";
 
-		String c = "{ \n\t\"version\": \""+version+"\",\n\t\"method\": \""+method+"\",\n\t\"params\": "+p+"\n}";
+		String c = "{ \"version\" : \""+version+"\", \"method\" : \""+method+"\", \"params\" : "+p+" }";
 		output += c;
 		
 		
-		//StringEntity my_content = new StringEntity(c);
+		StringEntity my_content = new StringEntity(c);
 		//my_content.setContentType("application/json");
 		//my_content.setContentEncoding("UTF-8");
 		//my_content.setChunked(true);
@@ -111,29 +111,30 @@ public class fonolo_library implements private_constants{
 		HttpClient httpClient = new DefaultHttpClient();
         HttpPost request = new HttpPost(response_server);
         if(no_login == true){
-        	request.setHeader("Content-Type", "application/json");
-        	request.setHeader("X-Fonolo-Auth",auth_key);
-        	//request.setHeader("content",c);
+        	request.setHeader("content-type", " application/json");
+        	request.setHeader("X-Fonolo-Auth"," "+auth_key);
+        	request.setHeader("content"," "+c);
         	//request.setEntity(my_content);
         	//request.setHeader("Content-Length", ""+my_content.getContentLength());
         }else{
-        	request.setHeader("Content-Type", "application/json");
-        	request.setHeader("X-Fonolo-Auth",auth_key);
-        	request.setHeader("X-Fonolo-Username", user);
-        	request.setHeader("X-Fonolo-Password",pass);
+        	request.setHeader("content-type", " application/json");
+        	request.setHeader("X-Fonolo-Auth", " "+auth_key);
+        	request.setHeader("X-Fonolo-Username", " "+user);
+        	request.setHeader("X-Fonolo-Password"," "+pass);
         	
-        	//request.setHeader("content", c);
+        	request.setHeader("content", c);
         	//request.setEntity(my_content);
         	//request.setHeader("Content-Length", Long.toString(my_content.getContentLength()));
         }
        // maybe I need to throw content into a local context
-       HttpContext localContext = new BasicHttpContext();
-       localContext.setAttribute("content", c);
+       //HttpContext localContext = new BasicHttpContext();
+       //localContext.setAttribute("content", c);
         
-        HttpResponse response = httpClient.execute(request, localContext);
-        //HttpResponse response = httpClient.execute(request);
+        //HttpResponse response = httpClient.execute(request, localContext);
+        HttpResponse response = httpClient.execute(request);
         StatusLine status = response.getStatusLine();
         Header[] headers = response.getAllHeaders();
+        Header[] reqheaders = request.getAllHeaders();
         HttpEntity entity = response.getEntity();
 
   
@@ -150,7 +151,12 @@ public class fonolo_library implements private_constants{
             output += "\nContent Length: ";
             output += entity.getContentLength();
             output += "\n it works!";
-            output += "\n Headers: ";
+            output += "\n Request Headers:";
+            for(int i = 0; i < reqheaders.length; i++){
+            	output += "\n"+reqheaders[i].getName();
+            	output += ":" + reqheaders[i].getValue();
+            }
+            output += "\n Returned Headers: ";
             for(int i = 0; i < headers.length; i++){
             	output += "\n"+headers[i].getName();
             	output += ":" + headers[i].getValue();
@@ -169,7 +175,12 @@ public class fonolo_library implements private_constants{
             output += "\nContent Length: ";
             output += entity.getContentLength();
             output += "\n it works!";
-            output += "\n Headers: ";
+            output += "\n Request Headers:";
+            for(int i = 0; i < reqheaders.length; i++){
+            	output += "\n"+reqheaders[i].getName();
+            	output += ":" + reqheaders[i].getValue();
+            }
+            output += "\n Returned Headers: ";
             for(int i = 0; i < headers.length; i++){
             	output += "\n"+headers[i].getName();
             	output += ":" + headers[i].getValue();
