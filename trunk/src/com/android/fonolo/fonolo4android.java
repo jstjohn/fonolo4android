@@ -32,7 +32,7 @@ public class fonolo4android extends Activity implements private_constants, OnCli
     		String passwd = pass.getText().toString();
 	       
 	        if((uname.equals(""))||(passwd.equals(""))){
-	        	output.setText("oops");
+	        	output.setText("Please input a username and password.");
 	        }
 	        else{
 	        	fonolo_library fonolo = new fonolo_library();
