@@ -25,16 +25,19 @@ public class fonolo4android extends Activity implements private_constants, OnCli
         pass = (TextView)this.findViewById(R.id.pass);
         go = (Button)this.findViewById(R.id.go_button);
         go.setOnClickListener(this);        
-        
         }
 
-        
-        //Just for testing purposes because I don't know how to use layouts
-    	
-    	public void onClick(View v){   
+    	public void onClick(View v){
+    		String uname = user.getText().toString(); 
+    		String passwd = pass.getText().toString();
 	        //TextView output = new TextView(this);
 	        fonolo_library fonolo = new fonolo_library();
-	        fonolo.set_member_info(uname,passwd);
+/*	        if((uname.equals(null))||(passwd.equals(null))){
+	        	output.setText("Please enter valid username and password");
+	        }
+	        else{
+	        	fonolo.set_member_info(uname,passwd);
+	        }*/
 	        String[] params = new String[3];
 	        params[0] = "3";
 	        params[1] = "0";
@@ -44,6 +47,4 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 	        output.setText(result);
 	        //setContentView(output);
     	}
-    
-
 }
