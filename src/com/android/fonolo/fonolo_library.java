@@ -23,12 +23,14 @@ import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 
 import android.util.Log;
+import android.widget.TextView;
 
 
 
@@ -64,7 +66,7 @@ public class fonolo_library implements private_constants{
 			}
 		}
 		p+=" ]";
-		String c = " { \"version\" : \""+version+"\", \"method\" : \""+method+"\", \"params\" : "+p+" } ";
+		String c = "{ \"version\": \""+version+"\", \"method\": \""+method+"\", \"params\": "+p+" }";
 		return c;
 	}
 	
@@ -77,6 +79,7 @@ public class fonolo_library implements private_constants{
 		if(auth_key.equals(null) || auth_key.length() != 32){
 			System.err.println("Invalid Auth Key!");
 		}
+		method = "check_member";
 		
 		no_login = true;
 		
@@ -117,37 +120,47 @@ public class fonolo_library implements private_constants{
 		
 		
 		StringEntity my_content = new StringEntity(c);
-		my_content.setContentType("content");
+		ByteArrayEntity byte_test = new ByteArrayEntity(c.getBytes("UTF-8"));
+		byte_test.setContentEncoding("UTF-8");
+		byte_test.setContentType("application/json");
+		my_content.setContentType("application/json");
 		
-		//my_content.setContentEncoding("UTF-8");
+		my_content.setContentEncoding("UTF-8");
+		
 		//my_content.setChunked(true);
 		
 		//BasicNameValuePair cont = new BasicNameValuePair("content", c);
 		//UrlEncodedFormEntity entity = new UrlEncodedFormEntity(cont);
+		
 	
 		HttpClient httpClient = new DefaultHttpClient();
         HttpPost request = new HttpPost(response_server);
         if(no_login == true){
         	request.setHeader("content-type", "application/json");
         	request.setHeader("X-Fonolo-Auth", auth_key);
-        	//request.setHeader("content"," "+c);
-        	request.setEntity(my_content);
-        	request.setHeader("Content-Length", ""+my_content.getContentLength());
+        
+        	request.setEntity(byte_test);
+        	//request.setHeader("Content-Length", ""+my_content.getContentLength());
         }else{
         	request.setHeader("content-type", "application/json");
         	request.setHeader("X-Fonolo-Auth", auth_key);
         	request.setHeader("X-Fonolo-Username", user);
         	request.setHeader("X-Fonolo-Password",pass);
         	
+        	
         	//request.addHeader("content", my_content);
-        	request.setEntity(my_content);
+        	//request.setEntity(my_content);
         	//request.setHeader("Content-Length", Long.toString(my_content.getContentLength()));
         }
        // maybe I need to throw content into a local context
-       //HttpContext localContext = new BasicHttpContext();
-       //localContext.setAttribute(ClientContext., c);
-        
-        //HttpResponse response = httpClient.execute(request, localContext);
+//       HttpContext localContext = new BasicHttpContext();
+//       localContext.setAttribute("content-type", "application/json");
+//       localContext.setAttribute("X-Fonolo-Auth", auth_key);
+//       localContext.setAttribute("content", c);
+       
+       
+//        
+       // HttpResponse response = httpClient.execute(request, localContext);
         HttpResponse response = httpClient.execute(request);
         StatusLine status = response.getStatusLine();
         Header[] headers = response.getAllHeaders();
@@ -155,13 +168,12 @@ public class fonolo_library implements private_constants{
         HttpEntity entity = response.getEntity();
         //response.setEntity(my_content);
         //response = httpClient.execute(request);
-
+        output +="Response: " + status; 
   
 
         
         if (status.getStatusCode() != HttpStatus.SC_OK) {
-        	
-        	InputStream is = response.getEntity().getContent();
+        	InputStream is = entity.getContent();
         	BufferedReader rd = new BufferedReader(new InputStreamReader(is));
             String line;
             while ((line = rd.readLine()) != null) {
@@ -236,7 +248,7 @@ public class fonolo_library implements private_constants{
 	}
 		
 		
-		return test(method,params);
+		return output;
 	}
 	
 	
@@ -266,7 +278,7 @@ public class fonolo_library implements private_constants{
             		"\t\"version\": \"1.1\",\n"+
             		"\t\"method\": \"check_member\",\n"+
             		"\t\"params\": [\n"+
-            		"\t\t\"username\", \"password\"\n"+
+            		"\t\t\"stuff\", \"ababa\"\n"+
             		"\t]\n"+
             		"}";
 
