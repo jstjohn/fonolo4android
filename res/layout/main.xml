@@ -7,7 +7,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 >
 <EditText
 android:id="@+id/user"
-android:layout_width="88px"
+android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:textSize="18sp"
 android:layout_x="100px"
@@ -34,9 +34,10 @@ android:layout_y="152px"
 </TextView>
 <EditText
 android:id="@+id/pass"
-android:layout_width="89px"
+android:layout_width="wrap_content"
 android:layout_height="wrap_content"
 android:textSize="18sp"
+android:password="true"
 android:layout_x="100px"
 android:layout_y="172px"
 >
