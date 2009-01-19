@@ -96,7 +96,7 @@ public class fonolo_library implements private_constants{
 		}
 		p+="]";
 
-		String c = "{\"version\":\""+version+"\",\"method\":\""+method+"\",\"params\":"+p+"}";
+		String c = "{ \"version\": \""+version+"\", \"method\":\" "+method+"\", \"params\": "+p+" }";
 		output += c;
 		
 		
@@ -127,11 +127,11 @@ public class fonolo_library implements private_constants{
         	//request.setHeader("Content-Length", Long.toString(my_content.getContentLength()));
         }
        // maybe I need to throw content into a local context
-      // HttpContext localContext = new BasicHttpContext();
-      // localContext.setAttribute("content", c);
+       HttpContext localContext = new BasicHttpContext();
+       localContext.setAttribute("content", c);
         
-       // HttpResponse response = httpClient.execute(request, localContext);
-        HttpResponse response = httpClient.execute(request);
+        HttpResponse response = httpClient.execute(request, localContext);
+        //HttpResponse response = httpClient.execute(request);
         StatusLine status = response.getStatusLine();
         Header[] headers = response.getAllHeaders();
         HttpEntity entity = response.getEntity();
