@@ -84,19 +84,19 @@ public class fonolo_library implements private_constants{
 		
 		
 		//formulate the params
-		String p = "[";
+		String p = "[\n";
 		for(int i = 0; i < params.length; i++){
 			
-			p += '"';
+			p += "\t\"";
 			p += params[i];
 			p += '"';
 			if(i != params.length -1){
-				p += ",";
+				p += ",\n";
 			}
 		}
-		p+="]";
+		p+="\n\t]";
 
-		String c = "{ \"version\": \""+version+"\", \"method\": \" "+method+"\", \"params\": "+p+" }";
+		String c = "{ \n\t\"version\": \""+version+"\",\n\t\"method\": \""+method+"\",\n\t\"params\": "+p+"\n}";
 		output += c;
 		
 		
