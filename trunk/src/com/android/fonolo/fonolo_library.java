@@ -96,7 +96,7 @@ public class fonolo_library implements private_constants{
 		}
 		p+="]";
 
-		String c = "{ \"version\": \""+version+"\", \"method\":\" "+method+"\", \"params\": "+p+" }";
+		String c = "{ \"version\": \""+version+"\", \"method\": \" "+method+"\", \"params\": "+p+" }";
 		output += c;
 		
 		
@@ -147,8 +147,9 @@ public class fonolo_library implements private_constants{
             while ((line = rd.readLine()) != null) {
                 output += line.toString();
             }
+            output += "\nContent Length: ";
             output += entity.getContentLength();
-            output += "Fail!";
+            output += "\n it works!";
             output += "\n Headers: ";
             for(int i = 0; i < headers.length; i++){
             	output += "\n"+headers[i].getName();
@@ -165,8 +166,9 @@ public class fonolo_library implements private_constants{
             while ((line = rd.readLine()) != null) {
                 output += line.toString();
             }
+            output += "\nContent Length: ";
             output += entity.getContentLength();
-            output += "it works!";
+            output += "\n it works!";
             output += "\n Headers: ";
             for(int i = 0; i < headers.length; i++){
             	output += "\n"+headers[i].getName();
