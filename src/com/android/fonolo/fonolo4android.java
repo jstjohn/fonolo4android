@@ -30,18 +30,21 @@ public class fonolo4android extends Activity implements private_constants, OnCli
     	public void onClick(View v){
     		String uname = user.getText().toString(); 
     		String passwd = pass.getText().toString();
-	        //TextView output = new TextView(this);
-	        fonolo_library fonolo = new fonolo_library();
-
-	        fonolo.set_member_info(uname,passwd);
-	        
-	        String[] params = new String[3];
-	        params[0] = "3";
-	        params[1] = "0";
-	        params[2] = "2008-1-1";
-	        String result = fonolo.get_json_contents("company_list", params, false, false);
-	        result = "Result:" + result;
-	        output.setText(result);
-	        //setContentView(output);
+	       
+	        if((uname.equals(""))||(passwd.equals(""))){
+	        	output.setText("oops");
+	        }
+	        else{
+	        	fonolo_library fonolo = new fonolo_library();
+		        fonolo.set_member_info(uname,passwd);
+		        String[] params = new String[3];
+		        params[0] = "3";
+		        params[1] = "0";
+		        params[2] = "2008-1-1";
+		        String result = fonolo.get_json_contents("company_list", params, false, false);
+		        result = "Result:" + result;
+		        output.setText(result);
+		        //setContentView(output);
+	        }
     	}
 }
