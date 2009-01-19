@@ -32,12 +32,9 @@ public class fonolo4android extends Activity implements private_constants, OnCli
     		String passwd = pass.getText().toString();
 	        //TextView output = new TextView(this);
 	        fonolo_library fonolo = new fonolo_library();
-/*	        if((uname.equals(null))||(passwd.equals(null))){
-	        	output.setText("Please enter valid username and password");
-	        }
-	        else{
-	        	fonolo.set_member_info(uname,passwd);
-	        }*/
+
+	        fonolo.set_member_info(uname,passwd);
+	        
 	        String[] params = new String[3];
 	        params[0] = "3";
 	        params[1] = "0";
