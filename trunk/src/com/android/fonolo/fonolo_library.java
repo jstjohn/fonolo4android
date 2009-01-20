@@ -21,11 +21,14 @@ import org.apache.http.HttpStatus;
 import org.apache.http.RequestLine;
 import org.apache.http.StatusLine;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.entity.ByteArrayEntity;
 import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
 import org.apache.http.protocol.BasicHttpContext;
 import org.apache.http.protocol.HttpContext;
 
@@ -137,28 +140,32 @@ public class fonolo_library implements private_constants{
         HttpPost request = new HttpPost(response_server);
         if(no_login == true){
         	request.setHeader("content-type", "application/json");
+        	request.setHeader("content-length", Integer.toString(c.length()));
         	request.setHeader("X-Fonolo-Auth", auth_key);
         
-        	request.setEntity(byte_test);
-        	//request.setHeader("Content-Length", ""+my_content.getContentLength());
+        	//request.setEntity(byte_test);
+        	//request.setHeader("Content-Length", Long.toString(my_content.getContentLength()));
         }else{
         	request.setHeader("content-type", "application/json");
-        	request.setHeader("X-Fonolo-Auth", auth_key);
+        	request.setHeader("content-length", Integer.toString(c.length()));
+        	request.setHeader("X-Fonolo-Auth", auth_key+" ");
         	request.setHeader("X-Fonolo-Username", user);
         	request.setHeader("X-Fonolo-Password",pass);
-        	
+        	//.;
         	
         	//request.addHeader("content", my_content);
         	//request.setEntity(my_content);
-        	//request.setHeader("Content-Length", Long.toString(my_content.getContentLength()));
+        	//request.setParameter("Content-Length", Long.toString(my_content.getContentLength()));
         }
        // maybe I need to throw content into a local context
 //       HttpContext localContext = new BasicHttpContext();
 //       localContext.setAttribute("content-type", "application/json");
 //       localContext.setAttribute("X-Fonolo-Auth", auth_key);
 //       localContext.setAttribute("content", c);
-       
-       
+        HttpParams param = request.getParams();
+    	param.setParameter("Content-Length", Integer.toString(c.length()));
+    	param.setParameter("", c);
+    	request.setParams(param);
 //        
        // HttpResponse response = httpClient.execute(request, localContext);
         HttpResponse response = httpClient.execute(request);
@@ -245,6 +252,7 @@ public class fonolo_library implements private_constants{
 	} catch(Exception e){
 		e.printStackTrace();
 		output += e.toString();
+        
 	}
 		
 		
@@ -327,6 +335,7 @@ public class fonolo_library implements private_constants{
 
     } catch (Exception e) {
             e.printStackTrace();
+            
     }
 
 		return output;
