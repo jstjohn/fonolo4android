@@ -10,6 +10,7 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.net.URLConnection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.json.JSONObject;
@@ -40,8 +41,8 @@ import android.widget.TextView;
 
 public class fonolo_library implements private_constants{
 	private String auth_key = AUTH_KEY; //Stored in the private_constants interface!
-	private String response_server = "https://json-rpc.live.fonolo.com/"; //provided in fonolo API
-	private String version = "1.1";
+	private String response_server = "https://json-rpc.live.fonolo.com"; //provided in fonolo API
+	private String version = "0.1";
 	private String user = "";
 	private String pass = "";
 	
@@ -123,12 +124,13 @@ public class fonolo_library implements private_constants{
 		
 		
 		StringEntity my_content = new StringEntity(c);
-		ByteArrayEntity byte_test = new ByteArrayEntity(c.getBytes("UTF-8"));
-		byte_test.setContentEncoding("UTF-8");
-		byte_test.setContentType("application/json");
+		//ByteArrayEntity byte_test = new ByteArrayEntity(c.getBytes("UTF-8"));
+		//byte_test.setContentEncoding("UTF-8");
+		//byte_test.setContentType("application/json");
+		//byte_test.setChunked(true);
 		my_content.setContentType("application/json");
 		
-		my_content.setContentEncoding("UTF-8");
+		//my_content.setContentEncoding("UTF-8");
 		
 		//my_content.setChunked(true);
 		
@@ -139,18 +141,21 @@ public class fonolo_library implements private_constants{
 		HttpClient httpClient = new DefaultHttpClient();
         HttpPost request = new HttpPost(response_server);
         if(no_login == true){
-        	request.setHeader("content-type", "application/json");
-        	request.setHeader("content-length", Integer.toString(c.length()));
-        	request.setHeader("X-Fonolo-Auth", auth_key);
+        	request.setHeader("Content-Type", "application/json");
+        	request.setHeader("X-Fonolo-Auth", auth_key+" ");
+        	request.setHeader("UserAgent","fonolo4Android");
         
         	//request.setEntity(byte_test);
+        	request.setEntity(my_content);
+        	//request.setHeader("content-length", );
         	//request.setHeader("Content-Length", Long.toString(my_content.getContentLength()));
         }else{
-        	request.setHeader("content-type", "application/json");
-        	request.setHeader("content-length", Integer.toString(c.length()));
+        	request.setHeader("Content-Type", "application/json");
+        	//request.setHeader("content-length", Integer.toString(c.length()));
         	request.setHeader("X-Fonolo-Auth", auth_key+" ");
         	request.setHeader("X-Fonolo-Username", user);
         	request.setHeader("X-Fonolo-Password",pass);
+        	request.setHeader("UserAgent","fonolo4Android");
         	//.;
         	
         	//request.addHeader("content", my_content);
@@ -162,10 +167,11 @@ public class fonolo_library implements private_constants{
 //       localContext.setAttribute("content-type", "application/json");
 //       localContext.setAttribute("X-Fonolo-Auth", auth_key);
 //       localContext.setAttribute("content", c);
-        HttpParams param = request.getParams();
-    	param.setParameter("Content-Length", Integer.toString(c.length()));
-    	param.setParameter("", c);
-    	request.setParams(param);
+//        HttpParams param = request.getParams();
+//    	param.setParameter("Content-Length", Integer.toString(c.length()));
+//    	param.setParameter("Content-Type", "application/json");
+//    	param.setParameter("content",c);
+//    	request.setParams(param);
 //        
        // HttpResponse response = httpClient.execute(request, localContext);
         HttpResponse response = httpClient.execute(request);
@@ -181,6 +187,7 @@ public class fonolo_library implements private_constants{
         
         if (status.getStatusCode() != HttpStatus.SC_OK) {
         	InputStream is = entity.getContent();
+        	
         	BufferedReader rd = new BufferedReader(new InputStreamReader(is));
             String line;
             while ((line = rd.readLine()) != null) {
@@ -256,7 +263,7 @@ public class fonolo_library implements private_constants{
 	}
 		
 		
-		return output;
+		return test(method,params);
 	}
 	
 	
@@ -282,42 +289,54 @@ public class fonolo_library implements private_constants{
 //            		.key("params")
 //            		.value(p)
 //            	.endArray();
-            String request_string = "{\n"+
-            		"\t\"version\": \"1.1\",\n"+
-            		"\t\"method\": \"check_member\",\n"+
-            		"\t\"params\": [\n"+
-            		"\t\t\"stuff\", \"ababa\"\n"+
-            		"\t]\n"+
-            		"}";
+            String request_string = "{ \"version\": \"1.1\", \"method\": \"check_member\", \"params\": [ \"uname@place.com\", \"jahal\" ] }";
 
             output += request_string;
 
-            URLConnection connection = new URL(url).openConnection();
+            HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
             connection.setRequestProperty("method", "POST");
+            connection.setAllowUserInteraction(true);
             connection.setRequestProperty("content-type", "application/json");
             connection.setRequestProperty("X-Fonolo-Auth", auth_key);
+            connection.setRequestProperty("content-length", Integer.toString(request_string.getBytes().length));
             //connection.setRequestProperty("X-Fonolo-Username", user);
             //connection.setRequestProperty("X-Fonolo-Password",pass);
             connection.setUseCaches(false);
             connection.setDoInput(true);
             connection.setDoOutput(true);
-
-            OutputStream out = connection.getOutputStream();
-            out.write(request_string.getBytes("utf-8"));
-            out.close();
-
             connection.connect();
-
-            InputStream in = connection.getInputStream();
-            BufferedReader i = new BufferedReader(new InputStreamReader(in, "utf-8"));
-            StringBuilder sb = new StringBuilder();
+            Map<String, List<String>> heads = connection.getHeaderFields();
+            OutputStreamWriter wr = new OutputStreamWriter(connection.getOutputStream());
+            wr.write(request_string);
+            wr.flush();
+        
+            // Get the response
+            BufferedReader rd = new BufferedReader(new InputStreamReader(connection.getInputStream()));
             String line;
-            while ((line = i.readLine()) != null) {
-                    sb.append(line);
-                    sb.append("\n");
+            while ((line = rd.readLine()) != null) {
+                output += line;
             }
-            in.close();
-            output += sb.toString();
+            wr.close();
+            rd.close();
+            
+//            OutputStream out = connection.getOutputStream();
+//            out.write(request_string.getBytes());
+//            out.close();
+//
+//            //connection.connect();
+//
+//            InputStream in = connection.getInputStream();
+//            BufferedReader i = new BufferedReader(new InputStreamReader(in, "utf-8"));
+//            StringBuilder sb = new StringBuilder();
+//            String line;
+//            while ((line = i.readLine()) != null) {
+//                    sb.append(line);
+//                    sb.append("\n");
+//            }
+//            output += heads.toString();
+//            in.close();
+//            output += sb.toString();
+//            output += request_string.getBytes().toString();
 
 //            Map<String, Object> result = null;
 //            try {
