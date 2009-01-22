@@ -2,5 +2,12 @@
 <classpath>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="con" path="com.android.ide.eclipse.adt.ANDROID_FRAMEWORK"/>
+	<classpathentry kind="lib" path="C:/Users/Zachok/workspace/android/fonolo4android/lib/apache-mime4j-0.5.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Zachok/workspace/android/fonolo4android/lib/commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Zachok/workspace/android/fonolo4android/lib/commons-logging-1.1.1.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Zachok/workspace/android/fonolo4android/lib/httpclient-4.0-beta2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Zachok/workspace/android/fonolo4android/lib/httpcore-4.0-beta3.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Zachok/workspace/android/fonolo4android/lib/httpmime-4.0-beta2.jar"/>
+	<classpathentry kind="lib" path="C:/Users/Zachok/workspace/android/fonolo4android/lib/commons-httpclient-3.1.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
