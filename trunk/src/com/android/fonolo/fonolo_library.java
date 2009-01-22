@@ -77,7 +77,7 @@ public class fonolo_library implements private_constants{
 	
 	
 	//returns a JSON string from the server
-	public String get_json_contents(String method, String[] params, Boolean as_array, Boolean no_login){
+	public String get_json_contents(String method, String[] params, boolean as_array, boolean no_login){
 		String output = "";
 		//return an error message
 		if(auth_key.equals(null) || auth_key.length() != 32){

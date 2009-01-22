@@ -14,7 +14,6 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 	Button go;
 	
     /** Called when the activity is first created. */
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
