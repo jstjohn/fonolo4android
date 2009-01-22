@@ -5,7 +5,9 @@ public class communication {
 	public communication() {
 		lib = new fonolo_library();
 	}
-
+	public void set_member_info(String uname, String passwd){
+		lib.set_member_info(uname, passwd);
+	}
 		//make it into a JSONObject
 		public String get_check_member( String username, String password)
 		{
@@ -13,7 +15,7 @@ public class communication {
 			params[0]=username;
 			params[1]=password;
 	       
-			return lib.get_json_contents("check_member", params, false, false);
+			return lib.get_json_contents("check_member", params, false, true);
 		} 
 		// End check member info function
 

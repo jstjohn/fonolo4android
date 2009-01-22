@@ -34,14 +34,9 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 	        	output.setText("Please input a valid username and password.");
 	        }
 	        else{
-	        	fonolo_library fonolo = new fonolo_library();
-		        fonolo.set_member_info(uname,passwd);
-		        String[] params = new String[3];
-		        params[0] = "3";
-		        params[1] = "0";
-		        params[2] = "2008-10-15";
-		        String result = fonolo.get_json_contents("company_list", params, false, false);
-		        result = "Result:" + result;
+	        	communication com = new communication();
+	        	com.set_member_info(uname, passwd);
+		        String result = com.get_check_member(uname, passwd);
 		        output.setText(result);
 		        //setContentView(output);
 	        }
