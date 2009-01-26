@@ -1,14 +1,9 @@
 package com.android.fonolo;
 
 import java.io.IOException;
-
 import org.apache.commons.httpclient.HttpClient;
 import org.apache.commons.httpclient.HttpException;
 import org.apache.commons.httpclient.methods.PostMethod;
-
-
-
-
 
 public class fonolo_library implements private_constants{
 	private String auth_key = AUTH_KEY; //Stored in the private_constants interface!
