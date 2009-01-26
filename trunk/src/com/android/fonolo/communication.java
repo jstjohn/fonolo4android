@@ -12,7 +12,7 @@ public class communication {
 		lib.set_member_info(uname, passwd);
 	}
 		//make it into a JSONObject
-		public JSONObject get_check_member( String username, String password) throws JSONException
+		public JSONObject check_member( String username, String password) throws JSONException
 		{
 			String[] params = new String[2];
 			params[0]=username;
@@ -22,14 +22,15 @@ public class communication {
 		} 
 		// End check member info function
 
-		public void get_check_member_number( String username, String password, String phone)
+		public JSONObject check_member_number( String username, String password, String phone) throws JSONException
 		{ 
 			String[] params = new String[3];
 			params[0]=username;
 			params[1]=password;
 			params[2]=phone;
 	       
-			lib.get_json_contents("check_member_number", params, false, false);
+			String json = lib.get_json_contents("check_member_number", params, false, true);
+			return make_json(json);
 		} 
 		// End check member number info function
 
