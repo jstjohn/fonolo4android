@@ -37,32 +37,59 @@ public class communication {
 		
 		// company search results
 		//
-		public void get_search_companies(String searchstring)
+		public JSONObject company_search(String searchstring) throws JSONException
 		{
 			String[] params = new String[1];
 			params[0]=searchstring;
 			
-			lib.get_json_contents("company_search", params, false, false);
+			String json = lib.get_json_contents("company_search", params, false, false);
+			return make_json(json);
 		}
 		// End company search results function
 
 		//
 		// lookup a company tree
 		//
-		public void get_lookup_company( String treeid)
+		public JSONObject company_details( String treeid) throws JSONException
 		{
-	
+			String[] params = new String[1];
+			params[1] = treeid;
+			String json = lib.get_json_contents("company_details", params, true, false);
+			return make_json(json);
 		}
 		// End company lookup function
-		public void get_company_list( String limit, String pageno, String date)
+		public JSONObject company_list( String limit, String pageno, String date) throws JSONException
 		{ 
 			String[] params = new String[3];
 			params[0]=limit;
 			params[1]=pageno;
 			params[2]=date;
 	       
-			lib.get_json_contents("company_list", params, false, false);
+			String json = lib.get_json_contents("company_list", params, false, false);
+			return make_json(json);
 		} 
+		
+		public JSONObject call_start(String node_id, String company_phone_number) throws JSONException{
+			String[] params = new String[2];
+			params[0] = node_id;
+			params[1] = company_phone_number;
+			String json = lib.get_json_contents("call_start", params, false, false);
+			return make_json(json);
+		}
+		
+		public JSONObject call_cancel(String session_id) throws JSONException{
+			String[] params = new String[1];
+			params[0] = session_id;
+			String json = lib.get_json_contents("call_cancel", params, false, false);
+			return make_json(json);
+		}
+		
+		public JSONObject call_status(String session_id) throws JSONException{
+			String[] params = new String[1];
+			params[0] = session_id;
+			String json = lib.get_json_contents("call_status", params, false, false);
+			return make_json(json);
+		}
 		
 		//throws a JSONException if it is given a bad string as input
 		private JSONObject make_json(String input) throws JSONException{	
