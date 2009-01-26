@@ -62,6 +62,7 @@ public class fonolo_library implements private_constants{
 		
 		HttpClient client = new HttpClient();
 		try {
+			client.executeMethod(postMethod);
 			output += postMethod.getResponseBodyAsString();
 			 
 		} catch (HttpException e) {
