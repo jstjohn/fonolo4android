@@ -53,7 +53,6 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-		        
 		        output.setText(result);
 		        //setContentView(output);
 	        }
