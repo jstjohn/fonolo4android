@@ -1,5 +1,8 @@
 package com.android.fonolo;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 public class communication {
 	private fonolo_library lib;
 	public communication() {
@@ -9,13 +12,13 @@ public class communication {
 		lib.set_member_info(uname, passwd);
 	}
 		//make it into a JSONObject
-		public String get_check_member( String username, String password)
+		public JSONObject get_check_member( String username, String password) throws JSONException
 		{
 			String[] params = new String[2];
 			params[0]=username;
 			params[1]=password;
-	       
-			return lib.get_json_contents("check_member", params, false, true);
+	       String json = lib.get_json_contents("check_member", params, false, true);
+			return make_json(json);
 		} 
 		// End check member info function
 
@@ -59,5 +62,10 @@ public class communication {
 	       
 			lib.get_json_contents("company_list", params, false, false);
 		} 
-
+		
+		//throws a JSONException if it is given a bad string as input
+		private JSONObject make_json(String input) throws JSONException{	
+			JSONObject output = new JSONObject(input);		
+			return output;
+		}
 		}	
