@@ -2,9 +2,8 @@ package com.android.fonolo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
-
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -48,13 +47,18 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 					JSONObject json_head = json_resp.getJSONObject("head");
 					String message = json_head.getString("response_message");
 					result += message;
-					
+										
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				//this is ugly but it works
+				//gets user to the main screen
 		        output.setText(result);
-		        //setContentView(output);
+		        if(output.length() == 16){
+		        	Intent i = new Intent(this, home.class);
+		    		startActivity(i);
+		        }
 	        }
     	}
 }

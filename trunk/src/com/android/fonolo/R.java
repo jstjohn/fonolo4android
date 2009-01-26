@@ -21,14 +21,14 @@ public final class R {
         public static final int favorites_button=0x7f05000e;
         public static final int favs_button=0x7f050003;
         public static final int go_button=0x7f050016;
-        public static final int help=0x7f050008;
+        public static final int help_button=0x7f050008;
         public static final int home_button=0x7f050005;
         public static final int home_text=0x7f050009;
         public static final int list_all_button=0x7f05000d;
         public static final int list_layout=0x7f05000f;
         public static final int list_scroll=0x7f050010;
         public static final int login=0x7f050000;
-        public static final int logout=0x7f050007;
+        public static final int logout_button=0x7f050007;
         public static final int output=0x7f050018;
         public static final int pass_field=0x7f050015;
         public static final int pass_text=0x7f05001b;
