@@ -62,8 +62,6 @@ public class fonolo_library implements private_constants{
 		
 		HttpClient client = new HttpClient();
 		try {
-			int statuscode = client.executeMethod(postMethod);
-			output += statuscode;
 			output += postMethod.getResponseBodyAsString();
 			 
 		} catch (HttpException e) {
@@ -77,34 +75,6 @@ public class fonolo_library implements private_constants{
 		
 		return output;
 		
-	}
-	
-
-	public String test3(String method, String[] params){
-		
-		PostMethod postMethod = new PostMethod(response_server); 
-		String output = "";
-		String request_string = "{ \"version\": \"1.1\", \"method\": \"check_member\", \"params\": [ \"blah\", \"blah\" ] }";
-		postMethod.setRequestHeader("Content-Type", "application/json");
-		postMethod.setRequestHeader("X-Fonolo-Auth", auth_key);
-		postMethod.setRequestBody(request_string);
-		
-		org.apache.commons.httpclient.HttpClient client = new org.apache.commons.httpclient.HttpClient();
-		try {
-			int statuscode = client.executeMethod(postMethod);
-			output += statuscode;
-			output += postMethod.getResponseBodyAsString();
-			 
-		} catch (HttpException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
-		
-		return output;
 	}
 	
 	
