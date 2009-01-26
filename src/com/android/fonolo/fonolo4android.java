@@ -46,6 +46,12 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 					JSONObject json_resp = json_result.getJSONObject("result");
 					JSONObject json_head = json_resp.getJSONObject("head");
 					String message = json_head.getString("response_message");
+					//int code = json_head.getInt("response_code");
+					//if(code >= 200 && code < 300){
+					//	result += Integer.toString(code);
+						//JSONObject session = com.call_start("fd1b39133c5f2c749fdab78b012cae2d", "888-619-8622");
+						
+					//}
 					result += message;
 										
 				} catch (JSONException e) {
