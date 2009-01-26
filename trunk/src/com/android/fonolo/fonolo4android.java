@@ -1,5 +1,9 @@
 package com.android.fonolo;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+import org.json.JSONTokener;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -36,7 +40,20 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 	        else{
 	        	communication com = new communication();
 	        	com.set_member_info(uname, passwd);
-		        String result = com.get_check_member(uname, passwd);
+		        JSONObject json_result;
+		        String result = "";
+				try {
+					json_result = com.get_check_member(uname, passwd);
+					JSONObject json_resp = json_result.getJSONObject("result");
+					JSONObject json_head = json_resp.getJSONObject("head");
+					String message = json_head.getString("response_message");
+					result += message;
+					
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+		        
 		        output.setText(result);
 		        //setContentView(output);
 	        }
