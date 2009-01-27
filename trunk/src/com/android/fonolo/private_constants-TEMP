@@ -6,4 +6,7 @@ public interface private_constants {
 	// Type in your fonolo developer key below, then rename this file to private_constants.java
 	// be sure not to add it to the SVN repository!
 	static final String AUTH_KEY = "*********************************"; 
+	static final int SEARCH_METHOD = 1;
+	static final int FAVS_METHOD = 2;
+	static final int LIST_METHOD = 3;
 }
