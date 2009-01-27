@@ -9,10 +9,9 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
-public class home extends Activity implements OnClickListener{
-	TextView user;
-	TextView pass;
+public class home extends Activity implements OnClickListener, private_constants{
 	TextView output;
+	TextView search_text;
 	
 	//copy into all classes-----------------------------
 	String uname = "";
@@ -24,12 +23,11 @@ public class home extends Activity implements OnClickListener{
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home);
-        user = (TextView)this.findViewById(R.id.user_field);
-        pass = (TextView)this.findViewById(R.id.pass_field);
+        search_text = (TextView)this.findViewById(R.id.search_box);
         output = (TextView)this.findViewById(R.id.home_output);
 		
-		View logout_button = this.findViewById(R.id.logout_button);
-		logout_button.setOnClickListener(this);
+		//View logout_button = this.findViewById(R.id.logout_button);
+		//logout_button.setOnClickListener(this);
 		View help_button = this.findViewById(R.id.help_button);
 		help_button.setOnClickListener(this);
 		View search_button = this.findViewById(R.id.search_button);
@@ -38,41 +36,47 @@ public class home extends Activity implements OnClickListener{
 		list_all_button.setOnClickListener(this);
 		View favorites_button = this.findViewById(R.id.favorites_button);
 		favorites_button.setOnClickListener(this);
-	}
-
-	@Override
-/*	public void onClick(View v) {
-		switch (v.getId()){
-		case R.id.logout_button:
-			Intent i = new Intent(this, fonolo4android.class);
-			startActivity(i);
-			break;
-		//more buttons
-		}		
-	}*/
-	public void onClick(View v){
-
-        JSONObject json_result;
-        String result = "";
-        
-        //copy into all classes--------------------------
+		
+		//copy into all classes into onCreate()----------
 		Bundle extras = getIntent().getExtras();
 		uname = extras.getString("user");
 		passwd = extras.getString("pass");
 		com.set_member_info(uname, passwd);
 		//end copy---------------------------------------
+	}
+
+	@Override
+	public void onClick(View v) {        
 		
-		try {
-			json_result = com.check_member(uname, passwd);
-			JSONObject json_resp = json_result.getJSONObject("result");
-			JSONObject json_head = json_resp.getJSONObject("head");
-			String message = json_head.getString("response_message");
-			result += message;
-								
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-        output.setText(result);    
+		Bundle out_extras = new Bundle();		
+		out_extras.putString("user", uname);
+		out_extras.putString("pass", passwd);
+		
+		switch (v.getId()){
+		/*case R.id.help_button:
+			Intent i = new Intent(this, help.class);
+			startActivity(i);
+			break;*/
+		case R.id.search_button:
+			Intent s = new Intent(this, list.class);
+			out_extras.putInt("method", SEARCH_METHOD);
+			out_extras.putString("search", search_text.getText().toString());
+			s.putExtras(out_extras);
+			startActivity(s);
+			break;
+		case R.id.list_all_button:
+			Intent l = new Intent(this, list.class);
+			out_extras.putInt("method", LIST_METHOD);
+			l.putExtras(out_extras);
+			startActivity(l);
+			break;
+		case R.id.favorites_button:
+			Intent f = new Intent(this, list.class);
+			out_extras.putInt("method", FAVS_METHOD);
+			f.putExtras(out_extras);
+			startActivity(f);
+			break;
+		//more buttons
+		}		
 	}
 }
