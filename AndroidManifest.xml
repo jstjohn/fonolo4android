@@ -12,6 +12,7 @@
             </intent-filter>
         </activity>
     <activity android:name=".home"></activity>
+<activity android:name=".list"></activity>
 </application>
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
