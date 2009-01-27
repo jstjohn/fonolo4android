@@ -6,7 +6,7 @@ android:layout_height="fill_parent"
 android:background="#ff3399ff"
 xmlns:android="http://schemas.android.com/apk/res/android"
 >
-<Button
+<!--<Button
 android:id="@+id/logout_button"
 android:layout_width="100px"
 android:layout_height="wrap_content"
@@ -15,6 +15,7 @@ android:layout_x="30px"
 android:layout_y="52px"
 >
 </Button>
+-->
 <Button
 android:id="@+id/help_button"
 android:layout_width="100px"
