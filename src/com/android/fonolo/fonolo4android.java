@@ -32,6 +32,7 @@ public class fonolo4android extends Activity implements private_constants, OnCli
     	public void onClick(View v){
     		String uname = user.getText().toString(); 
     		String passwd = pass.getText().toString();
+    		int code = 0;
     		
 	        if((uname.equals(""))||(passwd.equals(""))){
 	        	output.setText("Please input a valid username and password.");
@@ -46,7 +47,7 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 					JSONObject json_resp = json_result.getJSONObject("result");
 					JSONObject json_head = json_resp.getJSONObject("head");
 					String message = json_head.getString("response_message");
-					//int code = json_head.getInt("response_code");
+					code = json_head.getInt("response_code");
 					//if(code >= 200 && code < 300){
 					//	result += Integer.toString(code);
 						//JSONObject session = com.call_start("fd1b39133c5f2c749fdab78b012cae2d", "888-619-8622");
@@ -58,17 +59,16 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				//this is ugly but it works
+
 				//gets user to the main screen
 		        output.setText(result);
-		        if(output.length() == 16){
+		        if(code >= 200 && code <= 299){
 		        	Intent i = new Intent(this, home.class);
 		        	Bundle extras = new Bundle();
 		        	extras.putString("user", uname);
 		        	extras.putString("pass", passwd);		        	
 		    		i.putExtras(extras);
 		    		startActivity(i);
-		    		
 		        }
 	        }
     	}
