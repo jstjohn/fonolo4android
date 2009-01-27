@@ -63,7 +63,12 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 		        output.setText(result);
 		        if(output.length() == 16){
 		        	Intent i = new Intent(this, home.class);
+		        	Bundle extras = new Bundle();
+		        	extras.putString("user", uname);
+		        	extras.putString("pass", passwd);		        	
+		    		i.putExtras(extras);
 		    		startActivity(i);
+		    		
 		        }
 	        }
     	}

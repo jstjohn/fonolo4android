@@ -13,6 +13,13 @@ public class home extends Activity implements OnClickListener{
 	TextView user;
 	TextView pass;
 	TextView output;
+	
+	//copy into all classes-----------------------------
+	String uname = "";
+	String passwd = "";
+	communication com = new communication();
+	//end copy------------------------------------------
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -44,13 +51,17 @@ public class home extends Activity implements OnClickListener{
 		}		
 	}*/
 	public void onClick(View v){
-		String uname = user.getText().toString(); 
-		String passwd = pass.getText().toString();		
 
-    	communication com = new communication();
-    	com.set_member_info(uname, passwd);
         JSONObject json_result;
         String result = "";
+        
+        //copy into all classes--------------------------
+		Bundle extras = getIntent().getExtras();
+		uname = extras.getString("user");
+		passwd = extras.getString("pass");
+		com.set_member_info(uname, passwd);
+		//end copy---------------------------------------
+		
 		try {
 			json_result = com.check_member(uname, passwd);
 			JSONObject json_resp = json_result.getJSONObject("result");
