@@ -49,7 +49,6 @@ public class list extends Activity implements OnClickListener, private_constants
 		
     }
 
-	@Override
 	public void onClick(View v) {
 		
 

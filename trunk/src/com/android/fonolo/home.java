@@ -45,7 +45,6 @@ public class home extends Activity implements OnClickListener, private_constants
 		//end copy---------------------------------------
 	}
 
-	@Override
 	public void onClick(View v) {        
 		
 		Bundle out_extras = new Bundle();		
