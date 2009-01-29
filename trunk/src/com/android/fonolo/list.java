@@ -34,9 +34,31 @@ public class list extends Activity implements OnClickListener, private_constants
 		if(method == SEARCH_METHOD){
 			String query = extras.getString("search");
 			String outputres = "";
+			String namelist = "";
 			try {
 				JSONObject result = communication.company_search(query,uname,passwd);
+				JSONObject data = result.getJSONObject("result").getJSONObject("data");
+				for(int i = 0; i < 3; i++){
+					String number = "00"+Integer.toString(i);
+					JSONObject company = data.getJSONObject(number);
+					String name = company.getString("name");
+					namelist += name + "\n";
+					
+				}
+				outputres += namelist;
+				outputres += "\n\n\n";
 				outputres += result.toString();
+				
+				//////////////////////////////////
+				// TEST CODE, REMOVE!!!
+				//////////////////////////////////
+//				JSONObject call_stat = communication.call_start("9ee009d3fbff70ac14d81dde0824979e", "000-111-0003", uname, passwd);
+//				outputres += "\n\n\n\nCall Request:\n";
+//				outputres += call_stat.toString();
+//				
+				//////////////////////////////////
+				// End test code
+				//////////////////////////////////
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
