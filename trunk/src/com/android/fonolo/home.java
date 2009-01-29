@@ -14,7 +14,6 @@ public class home extends Activity implements OnClickListener, private_constants
 	//copy into all classes-----------------------------
 	String uname = "";
 	String passwd = "";
-	communication com = new communication();
 	//end copy------------------------------------------
 	
 	@Override
@@ -39,7 +38,6 @@ public class home extends Activity implements OnClickListener, private_constants
 		Bundle extras = getIntent().getExtras();
 		uname = extras.getString("user");
 		passwd = extras.getString("pass");
-		com.set_member_info(uname, passwd);
 		//end copy---------------------------------------
 	}
 

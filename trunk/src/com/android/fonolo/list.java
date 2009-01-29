@@ -15,7 +15,6 @@ public class list extends Activity implements OnClickListener, private_constants
 	//copy into all classes-----------------------------
 	String uname = "";
 	String passwd = "";
-	communication com = new communication();
 	//end copy------------------------------------------
 	
     /** Called when the activity is first created. */
@@ -29,7 +28,6 @@ public class list extends Activity implements OnClickListener, private_constants
 		Bundle extras = getIntent().getExtras();
 		uname = extras.getString("user");
 		passwd = extras.getString("pass");
-		com.set_member_info(uname, passwd);
 		//end copy---------------------------------------
 		
 		int method = extras.getInt("method");
@@ -37,7 +35,7 @@ public class list extends Activity implements OnClickListener, private_constants
 			String query = extras.getString("search");
 			String outputres = "";
 			try {
-				JSONObject result = com.company_search(query);
+				JSONObject result = communication.company_search(query,uname,passwd);
 				outputres += result.toString();
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
