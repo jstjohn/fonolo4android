@@ -1,11 +1,7 @@
 package com.android.fonolo;
 
-import java.io.Serializable;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
-import android.os.Parcelable;
 
 public class communication {
 	private fonolo_library lib;
