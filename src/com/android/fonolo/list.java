@@ -38,11 +38,25 @@ public class list extends Activity implements OnClickListener, private_constants
 			try {
 				JSONObject result = communication.company_search(query,uname,passwd);
 				JSONObject data = result.getJSONObject("result").getJSONObject("data");
-				for(int i = 0; i < 3; i++){
-					String number = "00"+Integer.toString(i);
+				int i = 0;
+				String number = "00"+Integer.toString(i);
+				while(data.has(number)){
 					JSONObject company = data.getJSONObject(number);
 					String name = company.getString("name");
 					namelist += name + "\n";
+					
+					//increment i and reset the number to the next in sequence
+					//note: this will break if there are more than 999 companies 
+					//     in the list. Currently fonolo only returns 3 digits.
+					//     If fonolo changes this practice we need to update this.
+					i++;
+					if(i < 10){
+						number = "00"+Integer.toString(i);
+					}else if(i < 100){
+						number = "0"+Integer.toString(i);
+					}else{
+						number = Integer.toString(i);
+					}
 					
 				}
 				outputres += namelist;
