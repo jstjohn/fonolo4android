@@ -39,6 +39,8 @@ public class fonolo_library implements private_constants{
 		postMethod.setRequestHeader("X-Fonolo-Username", user);
 		postMethod.setRequestHeader("X-Fonolo-Password", pass);
 		postMethod.setRequestBody(request_string);
+		
+		
 		HttpClient client = new HttpClient();
 		try {
 			client.executeMethod(postMethod);
