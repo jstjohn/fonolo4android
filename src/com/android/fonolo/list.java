@@ -66,10 +66,11 @@ public class list extends Activity implements OnClickListener, private_constants
 				//////////////////////////////////
 				// TEST CODE, REMOVE!!!
 				//////////////////////////////////
-//				JSONObject call_stat = communication.call_start("9ee009d3fbff70ac14d81dde0824979e", "000-111-0003", uname, passwd);
+				//Note that the phone number must be the USER's phone number and match one in their fonolo record
+//				JSONObject call_stat = communication.call_start("bc40d2fa90d9746a581d9568f3784b29", "000-000-000", uname, passwd);
 //				outputres += "\n\n\n\nCall Request:\n";
 //				outputres += call_stat.toString();
-//				
+				
 				//////////////////////////////////
 				// End test code
 				//////////////////////////////////
