@@ -15,7 +15,7 @@ public class company extends Activity {
 	TextView company_name;
 	
 	 /** Called when the activity is first created. */
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState){
     	super.onCreate(savedInstanceState);
     	setContentView(R.layout.company);
     	
