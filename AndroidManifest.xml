@@ -13,6 +13,7 @@
         </activity>
     <activity android:name=".home"></activity>
 <activity android:name=".list"></activity>
+<activity android:name=".company"></activity>
 </application>
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 

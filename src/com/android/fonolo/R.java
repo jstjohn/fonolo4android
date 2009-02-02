@@ -30,17 +30,18 @@ public final class R {
         public static final int list_layout=0x7f050010;
         public static final int list_scroll=0x7f050011;
         public static final int login=0x7f050000;
-        public static final int output=0x7f050012;
+        public static final int output=0x7f050018;
         public static final int pass_field=0x7f05000f;
-        public static final int pass_text=0x7f05001a;
+        public static final int pass_text=0x7f05001b;
         public static final int scroll_vw=0x7f050017;
         public static final int search_box=0x7f050009;
         public static final int search_button=0x7f05000a;
         public static final int search_text=0x7f05000b;
         public static final int select_button=0x7f050013;
+        public static final int table_buttons=0x7f050012;
         public static final int user_field=0x7f05000e;
-        public static final int user_text=0x7f050019;
-        public static final int widget81=0x7f050018;
+        public static final int user_text=0x7f05001a;
+        public static final int widget81=0x7f050019;
     }
     public static final class layout {
         public static final int call=0x7f030000;
