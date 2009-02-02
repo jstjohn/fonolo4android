@@ -1,9 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<AbsoluteLayout
-android:background="#ff3399ff"
-android:id="@+id/login"
+<RelativeLayout
+android:id="@+id/call_screen"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
+android:background="#ff3399ff"
 xmlns:android="http://schemas.android.com/apk/res/android"
 >
-</AbsoluteLayout>
+<Button
+android:id="@+id/end_call"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:text="End Call"
+android:textStyle="bold"
+android:layout_alignParentBottom="true"
+android:layout_alignParentLeft="true"
+>
+</Button>
+<TextView
+android:id="@+id/output"
+android:layout_width="fill_parent"
+android:layout_height="371px"
+android:text="TextView"
+android:layout_alignParentTop="true"
+android:layout_alignParentLeft="true"
+>
+</TextView>
+</RelativeLayout>

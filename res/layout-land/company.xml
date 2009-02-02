@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
-android:id="@+id/company_back"
+android:id="@+id/company_screen"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
 android:background="#ff3399ff"
@@ -56,4 +56,13 @@ android:layout_above="@+id/call_button"
 android:layout_alignParentLeft="true"
 >
 </ScrollView>
+<TextView
+android:id="@+id/output"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:textColor="#ffcc0000"
+android:layout_alignBottom="@+id/company_scroll"
+android:layout_alignParentLeft="true"
+>
+</TextView>
 </RelativeLayout>

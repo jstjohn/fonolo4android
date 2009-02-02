@@ -19,6 +19,7 @@ public class list extends Activity implements Button.OnClickListener, private_co
 	String uname = "";
 	String passwd = "";
 	//end copy------------------------------------------
+	
 	String json_temp_string = "";
 	Button[] b = new Button[30];
 	
@@ -96,9 +97,11 @@ public class list extends Activity implements Button.OnClickListener, private_co
 		int i = v.getId();
 		Bundle out_extras = new Bundle();
 		String id = (String)b[i].getTag();
+		String company_name = (String)b[i].getText();
 		out_extras.putString("user", uname);
 		out_extras.putString("pass", passwd);
 		Intent s = new Intent(this, company.class);
+		out_extras.putString("company_name", company_name);
 		out_extras.putString("id", id);
 		//out_extras.putString("id", "hello");
 		//out_extras.putString("json",json_temp_string);
