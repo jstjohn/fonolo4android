@@ -20,8 +20,9 @@ public class home extends Activity implements OnClickListener, private_constants
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.home);
-        search_text = (TextView)this.findViewById(R.id.search_box);
-        output = (TextView)this.findViewById(R.id.home_output);
+ 		
+		output = (TextView)this.findViewById(R.id.output);
+		search_text = (TextView)this.findViewById(R.id.search_box);
 		
 		//View logout_button = this.findViewById(R.id.logout_button);
 		//logout_button.setOnClickListener(this);
@@ -48,17 +49,23 @@ public class home extends Activity implements OnClickListener, private_constants
 		out_extras.putString("pass", passwd);
 		
 		switch (v.getId()){
-		/*case R.id.help_button:
-			Intent i = new Intent(this, help.class);
-			startActivity(i);
-			break;*/
-		case R.id.search_button:
-			Intent s = new Intent(this, list.class);
-			out_extras.putInt("method", SEARCH_METHOD);
-			out_extras.putString("search", search_text.getText().toString());
-			s.putExtras(out_extras);
-			startActivity(s);
+		case R.id.help_button:
+			Intent h = new Intent(this, help.class);
+			startActivity(h);
 			break;
+		case R.id.search_button:
+			if(search_text.getText().toString().equals("")){
+				output.setText("Please search for something");
+				break;
+			}
+			else{
+				Intent s = new Intent(this, list.class);
+				out_extras.putInt("method", SEARCH_METHOD);
+				out_extras.putString("search", search_text.getText().toString());
+				s.putExtras(out_extras);
+				startActivity(s);
+				break;
+			}
 /*		case R.id.list_all_button:
 			Intent l = new Intent(this, list.class);
 			out_extras.putInt("method", LIST_METHOD);
