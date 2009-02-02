@@ -61,7 +61,7 @@ android:layout_x="20px"
 android:layout_y="182px"
 >
 </TextView>
-<Button
+<!--<Button
 android:id="@+id/list_all_button"
 android:layout_width="150px"
 android:layout_height="50px"
@@ -70,7 +70,7 @@ android:layout_x="60px"
 android:layout_y="272px"
 >
 </Button>
-<Button
+--><Button
 android:id="@+id/favorites_button"
 android:layout_width="150px"
 android:layout_height="50px"
