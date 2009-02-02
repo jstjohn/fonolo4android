@@ -2,4 +2,5 @@
 <resources>
     <string name="hello">Hello World, fonolo4android</string>
     <string name="app_name">fonolo 4 Android</string>
+    <string name="help_name">Help</string>
 </resources>
