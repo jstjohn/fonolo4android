@@ -1,31 +1,34 @@
 package com.android.fonolo;
 
+import java.util.LinkedList;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.TableLayout;
 
 //edit class to reflect UI
-public class list extends Activity implements OnClickListener, private_constants{
+public class list extends Activity implements Button.OnClickListener, private_constants{
 	
 	//copy into all classes-----------------------------
 	String uname = "";
 	String passwd = "";
 	//end copy------------------------------------------
+	String json_temp_string = "";
+	Button[] b = new Button[30];
 	
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list);  
-        TextView output = (TextView)this.findViewById(R.id.output);
-        RelativeLayout rl = (RelativeLayout)findViewById(R.id.list_layout);
+        //TextView output = (TextView)this.findViewById(R.id.output);
+        TableLayout tl = (TableLayout)findViewById(R.id.table_buttons);
         
         //copy into all classes--------------------------
 		Bundle extras = getIntent().getExtras();
@@ -33,46 +36,41 @@ public class list extends Activity implements OnClickListener, private_constants
 		passwd = extras.getString("pass");
 		//end copy---------------------------------------
 		
-		for(int j = 1; j <= 10; j++){
-			Button b = new Button(this);
-	        b.setText("Dynamic Button"); 
-	        b.setWidth(320);
-	        //rl.addView(b);
-	        rl.addView(b, j);
-		}
+		Button test = new Button(this);
+		test.setText("hello");
+		test.setOnClickListener(this);
+		test.setId(999);
+		test.setTag("hello");
+		tl.addView(test);
+		
 		int method = extras.getInt("method");
 		if(method == SEARCH_METHOD){
 			String query = extras.getString("search");
-			String outputres = "";
-			String namelist = "";
+
 			try {
 				JSONObject result = communication.company_search(query,uname,passwd);
-				JSONObject data = result.getJSONObject("result").getJSONObject("data");
-				int i = 0;
-				String number = "00"+Integer.toString(i);
-				while(data.has(number)){
-					JSONObject company = data.getJSONObject(number);
-					String name = company.getString("name");
-					namelist += name + "\n";
-					
-					//increment i and reset the number to the next in sequence
-					//note: this will break if there are more than 999 companies 
-					//     in the list. Currently fonolo only returns 3 digits.
-					//     If fonolo changes this practice we need to update this.
-					i++;
-					if(i < 10){
-						number = "00"+Integer.toString(i);
-					}else if(i < 100){
-						number = "0"+Integer.toString(i);
-					}else{
-						number = Integer.toString(i);
-					}
-					
-				}
-				outputres += namelist;
-				outputres += "\n\n\n";
-				outputres += result.toString();
+				LinkedList<String[]> list = parse.parse_comp_search(result);
+				json_temp_string = result.toString();
 				
+				int size = 0;
+				if (list.size()> 30){
+					size = 30;
+				} else {
+					size = list.size();
+				}
+				
+				
+				for(int j = 1; j <= size; j++){
+					b[j] = new Button(this);
+					String[] temp = list.get(j);
+					// the 0 position in the result is name, the 1 position is company id
+			        b[j].setText(temp[0]); 
+			        b[j].setTag(temp[1]);
+			        b[j].setWidth(320);
+			        b[j].setId(j);
+			        b[j].setOnClickListener(this);
+			        tl.addView(b[j]);
+				}
 				//////////////////////////////////
 				// TEST CODE, REMOVE!!!
 				//////////////////////////////////
@@ -88,16 +86,23 @@ public class list extends Activity implements OnClickListener, private_constants
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			outputres += "\n\n\n\n\n\n\n";
-			output.setText(outputres);
+
 		}
 		
     }
 
 	public void onClick(View v) {
-		
-
-		
+		int i = v.getId();
+		Bundle out_extras = new Bundle();
+		//String id = (String)b[i].getTag();
+		out_extras.putString("user", uname);
+		out_extras.putString("pass", passwd);
+		Intent s = new Intent(this, company.class);
+		//out_extras.putString("id", id);
+		out_extras.putString("id", "hello");
+		out_extras.putString("json",json_temp_string);
+		s.putExtras(out_extras);
+		startActivity(s);
 		// TODO Auto-generated method stub		
 	}
 }
