@@ -23,14 +23,14 @@ android:layout_width="60px"
 android:layout_height="60px"
 android:text="heart"
 android:textStyle="bold"
-android:textColor="#ffff0000"
+android:textColor="#ffcc0000"
 android:layout_alignParentTop="true"
 android:layout_alignParentRight="true"
 >
 </Button>
 <Button
 android:id="@+id/call_button"
-android:layout_width="160px"
+android:layout_width="320px"
 android:layout_height="wrap_content"
 android:text="Call"
 android:textStyle="bold"
@@ -51,7 +51,7 @@ android:layout_alignParentRight="true"
 <ScrollView
 android:id="@+id/company_scroll"
 android:layout_width="fill_parent"
-android:layout_height="325px"
+android:layout_height="170px"
 android:layout_above="@+id/call_button"
 android:layout_alignParentLeft="true"
 >
