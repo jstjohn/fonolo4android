@@ -29,8 +29,8 @@ public class home extends Activity implements OnClickListener, private_constants
 		help_button.setOnClickListener(this);
 		View search_button = this.findViewById(R.id.search_button);
 		search_button.setOnClickListener(this);
-		View list_all_button = this.findViewById(R.id.list_all_button);
-		list_all_button.setOnClickListener(this);
+		//View list_all_button = this.findViewById(R.id.list_all_button);
+		//list_all_button.setOnClickListener(this);
 		View favorites_button = this.findViewById(R.id.favorites_button);
 		favorites_button.setOnClickListener(this);
 		
@@ -59,12 +59,12 @@ public class home extends Activity implements OnClickListener, private_constants
 			s.putExtras(out_extras);
 			startActivity(s);
 			break;
-		case R.id.list_all_button:
+/*		case R.id.list_all_button:
 			Intent l = new Intent(this, list.class);
 			out_extras.putInt("method", LIST_METHOD);
 			l.putExtras(out_extras);
 			startActivity(l);
-			break;
+			break;*/
 		case R.id.favorites_button:
 			Intent f = new Intent(this, list.class);
 			out_extras.putInt("method", FAVS_METHOD);

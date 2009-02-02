@@ -7,6 +7,8 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 //edit class to reflect UI
@@ -23,6 +25,7 @@ public class list extends Activity implements OnClickListener, private_constants
         super.onCreate(savedInstanceState);
         setContentView(R.layout.list);  
         TextView output = (TextView)this.findViewById(R.id.output);
+        RelativeLayout rl = (RelativeLayout)findViewById(R.id.list_layout);
         
         //copy into all classes--------------------------
 		Bundle extras = getIntent().getExtras();
@@ -30,6 +33,13 @@ public class list extends Activity implements OnClickListener, private_constants
 		passwd = extras.getString("pass");
 		//end copy---------------------------------------
 		
+		for(int j = 1; j <= 10; j++){
+			Button b = new Button(this);
+	        b.setText("Dynamic Button"); 
+	        b.setWidth(320);
+	        //rl.addView(b);
+	        rl.addView(b, j);
+		}
 		int method = extras.getInt("method");
 		if(method == SEARCH_METHOD){
 			String query = extras.getString("search");
