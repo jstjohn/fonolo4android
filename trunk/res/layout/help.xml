@@ -9,7 +9,7 @@
     	android:id="@+id/help_content"
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
-    	android:text="Log in to fonolo 4 Android with the 
+    	android:text="Log in to fonolo 4 Android with your 
 username and password set up on the fonolo website (http://fonolo.com/)
 once logged in you may run a search for a company and navigate that company's 
 phone tree to any destination you wish."

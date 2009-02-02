@@ -19,7 +19,7 @@ android:layout_alignParentLeft="true"
 <TextView
 android:id="@+id/output"
 android:layout_width="fill_parent"
-android:layout_height="371px"
+android:layout_height="380px"
 android:text=""
 android:layout_alignParentTop="true"
 android:layout_alignParentLeft="true"
