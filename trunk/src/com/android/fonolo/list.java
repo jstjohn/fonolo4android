@@ -36,12 +36,12 @@ public class list extends Activity implements Button.OnClickListener, private_co
 		passwd = extras.getString("pass");
 		//end copy---------------------------------------
 		
-		Button test = new Button(this);
-		test.setText("hello");
-		test.setOnClickListener(this);
-		test.setId(999);
-		test.setTag("hello");
-		tl.addView(test);
+//		Button test = new Button(this);
+//		test.setText("Check JSON String");
+//		test.setOnClickListener(this);
+//		test.setId(999);
+//		test.setTag("hello");
+//		tl.addView(test);
 		
 		int method = extras.getInt("method");
 		if(method == SEARCH_METHOD){
@@ -52,15 +52,16 @@ public class list extends Activity implements Button.OnClickListener, private_co
 				LinkedList<String[]> list = parse.parse_comp_search(result);
 				json_temp_string = result.toString();
 				
+				//limit the size to 30
 				int size = 0;
-				if (list.size()> 30){
+				if (list.size() > 30){
 					size = 30;
 				} else {
 					size = list.size();
 				}
 				
 				
-				for(int j = 1; j <= size; j++){
+				for(int j = 0; j < size; j++){
 					b[j] = new Button(this);
 					String[] temp = list.get(j);
 					// the 0 position in the result is name, the 1 position is company id
@@ -94,13 +95,13 @@ public class list extends Activity implements Button.OnClickListener, private_co
 	public void onClick(View v) {
 		int i = v.getId();
 		Bundle out_extras = new Bundle();
-		//String id = (String)b[i].getTag();
+		String id = (String)b[i].getTag();
 		out_extras.putString("user", uname);
 		out_extras.putString("pass", passwd);
 		Intent s = new Intent(this, company.class);
-		//out_extras.putString("id", id);
-		out_extras.putString("id", "hello");
-		out_extras.putString("json",json_temp_string);
+		out_extras.putString("id", id);
+		//out_extras.putString("id", "hello");
+		//out_extras.putString("json",json_temp_string);
 		s.putExtras(out_extras);
 		startActivity(s);
 		// TODO Auto-generated method stub		
