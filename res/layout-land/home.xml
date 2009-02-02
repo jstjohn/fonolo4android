@@ -18,7 +18,7 @@ android:layout_y="182px"
 </Button>
 <EditText
 android:id="@+id/search_box"
-android:layout_width="244px"
+android:layout_width="405px"
 android:layout_height="wrap_content"
 android:textSize="18sp"
 android:layout_x="10px"
@@ -31,7 +31,7 @@ android:layout_width="50px"
 android:layout_height="wrap_content"
 android:text="Go!"
 android:textStyle="bold"
-android:layout_x="260px"
+android:layout_x="420px"
 android:layout_y="32px"
 >
 </Button>
