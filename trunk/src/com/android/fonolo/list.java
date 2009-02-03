@@ -21,7 +21,8 @@ public class list extends Activity implements Button.OnClickListener, private_co
 	//end copy------------------------------------------
 	
 	String json_temp_string = "";
-	Button[] b = new Button[30];
+	private static final int button_number = 30;
+	Button[] b = new Button[button_number];
 	
     /** Called when the activity is first created. */
     @Override
@@ -53,10 +54,10 @@ public class list extends Activity implements Button.OnClickListener, private_co
 				LinkedList<String[]> list = parse.parse_comp_search(result);
 				json_temp_string = result.toString();
 				
-				//limit the size to 30
+				//limit the size to button_number
 				int size = 0;
-				if (list.size() > 30){
-					size = 30;
+				if (list.size() > button_number){
+					size = button_number;
 				} else {
 					size = list.size();
 				}
