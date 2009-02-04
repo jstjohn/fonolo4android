@@ -47,7 +47,7 @@ public class communication {
 		public static JSONObject company_details( String treeid, String user, String pass) throws JSONException
 		{
 			String[] params = new String[1];
-			params[1] = treeid;
+			params[0] = treeid;
 			String json = fonolo_library.get_json_contents("company_details", params, user, pass);
 			return make_json(json);
 		}

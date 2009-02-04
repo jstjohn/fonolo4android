@@ -69,10 +69,16 @@ public class parse {
 			int depth = node0.getInt("depth");
 			String alias = node0.getString("alias");
 			
-			head = new Node(status,menu,id,title,type,depth,alias);
+			head = new Node(status,menu,id,type,title,depth,alias);
+			Node sister = sister_helper(tree, 1);
+			Node child = child_helper(tree.getJSONObject("00"));
 			
-			
-			
+			if(sister.getStatus()){
+				head.setSister(sister);
+			}
+			if(child.getStatus()){
+				head.setChild(child);
+			}
 
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
@@ -84,7 +90,8 @@ public class parse {
 		
 	}
 	
-	private void sister_helper(Node sister, JSONObject tree, int level){
+	private static Node sister_helper(JSONObject tree, int level){
+		Node my_node = new Node();
 		String my_sister_level = "";
 		if(level < 10){
 			my_sister_level = "0"+Integer.toString(level);
@@ -109,27 +116,33 @@ public class parse {
 				int depth = node0.getInt("depth");
 				String alias = node0.getString("alias");
 				
-				Node my_node = new Node(status,menu,id,title,type,depth,alias);
-				sister.setSister(my_node);
+				my_node = new Node(status,menu,id,type,title,depth,alias);
 				
 				//call recursively for any more sisters
-				sister_helper(my_node, tree, level+1);
-				
+				Node my_sister = sister_helper(tree, level+1);
+				if(my_sister.getStatus()){
+					my_node.setSister(my_sister);
+				}
 				//call recursively for any children
-				child_helper(my_node, tree.getJSONObject(my_sister_level));
+				Node my_child = child_helper(tree.getJSONObject(my_sister_level));
+				if(my_child.getStatus()){
+					my_node.setChild(my_child);
+				}
 				
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}
+		return my_node;
 	}
 	
 	
-	private void child_helper(Node parent, JSONObject tree){
+	private static Node child_helper(JSONObject tree){
 		//gets called on parent's first child, who's sister level is 0
 		String my_sister_level = "00";
 		int level = 0;
+		Node my_node = new Node();
 		
 		
 		if(!tree.has(my_sister_level)){
@@ -149,14 +162,18 @@ public class parse {
 				int depth = node0.getInt("depth");
 				String alias = node0.getString("alias");
 				
-				Node my_node = new Node(status,menu,id,title,type,depth,alias);
-				parent.setChild(my_node);
+				my_node = new Node(status,menu,id,type,title,depth,alias);
 				
 				//call recursively for any more sisters
-				sister_helper(my_node, tree, level+1);
-				
+				Node my_sister = sister_helper(tree, level+1);
+				if(my_sister.getStatus()){
+					my_node.setSister(my_sister);
+				}
 				//call recursively for any children
-				child_helper(my_node, tree.getJSONObject(my_sister_level));
+				Node my_child = child_helper(tree.getJSONObject(my_sister_level));
+				if(my_child.getStatus()){
+					my_node.setChild(my_child);
+				}
 				
 				
 			} catch (JSONException e) {
@@ -164,6 +181,7 @@ public class parse {
 				e.printStackTrace();
 			}
 		}
+		return my_node;
 	}
 
 }
