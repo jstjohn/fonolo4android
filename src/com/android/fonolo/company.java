@@ -64,6 +64,7 @@ public class company extends Activity implements Button.OnClickListener, private
 			JSONObject info = communication.company_details(id, uname, passwd);
 			Node head = parse.parse_comp_info(info);
 			//just call it a child because it is at the beginning
+			//id += head.getChild().getTitle();
 			make_child_button(head,0);	
 			
 		} catch (JSONException e) {
@@ -78,7 +79,7 @@ public class company extends Activity implements Button.OnClickListener, private
     }
     
     private void make_child_button(Node me, int tabbing){
-    	if(!me.equals(null)){
+    //	if(!me.equals(null)){
 	    	//tells you the name of this node in the tree
 			String node_name = me.getTitle();
 			//this tells you if it is an agent or an IVR tree
@@ -123,13 +124,13 @@ public class company extends Activity implements Button.OnClickListener, private
 				if(me.hasSister()){
 					make_sister_button(me.getSister(),tabbing);
 				}
-			}
+			//}
     	}
 		
 		
     }
     private void make_sister_button(Node me, int tabbing){
-    	if(!me.equals(null)){
+    	//if(!me.equals(null)){
 	    	//tells you the name of this node in the tree
 			String node_name = me.getTitle();
 			//this tells you if it is an agent or an IVR tree
@@ -175,7 +176,7 @@ public class company extends Activity implements Button.OnClickListener, private
 					make_sister_button(me.getSister(),tabbing);
 				}
 			}
-    	}
+    	//}
     }
 
 	public void onClick(View v) {

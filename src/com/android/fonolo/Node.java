@@ -5,7 +5,7 @@ public class Node {
 	private Node child;
 	private boolean has_sister = false;
 	private boolean has_child = false;
-	private Boolean status;
+	private Boolean status = false;
 	private String menu;
 	private String id;
 	private String type;
