@@ -26,14 +26,15 @@ public class company extends Activity implements Button.OnClickListener, private
 	String passwd = "";
 	//end copy------------------------------------------
 	TextView output;
-	TextView company_name;
-	
-	TableLayout tl = (TableLayout)findViewById(R.id.tab_buttons);
+	TextView company_name;	
+	TableLayout tl;
 	
 	 /** Called when the activity is first created. */
     public void onCreate(Bundle savedInstanceState){
     	super.onCreate(savedInstanceState);
     	setContentView(R.layout.company);
+    	
+    	tl = (TableLayout)findViewById(R.id.tab_buttons);
     	
     	output = (TextView)this.findViewById(R.id.output);
     	company_name = (TextView)this.findViewById(R.id.company_name_text);
@@ -152,8 +153,8 @@ public class company extends Activity implements Button.OnClickListener, private
 			String headNodeid = me.getId();
 			// the message of this node, (ex "for more information press...")
 			String message = me.getMenu();
-			//the deapth of children below this node
-			int deapth = me.getDepth();
+			//the depth of children below this node
+			int depth = me.getDepth();
 			//this node's alternative name if it has one
 			String alias = me.getAlias();
 			
