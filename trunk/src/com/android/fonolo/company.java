@@ -28,7 +28,7 @@ public class company extends Activity implements Button.OnClickListener, private
 	TextView output;
 	TextView company_name;
 	
-	TableLayout tl = (TableLayout)findViewById(R.id.table_buttons);
+	TableLayout tl = (TableLayout)findViewById(R.id.tab_buttons);
 	
 	 /** Called when the activity is first created. */
     public void onCreate(Bundle savedInstanceState){
@@ -48,7 +48,7 @@ public class company extends Activity implements Button.OnClickListener, private
 		//Strictly for test purposes!
 		id = extras.getString("id");
 		String name = extras.getString("company_name");
-		company_name.setText(name);
+		//company_name.setText(name);
 		
 		
 		
