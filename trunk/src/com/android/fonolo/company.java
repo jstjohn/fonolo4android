@@ -28,7 +28,7 @@ public class company extends Activity implements Button.OnClickListener, private
 	TextView output;
 	TextView company_name;
 	
-	//TableLayout tl = (TableLayout)findViewById(R.id.table_buttons);
+	TableLayout tl = (TableLayout)findViewById(R.id.table_buttons);
 	
 	 /** Called when the activity is first created. */
     public void onCreate(Bundle savedInstanceState){
@@ -75,7 +75,7 @@ public class company extends Activity implements Button.OnClickListener, private
 //        TextView tv = new TextView(this);
 //        tv.setText(id);
 //        setContentView(tv);
-		output.setText(id);
+		//output.setText(id);
     }
     
     private void make_child_button(Node me, int tabbing){
@@ -90,8 +90,8 @@ public class company extends Activity implements Button.OnClickListener, private
 			String headNodeid = me.getId();
 			// the message of this node, (ex "for more information press...")
 			String message = me.getMenu();
-			//the deapth of children below this node
-			int deapth = me.getDepth();
+			//the depth of children below this node
+			int depth = me.getDepth();
 			//this node's alternative name if it has one
 			String alias = me.getAlias();
 			
@@ -100,21 +100,31 @@ public class company extends Activity implements Button.OnClickListener, private
 				 * Insert code here to make the button!
 				 * for testing purposes I will just add text to the id, which gets displayed
 				 */
-				
-				/////////////////////////////////////////
-				// BEGIN TEST CODE!!!!!
-				/////////////////////////////////////////
-				id += "\n";
-				//make tabs
-				for(int i = 0; i < tabbing; i++){
-					id += "\t";
+				if(button_count < button_number){
+					b[button_count] = new Button(this);
+					//String[] temp = list.get(button_count);
+					// the 0 position in the result is name, the 1 position is company id
+			        b[button_count].setText(node_name); 
+			        b[button_count].setTag(headNodeid);
+			        b[button_count].setWidth(200);
+			        b[button_count].setId(button_count);
+			        b[button_count].setOnClickListener(this);
+			        tl.addView(b[button_count]);
 				}
-				//print the node_name
-				id += node_name;
-				
-				/////////////////////////////////////////
-				// END TEST CODE!!!!!
-				/////////////////////////////////////////
+//				/////////////////////////////////////////
+//				// BEGIN TEST CODE!!!!!
+//				/////////////////////////////////////////
+//				id += "\n";
+//				//make tabs
+//				for(int i = 0; i < tabbing; i++){
+//					id += "\t";
+//				}
+//				//print the node_name
+//				id += node_name;
+//				
+//				/////////////////////////////////////////
+//				// END TEST CODE!!!!!
+//				/////////////////////////////////////////
 				
 				//first do all children, then do all siblings
 				if(me.hasChild()){
