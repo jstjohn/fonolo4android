@@ -6,7 +6,9 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AbsoluteLayout;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -27,14 +29,16 @@ public class company extends Activity implements Button.OnClickListener, private
 	//end copy------------------------------------------
 	TextView output;
 	TextView company_name;	
-	TableLayout tl;
+	AbsoluteLayout tl;
+	//TableLayout tl;
 	
 	 /** Called when the activity is first created. */
     public void onCreate(Bundle savedInstanceState){
     	super.onCreate(savedInstanceState);
     	setContentView(R.layout.company);
     	
-    	tl = (TableLayout)findViewById(R.id.tab_buttons);
+    	//tl = (TableLayout)findViewById(R.id.tab_buttons);
+    	tl = (AbsoluteLayout)findViewById(R.id.tab_buttons);
     	
     	output = (TextView)this.findViewById(R.id.output);
     	company_name = (TextView)this.findViewById(R.id.company_name_text);
@@ -110,6 +114,8 @@ public class company extends Activity implements Button.OnClickListener, private
 			        b[button_count].setWidth(200);
 			        b[button_count].setId(button_count);
 			        b[button_count].setOnClickListener(this);
+			        b[button_count].offsetTopAndBottom(button_count*b[button_count].getHeight());
+			        b[button_count].offsetLeftAndRight(tabbing*5);
 			        tl.addView(b[button_count]);
 			        button_count++;
 				}
@@ -172,6 +178,8 @@ public class company extends Activity implements Button.OnClickListener, private
 			        b[button_count].setWidth(200);
 			        b[button_count].setId(button_count);
 			        b[button_count].setOnClickListener(this);
+			        b[button_count].offsetTopAndBottom(button_count*b[button_count].getHeight());
+			        b[button_count].offsetLeftAndRight(tabbing*5);
 			        tl.addView(b[button_count]);
 			        button_count++;
 				}
