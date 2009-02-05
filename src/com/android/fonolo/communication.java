@@ -63,10 +63,10 @@ public class communication {
 			return make_json(json);
 		} 
 		
-		public static JSONObject call_start(String node_id, String company_phone_number, String user, String pass) throws JSONException{
+		public static JSONObject call_start(String node_id, String user_phone_number, String user, String pass) throws JSONException{
 			String[] params = new String[2];
 			params[0] = node_id;
-			params[1] = company_phone_number;
+			params[1] = user_phone_number;
 			String json = fonolo_library.get_json_contents("call_start", params, user, pass);
 			return make_json(json);
 		}
