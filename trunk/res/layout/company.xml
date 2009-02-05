@@ -57,13 +57,13 @@ android:layout_height="365px"
 android:layout_above="@+id/home_button"
 android:layout_alignParentLeft="true"
 >
-<AbsoluteLayout
+<LinearLayout
 android:id="@+id/tab_buttons"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
 android:orientation="vertical"
 >
-</AbsoluteLayout>
+</LinearLayout>
 </ScrollView>
 <TextView
 android:id="@+id/output"

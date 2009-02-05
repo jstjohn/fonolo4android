@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
@@ -28,17 +31,21 @@ public class company extends Activity implements Button.OnClickListener, private
 	String passwd = "";
 	//end copy------------------------------------------
 	TextView output;
-	TextView company_name;	
-	AbsoluteLayout tl;
-	//TableLayout tl;
+	TextView company_name;
+	//ScrollView tl;
+	//RelativeLayout tl;
+	LinearLayout tl;
+	
 	
 	 /** Called when the activity is first created. */
     public void onCreate(Bundle savedInstanceState){
     	super.onCreate(savedInstanceState);
     	setContentView(R.layout.company);
     	
-    	//tl = (TableLayout)findViewById(R.id.tab_buttons);
-    	tl = (AbsoluteLayout)findViewById(R.id.tab_buttons);
+    	
+    	tl = (LinearLayout)findViewById(R.id.tab_buttons);
+    	//tl = (RelativeLayout)findViewById(R.id.tab_buttons);
+    	//tl = (ScrollView)findViewById(R.id.company_scroll);
     	
     	output = (TextView)this.findViewById(R.id.output);
     	company_name = (TextView)this.findViewById(R.id.company_name_text);
@@ -53,7 +60,7 @@ public class company extends Activity implements Button.OnClickListener, private
 		//Strictly for test purposes!
 		id = extras.getString("id");
 		String name = extras.getString("company_name");
-		//company_name.setText(name);
+		company_name.setText(name);
 		
 		
 		
@@ -110,13 +117,14 @@ public class company extends Activity implements Button.OnClickListener, private
 					//String[] temp = list.get(button_count);
 					// the 0 position in the result is name, the 1 position is company id
 			        b[button_count].setText(node_name); 
-			        b[button_count].setTag(headNodeid);
-			        b[button_count].setWidth(200);
+			        b[button_count].setTag(headNodeid);			        
 			        b[button_count].setId(button_count);
 			        b[button_count].setOnClickListener(this);
-			        b[button_count].offsetTopAndBottom(button_count*b[button_count].getHeight());
-			        b[button_count].offsetLeftAndRight(tabbing*5);
+			        //b[button_count].setPadding(tabbing*5, button_count*b[button_count].getHeight(), 0, 0);
+			        //b[button_count].offsetTopAndBottom(button_count*b[button_count].getHeight());
+			        //b[button_count].offsetLeftAndRight(tabbing*5);
 			        tl.addView(b[button_count]);
+			        b[button_count].setWidth(200);
 			        button_count++;
 				}
 //				/////////////////////////////////////////
@@ -144,8 +152,7 @@ public class company extends Activity implements Button.OnClickListener, private
 				}
 			//}
     	}
-		
-		
+				
     }
     private void make_sister_button(Node me, int tabbing){
     	//if(!me.equals(null)){
@@ -174,13 +181,14 @@ public class company extends Activity implements Button.OnClickListener, private
 					//String[] temp = list.get(button_count);
 					// the 0 position in the result is name, the 1 position is company id
 			        b[button_count].setText(node_name); 
-			        b[button_count].setTag(headNodeid);
-			        b[button_count].setWidth(200);
+			        b[button_count].setTag(headNodeid);			        
 			        b[button_count].setId(button_count);
 			        b[button_count].setOnClickListener(this);
-			        b[button_count].offsetTopAndBottom(button_count*b[button_count].getHeight());
-			        b[button_count].offsetLeftAndRight(tabbing*5);
+			        //b[button_count].setPadding(tabbing*5, button_count*b[button_count].getHeight(), 0, 0);
+			        //b[button_count].offsetTopAndBottom(button_count*b[button_count].getHeight());
+			        //b[button_count].offsetLeftAndRight(tabbing*5);
 			        tl.addView(b[button_count]);
+			        b[button_count].setWidth(200);
 			        button_count++;
 				}
 //				/////////////////////////////////////////
