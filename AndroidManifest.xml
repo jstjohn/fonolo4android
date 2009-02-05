@@ -17,6 +17,7 @@
 <activity android:name=".help"
 	android:theme="@android:style/Theme.Dialog"
 	android:label="@string/help_name"></activity>
+<activity android:name=".call" android:label="@string/call_name"></activity>
 </application>
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 

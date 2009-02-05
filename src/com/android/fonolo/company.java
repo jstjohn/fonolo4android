@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -56,13 +57,11 @@ public class company extends Activity implements Button.OnClickListener, private
 		uname = extras.getString("user");
 		passwd = extras.getString("pass");
 		//end copy---------------------------------------
-        
-		
-		//Strictly for test purposes!
+
 		id = extras.getString("id");
 		String name = extras.getString("company_name");
-		company_name.setText(name);
-		
+        company_name.setText(name);
+
 		
 		
 		/**
@@ -129,8 +128,11 @@ public class company extends Activity implements Button.OnClickListener, private
 						tabs += "--|";
 					}
 					tabs += " ";
+					String[] info = new String[2];
+					info[0] = node_name;
+					info[1] = headNodeid;
 			        b[button_count].setText(tabs + node_name + stars); 
-			        b[button_count].setTag(headNodeid);			        
+			        b[button_count].setTag(info);		        
 			        b[button_count].setId(button_count);
 			        b[button_count].setOnClickListener(this);			        
 			        //b[button_count].offsetTopAndBottom(button_count*b[button_count].getHeight());
@@ -206,8 +208,11 @@ public class company extends Activity implements Button.OnClickListener, private
 						tabs += "--|";
 					}
 					tabs += " ";
+					String[] info = new String[2];
+					info[0] = node_name;
+					info[1] = headNodeid;
 			        b[button_count].setText(tabs + node_name + stars); 
-			        b[button_count].setTag(headNodeid);			        
+			        b[button_count].setTag(info);			        
 			        b[button_count].setId(button_count);
 			        b[button_count].setOnClickListener(this);			        
 			        //b[button_count].offsetTopAndBottom(button_count*b[button_count].getHeight());
@@ -246,8 +251,19 @@ public class company extends Activity implements Button.OnClickListener, private
     }
 
 	public void onClick(View v) {
-		// TODO Auto-generated method stub
-		
+		int i = v.getId();
+		Bundle out_extras = new Bundle();
+		String[] info = (String[])b[i].getTag();
+		String id = info[1];
+		String node_name = info[0];
+		out_extras.putString("user", uname);
+		out_extras.putString("pass", passwd);
+		Intent s = new Intent(this, call.class);
+		out_extras.putString("node_name", node_name);
+		out_extras.putString("company_name", company_name.getText().toString());
+		out_extras.putString("id", id);
+		s.putExtras(out_extras);
+		startActivity(s);		
 	}
     
 }
