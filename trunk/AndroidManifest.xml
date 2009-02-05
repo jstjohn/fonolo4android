@@ -11,9 +11,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-    <activity android:name=".home"></activity>
-<activity android:name=".list"></activity>
-<activity android:name=".company"></activity>
+    <activity android:name=".home" android:label="@string/search_name"></activity>
+<activity android:name=".list" android:label="@string/list_name"></activity>
+<activity android:name=".company" android:label="@string/company_name"></activity>
 <activity android:name=".help"
 	android:theme="@android:style/Theme.Dialog"
 	android:label="@string/help_name"></activity>

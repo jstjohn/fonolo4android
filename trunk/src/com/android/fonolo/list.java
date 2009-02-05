@@ -9,6 +9,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.Window;
 import android.widget.Button;
 import android.widget.TableLayout;
 
@@ -28,6 +29,7 @@ public class list extends Activity implements Button.OnClickListener, private_co
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
         setContentView(R.layout.list);  
         //TextView output = (TextView)this.findViewById(R.id.output);
         TableLayout tl = (TableLayout)findViewById(R.id.table_buttons);
@@ -69,7 +71,7 @@ public class list extends Activity implements Button.OnClickListener, private_co
 					// the 0 position in the result is name, the 1 position is company id
 			        b[j].setText(temp[0]); 
 			        b[j].setTag(temp[1]);
-			        b[j].setWidth(320);
+			        //b[j].setWidth(220);
 			        b[j].setId(j);
 			        b[j].setOnClickListener(this);
 			        tl.addView(b[j]);

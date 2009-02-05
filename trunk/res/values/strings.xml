@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="hello">Hello World, fonolo4android</string>
-    <string name="app_name">fonolo 4 Android</string>
+    <string name="app_name">Login - fonolo 4 Android</string>
     <string name="help_name">Help</string>
+    <string name="search_name">Search</string>
+    <string name="list_name">Search Listing</string>
+    <string name="company_name">Company Info</string>
+    <string name="call_name">Call Info</string>
 </resources>

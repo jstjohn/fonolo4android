@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AbsoluteLayout;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -34,16 +35,16 @@ public class company extends Activity implements Button.OnClickListener, private
 	TextView company_name;
 	//ScrollView tl;
 	//RelativeLayout tl;
-	LinearLayout tl;
-	
+	//AbsoluteLayout tl;
+	TableLayout tl;
 	
 	 /** Called when the activity is first created. */
     public void onCreate(Bundle savedInstanceState){
     	super.onCreate(savedInstanceState);
     	setContentView(R.layout.company);
     	
-    	
-    	tl = (LinearLayout)findViewById(R.id.tab_buttons);
+    	tl = (TableLayout)findViewById(R.id.tab_buttons);
+    	//tl = (AbsoluteLayout)findViewById(R.id.tab_buttons);
     	//tl = (RelativeLayout)findViewById(R.id.tab_buttons);
     	//tl = (ScrollView)findViewById(R.id.company_scroll);
     	
@@ -116,32 +117,45 @@ public class company extends Activity implements Button.OnClickListener, private
 					b[button_count] = new Button(this);
 					//String[] temp = list.get(button_count);
 					// the 0 position in the result is name, the 1 position is company id
-			        b[button_count].setText(node_name); 
+					String stars = "";
+					if(node_type.equalsIgnoreCase("NODE_TYPE_AGENT")){
+						//color for agent
+						stars = "***";
+					}else{
+						//color other way
+					}
+					String tabs = "";
+					for(int i = 0; i < tabbing; i++){
+						tabs += "--|";
+					}
+					tabs += " ";
+			        b[button_count].setText(tabs + node_name + stars); 
 			        b[button_count].setTag(headNodeid);			        
 			        b[button_count].setId(button_count);
-			        b[button_count].setOnClickListener(this);
-			        //b[button_count].setPadding(tabbing*5, button_count*b[button_count].getHeight(), 0, 0);
+			        b[button_count].setOnClickListener(this);			        
 			        //b[button_count].offsetTopAndBottom(button_count*b[button_count].getHeight());
 			        //b[button_count].offsetLeftAndRight(tabbing*5);
 			        tl.addView(b[button_count]);
-			        b[button_count].setWidth(200);
+			        //b[button_count].setWidth(200);
+			        //b[button_count].setLayoutParams(new LayoutParams(200,LayoutParams.WRAP_CONTENT));
+			        b[button_count].setGravity(3);
 			        button_count++;
 				}
-//				/////////////////////////////////////////
-//				// BEGIN TEST CODE!!!!!
-//				/////////////////////////////////////////
-//				id += "\n";
-//				//make tabs
-//				for(int i = 0; i < tabbing; i++){
-//					id += "\t";
-//				}
-//				//print the node_name
-//				id += node_name;
-//				
-//				/////////////////////////////////////////
-//				// END TEST CODE!!!!!
-//				/////////////////////////////////////////
-				
+/*				/////////////////////////////////////////
+				// BEGIN TEST CODE!!!!!
+				/////////////////////////////////////////
+				id += "\n";
+				//make tabs
+				for(int i = 0; i < tabbing; i++){
+					id += "\t";
+				}
+				//print the node_name
+				id += node_name;
+			
+				/////////////////////////////////////////
+				// END TEST CODE!!!!!
+				/////////////////////////////////////////
+*/				
 				//first do all children, then do all siblings
 				if(me.hasChild()){
 					make_child_button(me.getChild(),tabbing+1);
@@ -180,15 +194,28 @@ public class company extends Activity implements Button.OnClickListener, private
 					b[button_count] = new Button(this);
 					//String[] temp = list.get(button_count);
 					// the 0 position in the result is name, the 1 position is company id
-			        b[button_count].setText(node_name); 
+					String stars = "";
+					if(node_type.equalsIgnoreCase("NODE_TYPE_AGENT")){
+						//color for agent
+						stars = "***";
+					}else{
+						//color other way
+					}
+					String tabs = "";
+					for(int i = 0; i < tabbing; i++){
+						tabs += "--|";
+					}
+					tabs += " ";
+			        b[button_count].setText(tabs + node_name + stars); 
 			        b[button_count].setTag(headNodeid);			        
 			        b[button_count].setId(button_count);
-			        b[button_count].setOnClickListener(this);
-			        //b[button_count].setPadding(tabbing*5, button_count*b[button_count].getHeight(), 0, 0);
+			        b[button_count].setOnClickListener(this);			        
 			        //b[button_count].offsetTopAndBottom(button_count*b[button_count].getHeight());
 			        //b[button_count].offsetLeftAndRight(tabbing*5);
 			        tl.addView(b[button_count]);
-			        b[button_count].setWidth(200);
+			        //b[button_count].setWidth(200);
+			        //b[button_count].setLayoutParams(new LayoutParams(200,LayoutParams.WRAP_CONTENT));
+			        b[button_count].setGravity(3);
 			        button_count++;
 				}
 //				/////////////////////////////////////////
