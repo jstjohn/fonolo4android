@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 /**
  * 
- * @author Abdul Binrasheed, Craig Gardner, John St. John
+ * @author Craig Gardner, John St. John
  * Last edited February 2009
  * 
  * This is the class associated with the company information page.
