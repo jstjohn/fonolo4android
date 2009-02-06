@@ -17,7 +17,6 @@ public class message extends Activity{
 		Bundle extras = getIntent().getExtras();
 		message = extras.getString("message");
 		
-		message_content.setText(message);
-		
+		message_content.setText(message);		
 	}
 }

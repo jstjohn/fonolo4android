@@ -72,6 +72,7 @@ android:id="@+id/help_button"
 android:layout_width="fill_parent"
 android:layout_height="wrap_content"
 android:textStyle="bold"
+android:textColor="#ffcc0033"
 android:text="Help"
 android:layout_y="272px"
 >

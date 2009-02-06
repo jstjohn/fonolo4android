@@ -13,9 +13,6 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 	TextView output;
 	TextView user;
 	TextView pass;
-	TextView help_content;
-	//TextView message;
-	//Button go, help;
 	
     /** Called when the activity is first created. */
     @Override
@@ -24,15 +21,10 @@ public class fonolo4android extends Activity implements private_constants, OnCli
         
         setContentView(R.layout.main);
         
-        help_content = (TextView)this.findViewById(R.id.help_content);
         output = (TextView)this.findViewById(R.id.output);
         user = (TextView)this.findViewById(R.id.user_field);
         pass = (TextView)this.findViewById(R.id.pass_field);
-//        message = (TextView)this.findViewById(R.id.message_content);
-//        go = (Button)this.findViewById(R.id.go_button);        
-//        go.setOnClickListener(this);
-//        help = (Button)this.findViewById(R.id.help_button);
-//        help.setOnClickListener(this);
+
         View go_button = this.findViewById(R.id.go_button);
         go_button.setOnClickListener(this);
         View help_button = this.findViewById(R.id.help_button);
@@ -96,9 +88,14 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 		        }
 		        break;
     		case R.id.help_button:
-    			Intent j = new Intent(this, help.class);
-        		startActivity(j);
-        		break;
+    			Intent i = new Intent(this, help.class);
+            	String help_message = "On this screen you will input your username and password " +
+            			"that you set up on the fonolo website(www.fonolo.com)";
+            	Bundle extras = new Bundle();
+            	extras.putString("content", help_message);
+            	i.putExtras(extras);
+            	startActivity(i);
+            	break;
     		}
     	}
 }
