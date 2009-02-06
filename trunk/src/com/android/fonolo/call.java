@@ -1,3 +1,7 @@
+
+
+
+
 package com.android.fonolo;
 
 import org.json.JSONException;
@@ -23,7 +27,8 @@ public class call extends Activity implements OnClickListener, private_constants
 	
     /** Called when the activity is first created. */
 
-    public void onCreate(Bundle savedInstanceState) {    	
+    @Override
+	public void onCreate(Bundle savedInstanceState) {    	
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.call);
