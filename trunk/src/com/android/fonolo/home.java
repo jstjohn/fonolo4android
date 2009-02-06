@@ -55,7 +55,13 @@ public class home extends Activity implements OnClickListener, private_constants
 			break;
 		case R.id.search_button:
 			if(search_text.getText().toString().equals("")){
-				output.setText("Please search for something");
+				//output.setText("Please search for something");
+				Intent i = new Intent(this, message.class);
+	        	String message = "Please input search";
+	        	Bundle extras = new Bundle();
+	        	extras.putString("message", message);
+	        	i.putExtras(extras);
+	        	startActivity(i);
 				break;
 			}
 			else{
