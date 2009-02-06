@@ -6,7 +6,6 @@ package com.android.fonolo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
@@ -64,11 +63,13 @@ public class call extends Activity implements OnClickListener, private_constants
 			String first3 = "";
 			String next3 = "";
 			String final4 = "";
+
 			if(raw_phone.length() == 11){
 				first3 = raw_phone.substring(1,4);
 				next3 = raw_phone.substring(4,7);
 				final4 = raw_phone.substring(7,11);
-			}else{
+			}
+			else{
 				first3 = raw_phone.substring(0,3);
 				next3 = raw_phone.substring(3,6);
 				final4 = raw_phone.substring(6,10);
@@ -84,12 +85,15 @@ public class call extends Activity implements OnClickListener, private_constants
 						JSONObject call_result = communication.call_start(id, first3+"-"+next3+"-"+final4, uname, passwd);
 						outMessage += "\n"+call_result.getJSONObject("result").getJSONObject("head").getString("response_message");
 						output.setText(outMessage);
-					}else{
+					}					
+					
+					else{
 						outMessage += "\nMember phone number invalid: "+first3+"-"+next3+"-"+final4;
 						outMessage += "\nPlease enter the same 10 digit phone number on your fonolo account. ";
 						outMessage += "The correct format should be 555 555 5555 (but no spaces). Please enter your correct number and try again.";
 						output.setText(outMessage);
 					}
+					
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
