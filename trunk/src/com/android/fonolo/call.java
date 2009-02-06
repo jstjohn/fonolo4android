@@ -19,6 +19,7 @@ public class call extends Activity implements OnClickListener, private_constants
 	TextView output;
 	TextView phone;
 	String id = "";
+	String outMessage;
 	
     /** Called when the activity is first created. */
 
@@ -43,7 +44,7 @@ public class call extends Activity implements OnClickListener, private_constants
 		View call_button = this.findViewById(R.id.place_call);
         call_button.setOnClickListener(this);
 		
-		String outMessage = "Company Name: "+company_name+"\n";
+	    outMessage = "Company Name: "+company_name+"\n";
 		outMessage += "Destination: "+node_name+"\n";
 		
 		output.setText(outMessage);
@@ -73,11 +74,16 @@ public class call extends Activity implements OnClickListener, private_constants
 					int response_code = result.getJSONObject("result").getJSONObject("head").getInt("response_code");
 					
 					if(response_code >= 200 && response_code < 300){
-						output.setText("Member phone number worked:"+first3+"-"+next3+"-"+final4);
+						outMessage += "\nMember phone number valid: "+first3+"-"+next3+"-"+final4;
+						output.setText(outMessage);
 						JSONObject call_result = communication.call_start(id, first3+"-"+next3+"-"+final4, uname, passwd);
-						output.setText(call_result.getJSONObject("result").getJSONObject("head").getString("response_message"));
+						outMessage += "\n"+call_result.getJSONObject("result").getJSONObject("head").getString("response_message");
+						output.setText(outMessage);
 					}else{
-						output.setText("Member phone number invalid: "+first3+"-"+next3+"-"+final4);
+						outMessage += "\nMember phone number invalid: "+first3+"-"+next3+"-"+final4;
+						outMessage += "\nPlease enter the same 10 digit phone number on your fonolo account. ";
+						outMessage += "The correct format should be 555 555 5555 (but no spaces). Please enter your correct number and try again.";
+						output.setText(outMessage);
 					}
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
