@@ -7,4 +7,5 @@
     <string name="list_name">Search Listing</string>
     <string name="company_name">Company Info</string>
     <string name="call_name">Call Info</string>
+    <string name="message_name">MESSAGE</string>
 </resources>
