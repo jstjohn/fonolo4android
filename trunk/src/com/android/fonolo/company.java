@@ -15,15 +15,34 @@ import android.widget.TextView;
  * 
  * @author Abdul Binrasheed, Craig Gardner, John St. John
  * Last edited February 2009
+ * 
+ * This is the class associated with the company information page.
+ * This class handles the logic of the page, the on click listeners,
+ * dynamically generating buttons for each of the company nodes, and
+ * passing the information along to the call page when a button is
+ * clicked. 
  *
  */
 //edit class to reflect UI
 public class company extends Activity implements Button.OnClickListener, private_constants {
 	
+	
+	/**
+	 * The following static final variable may be adjusted to change the maximum
+	 * number of buttons to display within this company information page. In our
+	 * experience, 30 is more than we have seen in a phone tree. If you want to 
+	 * make extra sure that all buttons are displayed you could make this number
+	 * larger. 
+	 */
 	private static final int button_number = 30;
 	Button[] b = new Button[button_number];
-	//increment this global button count throughout the recursive method
-	//to make sure we don't go over button_number and get a null pointer exception
+	
+	/**
+	 * The recursive definitions in this code are fairly fragile. If the following
+	 * button_count is not incremented, and if the programmer fails to check that 
+	 * the button count is equal to the button number, there will surely be an over
+	 * flow exception error. If that is the case, this may be a good place to check.
+	 */
 	private int button_count = 0;
 	
 	private String id = "";
