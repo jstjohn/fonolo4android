@@ -55,6 +55,8 @@ public class call extends Activity implements OnClickListener, private_constants
 		
 		View call_button = this.findViewById(R.id.place_call);
         call_button.setOnClickListener(this);
+        View help_button = this.findViewById(R.id.help_button);
+        help_button.setOnClickListener(this);
 		
 	    outMessage = "Company Name: "+company_name+"\n";
 		outMessage += "Destination: "+node_name+"\n";
@@ -129,7 +131,17 @@ public class call extends Activity implements OnClickListener, private_constants
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-			
+		case R.id.help_button:
+			String outmessage = "You need the 10 digit phone number that was added to your account on the fonolo website. " +
+        			"The correct format should be:" +
+        			"\n555 555 5555 (but no spaces).";
+			Intent j = new Intent(this, help.class); 
+			String help_message = outmessage;
+			Bundle extras = new Bundle();
+        	extras.putString("content", help_message);
+        	j.putExtras(extras);
+        	startActivity(j);
+        	break;
 		}
 		
 	}

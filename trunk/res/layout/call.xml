@@ -8,12 +8,12 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 >
 <Button
 android:id="@+id/place_call"
-android:layout_width="fill_parent"
+android:layout_width="200px"
 android:layout_height="wrap_content"
 android:text="Place Call"
 android:textStyle="bold"
 android:layout_alignParentBottom="true"
-android:layout_alignParentLeft="true"
+android:layout_alignParentRight="true"
 >
 </Button>
 <EditText
@@ -43,8 +43,19 @@ android:layout_height="wrap_content"
 android:text="Enter Your Phone Number"
 android:textStyle="bold"
 android:textColor="#ff000000"
-android:layout_above="@+id/my_phone_number"
+android:layout_alignBottom="@+id/output"
 android:layout_alignParentLeft="true"
 >
 </TextView>
+<Button
+android:id="@+id/help_button"
+android:layout_width="120px"
+android:layout_height="wrap_content"
+android:text="Help"
+android:textStyle="bold"
+android:textColor="#ffcc0033"
+android:layout_alignParentBottom="true"
+android:layout_alignParentLeft="true"
+>
+</Button>
 </RelativeLayout>
