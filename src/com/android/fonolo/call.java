@@ -60,16 +60,20 @@ public class call extends Activity implements OnClickListener, private_constants
 		switch (v.getId()){
 		case R.id.place_call:
 			String raw_phone = phone.getText().toString();
-			String first3 = "";
-			String next3 = "";
-			String final4 = "";
+			raw_phone = raw_phone.replaceAll("-", "");
+			raw_phone = raw_phone.replaceAll("(", "");
+			raw_phone = raw_phone.replaceAll(")", "");
+			raw_phone = raw_phone.replaceAll(" ", "");
+			String first3 = "XXX";
+			String next3 = "XXX";
+			String final4 = "XXXX";
 
 			if(raw_phone.length() == 11){
 				first3 = raw_phone.substring(1,4);
 				next3 = raw_phone.substring(4,7);
 				final4 = raw_phone.substring(7,11);
 			}
-			else{
+			else if (raw_phone.length() == 10){
 				first3 = raw_phone.substring(0,3);
 				next3 = raw_phone.substring(3,6);
 				final4 = raw_phone.substring(6,10);
@@ -88,7 +92,7 @@ public class call extends Activity implements OnClickListener, private_constants
 					}					
 					
 					else{
-						outMessage += "\nMember phone number invalid: "+first3+"-"+next3+"-"+final4;
+						outMessage += "\nMember phone number invalid: "+raw_phone;
 						outMessage += "\nPlease enter the same 10 digit phone number on your fonolo account. ";
 						outMessage += "The correct format should be 555 555 5555 (but no spaces). Please enter your correct number and try again.";
 						output.setText(outMessage);
