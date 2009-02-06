@@ -16,6 +16,7 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 	TextView user;
 	TextView pass;
 	TextView help_content;
+	//TextView message;
 	//Button go, help;
 	
     /** Called when the activity is first created. */
@@ -28,6 +29,7 @@ public class fonolo4android extends Activity implements private_constants, OnCli
         output = (TextView)this.findViewById(R.id.output);
         user = (TextView)this.findViewById(R.id.user_field);
         pass = (TextView)this.findViewById(R.id.pass_field);
+//        message = (TextView)this.findViewById(R.id.message_content);
 //        go = (Button)this.findViewById(R.id.go_button);        
 //        go.setOnClickListener(this);
 //        help = (Button)this.findViewById(R.id.help_button);
@@ -45,8 +47,15 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 	    		String passwd = pass.getText().toString();
 	    		int code = 0;
 	    		
-		        if((uname.equals(""))||(passwd.equals(""))){
-		        	output.setText("Please input a valid username and password.");		        	
+		        if((uname.equals(""))||(passwd.equals(""))){		        	
+		        	//output.setText("Please input a valid username and password.");
+		        	//message.setText("Please input a valid username and password.");
+		        	Intent i = new Intent(this, message.class);
+		        	String message = "Please input a valid username and password";
+		        	Bundle extras = new Bundle();
+		        	extras.putString("message", message);
+		        	i.putExtras(extras);
+		        	startActivity(i);
 		        }
 		        else{
 			        JSONObject json_result;
@@ -70,7 +79,7 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 					}
 	
 					//gets user to the main screen
-			        output.setText(result);
+			        //output.setText(result);
 			        if(code >= 200 && code <= 299){
 			        	Intent i = new Intent(this, home.class);
 			        	Bundle extras = new Bundle();
@@ -78,6 +87,14 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 			        	extras.putString("pass", passwd);		        	
 			    		i.putExtras(extras);
 			    		startActivity(i);
+			        }
+			        else{
+			        	Intent i = new Intent(this, message.class);
+			        	String message = result;
+			        	Bundle extras = new Bundle();
+			        	extras.putString("message", message);
+			        	i.putExtras(extras);
+			        	startActivity(i);
 			        }
 		        }
 		        break;
