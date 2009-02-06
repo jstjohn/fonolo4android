@@ -11,6 +11,12 @@ import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TextView;
 
+/**
+ * 
+ * @author Abdul Binrasheed, Craig Gardner, John St. John
+ * Last edited February 2009
+ *
+ */
 //edit class to reflect UI
 public class company extends Activity implements Button.OnClickListener, private_constants {
 	
@@ -82,7 +88,15 @@ public class company extends Activity implements Button.OnClickListener, private
 		
     }
     
-    
+    /**
+     * 
+     * @param me - the current node to be analyzed, the method is called recursively
+     * 				on children and siblings. 
+     * @param tabbing - the amount of indenting that this node should have. When
+     * 				making a child node, increase the indenting, other sister nodes
+     * 				should just get the same indenting. The first node should start
+     * 				with the value zero.
+     */
     private void make_button(Node me, int tabbing){
 	    	//tells you the name of this node in the tree
 			String node_name = me.getTitle();
