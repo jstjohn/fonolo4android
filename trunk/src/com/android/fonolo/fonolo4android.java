@@ -2,13 +2,11 @@ package com.android.fonolo;
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-//import android.widget.Button;
 import android.widget.TextView;
 
 public class fonolo4android extends Activity implements private_constants, OnClickListener {
@@ -49,8 +47,6 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 	    		int code = 0;
 	    		
 		        if((uname.equals(""))||(passwd.equals(""))){		        	
-		        	//output.setText("Please input a valid username and password.");
-		        	//message.setText("Please input a valid username and password.");
 		        	Intent i = new Intent(this, message.class);
 		        	String message = "Please input a valid username and password";
 		        	Bundle extras = new Bundle();
