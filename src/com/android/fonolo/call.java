@@ -131,6 +131,7 @@ public class call extends Activity implements OnClickListener, private_constants
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
+				break;
 		case R.id.help_button:
 			String outmessage = "You need the 10 digit phone number that was added to your account on the fonolo website. " +
         			"The correct format should be:" +
