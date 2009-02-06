@@ -39,12 +39,6 @@ public class list extends Activity implements Button.OnClickListener, private_co
 		passwd = extras.getString("pass");
 		//end copy---------------------------------------
 		
-//		Button test = new Button(this);
-//		test.setText("Check JSON String");
-//		test.setOnClickListener(this);
-//		test.setId(999);
-//		test.setTag("hello");
-//		tl.addView(test);
 		
 		int method = extras.getInt("method");
 		if(method == SEARCH_METHOD){
@@ -75,17 +69,6 @@ public class list extends Activity implements Button.OnClickListener, private_co
 			        b[j].setOnClickListener(this);
 			        tl.addView(b[j]);
 				}
-				//////////////////////////////////
-				// TEST CODE, REMOVE!!!
-				//////////////////////////////////
-				//Note that the phone number must be the USER's phone number and match one in their fonolo record
-//				JSONObject call_stat = communication.call_start("bc40d2fa90d9746a581d9568f3784b29", "000-000-000", uname, passwd);
-//				outputres += "\n\n\n\nCall Request:\n";
-//				outputres += call_stat.toString();
-				
-				//////////////////////////////////
-				// End test code
-				//////////////////////////////////
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -105,8 +88,6 @@ public class list extends Activity implements Button.OnClickListener, private_co
 		Intent s = new Intent(this, company.class);
 		out_extras.putString("company_name", company_name);
 		out_extras.putString("id", id);
-		//out_extras.putString("id", "hello");
-		//out_extras.putString("json",json_temp_string);
 		s.putExtras(out_extras);
 		startActivity(s);
 		// TODO Auto-generated method stub		
