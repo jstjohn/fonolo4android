@@ -1,19 +1,25 @@
-
-
-
-
 package com.android.fonolo;
-
-import java.util.regex.Pattern;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+/**
+ * 
+ * @author Craig Gardner, John St. John, Abdul Binrasheed
+ * Last Update February 2009
+ * 
+ * This is the class associated with our call page. It contains all the
+ * logic associated with that page including placing a call when the button
+ * is pushed etc. It also displays some information about the company and
+ * node within that company the call is about to be placed to.
+ *
+ */
 //edit class to reflect UI
 public class call extends Activity implements OnClickListener, private_constants {
 	
@@ -88,16 +94,29 @@ public class call extends Activity implements OnClickListener, private_constants
 					if(response_code >= 200 && response_code < 300){
 						outMessage += "\nMember phone number valid: "+first3+"-"+next3+"-"+final4;
 						output.setText(outMessage);
-						JSONObject call_result = communication.call_start(id, first3+"-"+next3+"-"+final4, uname, passwd);
-						outMessage += "\n"+call_result.getJSONObject("result").getJSONObject("head").getString("response_message");
-						output.setText(outMessage);
+						//JSONObject call_result = communication.call_start(id, first3+"-"+next3+"-"+final4, uname, passwd);
+						String outsuccess = "test";//call_result.getJSONObject("result").getJSONObject("head").getString("response_message");
+						outsuccess += "\n\nPlease wait for the call from Fonolo";
+						
+						Intent i = new Intent(this, message.class);
+			        	String message = outsuccess;
+			        	Bundle extras = new Bundle();
+			        	extras.putString("message", message);
+			        	i.putExtras(extras);
+			        	startActivity(i);
 					}					
 					
 					else{
-						outMessage += "\nMember phone number invalid: "+raw_phone;
-						outMessage += "\nPlease enter the same 10 digit phone number on your fonolo account. ";
-						outMessage += "The correct format should be 555 555 5555 (but no spaces). Please enter your correct number and try again.";
-						output.setText(outMessage);
+						String outerror = "Member phone number invalid: "+raw_phone;
+						outerror += "\nPlease enter the same 10 digit phone number on your fonolo account. ";
+						outerror += "The correct format should be 555 555 5555 (but no spaces). Please enter your correct number and try again.";
+						Intent i = new Intent(this, message.class);
+			        	String message = outerror;
+			        	Bundle extras = new Bundle();
+			        	extras.putString("message", message);
+			        	i.putExtras(extras);
+			        	startActivity(i);
+						
 					}
 					
 				} catch (JSONException e) {
