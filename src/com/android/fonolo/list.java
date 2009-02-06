@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 
+// making a comment so I can commit version 100!
 //edit class to reflect UI
 public class list extends Activity implements Button.OnClickListener, private_constants{
 	
