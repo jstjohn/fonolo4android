@@ -94,9 +94,15 @@ public class call extends Activity implements OnClickListener, private_constants
 					if(response_code >= 200 && response_code < 300){
 						outMessage += "\nMember phone number valid: "+first3+"-"+next3+"-"+final4;
 						output.setText(outMessage);
-						//JSONObject call_result = communication.call_start(id, first3+"-"+next3+"-"+final4, uname, passwd);
-						String outsuccess = "test";//call_result.getJSONObject("result").getJSONObject("head").getString("response_message");
-						outsuccess += "\n\nPlease wait for the call from Fonolo";
+						JSONObject call_result = communication.call_start(id, first3+"-"+next3+"-"+final4, uname, passwd);
+						int call_code = call_result.getJSONObject("result").getJSONObject("head").getInt("response_code");
+						String outsuccess = call_result.getJSONObject("result").getJSONObject("head").getString("response_message");
+						
+						if(call_code >= 200 && call_code < 300){
+							outsuccess += "\n\nPlease wait for the call from Fonolo";
+						}else{
+							outsuccess += "\n\nAn error occured, this node may be unavailable. Please try your call again later or try a different node in the tree";
+						}
 						
 						Intent i = new Intent(this, message.class);
 			        	String message = outsuccess;
