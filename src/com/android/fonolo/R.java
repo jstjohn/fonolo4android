@@ -27,6 +27,7 @@ public final class R {
         public static final int list_screen=0x7f050012;
         public static final int list_scroll=0x7f050013;
         public static final int login_screen=0x7f050016;
+        public static final int message_content=0x7f05001a;
         public static final int my_phone_number=0x7f050002;
         public static final int new_search_button=0x7f050015;
         public static final int output=0x7f050003;
@@ -48,6 +49,7 @@ public final class R {
         public static final int home=0x7f030003;
         public static final int list=0x7f030004;
         public static final int main=0x7f030005;
+        public static final int message=0x7f030006;
     }
     public static final class string {
         public static final int app_name=0x7f040001;
@@ -56,6 +58,7 @@ public final class R {
         public static final int hello=0x7f040000;
         public static final int help_name=0x7f040002;
         public static final int list_name=0x7f040004;
+        public static final int message_name=0x7f040007;
         public static final int search_name=0x7f040003;
     }
 }
