@@ -4,6 +4,8 @@
 
 package com.android.fonolo;
 
+import java.util.regex.Pattern;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
@@ -60,10 +62,10 @@ public class call extends Activity implements OnClickListener, private_constants
 		switch (v.getId()){
 		case R.id.place_call:
 			String raw_phone = phone.getText().toString();
-			raw_phone = raw_phone.replaceAll("-", "");
-			raw_phone = raw_phone.replaceAll("(", "");
-			raw_phone = raw_phone.replaceAll(")", "");
-			raw_phone = raw_phone.replaceAll(" ", "");
+			
+			// the following regular expression strips out
+			// everything that isn't a digit in the person's text field
+			raw_phone = raw_phone.replaceAll("\\D", "");
 			String first3 = "XXX";
 			String next3 = "XXX";
 			String final4 = "XXXX";
