@@ -9,6 +9,16 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+/**
+ * 
+ * @author Craig Gardner, John St. John, Abdul Binrasheed
+ * Last updated February 2009
+ * 
+ * This is the code associated with the logic of the login page of our project.
+ * This page is displayed until the user enters a successful fonolo username
+ * and password.
+ *
+ */
 public class fonolo4android extends Activity implements private_constants, OnClickListener {
 	TextView output;
 	TextView user;
