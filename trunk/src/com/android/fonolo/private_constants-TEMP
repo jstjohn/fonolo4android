@@ -1,5 +1,16 @@
 package com.android.fonolo;
 
+
+/**
+ * 
+ * @author John St. John
+ * Last updated February 2009
+ * 
+ * This class holds some private constants that we need to give global access to
+ * within our program.
+ *
+ *
+ */
 public interface private_constants {
 	//Provided by fonolo for THIS program. When distributing this file please
 	//delete the value below
