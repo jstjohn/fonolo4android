@@ -11,9 +11,10 @@ import org.json.JSONObject;
  * @author Abdul Binrasheed, John St. John
  * Last update February 2009
  * 
+ * This class holds the logic for parsing through the company search results,
+ * and company information results and returns output that is easy to use
+ * in subsequent steps. 
  * 
- * 
- *
  */
 public class parse {
 	
