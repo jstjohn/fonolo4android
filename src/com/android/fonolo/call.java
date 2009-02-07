@@ -103,7 +103,7 @@ public class call extends Activity implements OnClickListener, private_constants
 						if(call_code >= 200 && call_code < 300){
 							outsuccess += "\n\nPlease wait for the call from Fonolo.";
 						}else{
-							outsuccess += "\n\nAn error occured, this node may be unavailable. Please try your call again later or try a different node in the tree.";
+							outsuccess += "\n\nAn error occured, this node may be unavailable. Please try your call again later or try a different node in the menu.";
 						}
 						
 						Intent i = new Intent(this, message.class);
