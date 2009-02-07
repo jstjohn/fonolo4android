@@ -3,6 +3,20 @@ package com.android.fonolo;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+/**
+ * 
+ * @author Abdul Binrasheed
+ * Last update February 2009
+ * 
+ * The communication class has methods that represent every method in the fonolo
+ * API. The communication class works by sending the method requests through to 
+ * fonolo_library.java which communicates with the fonolo server and sends the 
+ * results back to this class. This class then takes the JSON response which is 
+ * in string format and parses it into a JSONObject which is what gets returned.
+ * JSONObjects provide a very clean and quick way to get information out of JSON
+ * strings.
+ *
+ */
 public class communication {
 
 		//make it into a JSONObject
