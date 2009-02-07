@@ -17,7 +17,10 @@ import android.widget.TableLayout;
  * @author Craig Gardner, John St. John, Abdul Binrasheed
  * Last updated February 2009
  * 
- * This class handles the logic for listing company information. 
+ * This class handles the logic for listing company list page. It
+ * utilizes an array of buttons to hold dynamic buttons for the 
+ * company names. It then passes along the necessary information 
+ * to company.java to list the contents of the company.
  *
  */
 //edit class to reflect UI
