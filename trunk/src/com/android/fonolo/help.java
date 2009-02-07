@@ -4,6 +4,14 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.widget.TextView;
 
+/**
+ * 
+ * @author Craig Gardner
+ * Last updated February 2009
+ * 
+ * ***Add description here***
+ *
+ */
 public class help extends Activity{
 	TextView help_content;
 	String content;

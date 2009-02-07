@@ -7,6 +7,14 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
 
+/**
+ * 
+ * @author Craig Gardner
+ * Last updated February 2009
+ * 
+ * ***Add description here***
+ *
+ */
 public class home extends Activity implements OnClickListener, private_constants{
 	TextView output;
 	TextView search_text;
