@@ -12,6 +12,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 
+/**
+ * 
+ * @author Craig Gardner, John St. John, Abdul Binrasheed
+ * Last updated February 2009
+ * 
+ * This class handles the logic for listing company information. 
+ *
+ */
 //edit class to reflect UI
 public class list extends Activity implements Button.OnClickListener, private_constants{
 	
