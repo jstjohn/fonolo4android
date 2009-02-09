@@ -50,13 +50,24 @@ android:layout_alignParentLeft="true"
 </Button>
 -->
 <Button
-android:id="@+id/home_button"
-android:layout_width="fill_parent"
+android:id="@+id/new_search_button"
+android:layout_width="320px"
 android:layout_height="wrap_content"
-android:text="Home"
+android:text="New Search"
 android:textStyle="bold"
 android:layout_alignParentBottom="true"
 android:layout_alignParentRight="true"
+>
+</Button>
+<Button
+android:id="@+id/help_button"
+android:layout_width="160px"
+android:layout_height="wrap_content"
+android:text="Help"
+android:textStyle="bold"
+android:textColor="#ffcc0033"
+android:layout_alignParentBottom="true"
+android:layout_alignParentLeft="true"
 >
 </Button>
 <ScrollView
