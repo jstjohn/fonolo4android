@@ -6,6 +6,15 @@ android:layout_height="fill_parent"
 android:background="#ff3399ff"
 xmlns:android="http://schemas.android.com/apk/res/android"
 >
+<!--
+ *************************
+ * @author Craig Gardner
+ * Last Update February 2009
+ * 
+ * This is the xml associated with our call page. It contains the landscape layout
+ * information for the call page, button placement, and text field information.
+ *************************
+-->
 <Button
 android:id="@+id/place_call"
 android:layout_width="320px"

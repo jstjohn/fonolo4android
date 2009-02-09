@@ -6,6 +6,15 @@ android:layout_height="fill_parent"
 android:background="#ff3399ff"
 xmlns:android="http://schemas.android.com/apk/res/android"
 >
+<!--
+ *************************
+ * @author Craig Gardner
+ * Last Update February 2009
+ * 
+ * This is the xml associated with our list page. It contains the portrait layout 
+ * information for the list page, button placement, and text field information.
+ *************************
+-->
 <ScrollView
 android:id="@+id/list_scroll"
 android:layout_width="fill_parent"

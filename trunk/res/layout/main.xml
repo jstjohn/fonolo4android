@@ -6,6 +6,15 @@ android:layout_height="fill_parent"
 android:background="#ff3399ff"
 xmlns:android="http://schemas.android.com/apk/res/android"
 >
+<!--
+ *************************
+ * @author Craig Gardner
+ * Last Update February 2009
+ * 
+ * This is the xml associated with our main page. It contains the portrait layout 
+ * information for the main page, button placement, and text field information.
+ *************************
+-->
 <EditText
 android:id="@+id/user_field"
 android:layout_width="299px"

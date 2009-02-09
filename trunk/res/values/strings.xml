@@ -1,4 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--
+ *************************
+ * @author Craig Gardner
+ * Last Update February 2009
+ * 
+ * This is the xml associated with our strings page. It contains the title information
+ * for each page in our program.
+ *************************
+-->
 <resources>
     <string name="app_name">fonolo 4 Android</string>
     <string name="help_name">Help</string>

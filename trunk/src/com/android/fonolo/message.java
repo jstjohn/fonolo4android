@@ -9,7 +9,9 @@ import android.widget.TextView;
  * @author Craig Gardner
  * Last updated February 2009
  * 
- * ***Add description here***
+ * This is the java class for our message page used for error messages.
+ * An error message will be bundled in one class and passed to this class
+ * for display.
  *
  */
 public class message extends Activity{
@@ -21,10 +23,10 @@ public class message extends Activity{
 		setContentView(R.layout.message);
 		
 		message_content = (TextView)this.findViewById(R.id.message_content);
-		
+		//getting bundled content
 		Bundle extras = getIntent().getExtras();
 		message = extras.getString("message");
-		
+		//displaying bundled content
 		message_content.setText(message);		
 	}
 }

@@ -41,7 +41,6 @@ public class list extends Activity implements Button.OnClickListener, private_co
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.list);  
-        //TextView output = (TextView)this.findViewById(R.id.output);
         TableLayout tl = (TableLayout)findViewById(R.id.table_buttons);
         
         //copy into all classes--------------------------
@@ -60,7 +59,7 @@ public class list extends Activity implements Button.OnClickListener, private_co
 				LinkedList<String[]> list = parse.parse_comp_search(result);
 				json_temp_string = result.toString();
 				
-				//limit the size to button_number
+				//limit the size to button_number effectively limiting buttons to 30
 				int size = 0;
 				if (list.size() > button_number){
 					size = button_number;
@@ -75,7 +74,6 @@ public class list extends Activity implements Button.OnClickListener, private_co
 					// the 0 position in the result is name, the 1 position is company id
 			        b[j].setText(temp[0]); 
 			        b[j].setTag(temp[1]);
-			        //b[j].setWidth(220);
 			        b[j].setId(j);
 			        b[j].setOnClickListener(this);
 			        tl.addView(b[j]);
@@ -101,6 +99,5 @@ public class list extends Activity implements Button.OnClickListener, private_co
 		out_extras.putString("id", id);
 		s.putExtras(out_extras);
 		startActivity(s);
-		// TODO Auto-generated method stub		
 	}
 }

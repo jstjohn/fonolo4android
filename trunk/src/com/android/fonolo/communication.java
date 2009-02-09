@@ -20,7 +20,7 @@ import org.json.JSONObject;
 
 public class communication {
 
-		/*
+		/**
 		 * Check member is the function which takes the user name and the password and check if the
 		 * account is exist and activated. 
 		 * The function takes the username and the password as strings, and store them into a
@@ -39,7 +39,7 @@ public class communication {
 		} 
 		// End check member info function
 
-		/*
+		/**
 		 * Check member number is the function which takes the user name, the password and the
 		 * member phone number, and check if the phone number is the one store under the user account.
 		 * The function takes the username, the password and the phone number as strings, and store 
@@ -66,7 +66,7 @@ public class communication {
 		
 		// company search results
 
-		/*
+		/**
 		 * Company search is the function which takes a search word, the user name and the password. 
 		 * The function takes the the search word, the username, the password as strings, and store 
 		 * the search word in a single element string array, and pass the username and the password as 
@@ -88,7 +88,7 @@ public class communication {
 
 		//
 		// lookup a company 
-		/*
+		/**
 		 * Company_details is the function which takes the company id, the user name and the password. 
 		 * The function takes the the company id, the username, the password as strings, and store 
 		 * the company id in a single element string array, and pass the username and the password as 
@@ -108,7 +108,7 @@ public class communication {
 		}
 		// End company lookup function
 		
-		/* ""This function is currently not in use, but it's going to be used in the next copy of the software"" 
+		/** ""This function is currently not in use, but it's going to be used in the next copy of the software"" 
 		
 		 * Company list is the function that list all the companies that stored in the fonolo DB.
 		 * this function takes the "limit number" which is the number of companies that you want to display 
@@ -133,7 +133,7 @@ public class communication {
 		} 
 		
 		
-		/*
+		/**
 		 * Call start is the function which takes the user name, the password, the user phone number,
 		 * and the node id which is the id that has the direct to get to the option from the phone tree.
 		 * The function takes the node id and the user phone id as strings, and store them into a
@@ -150,7 +150,7 @@ public class communication {
 			return make_json(json);
 		}
 		
-		/*
+		/**
 		 * Call Cancel is the function which takes the user name, the password, and the session id which
 		 * is the id that can be found in the respond  from call start request.
 		 * The function takes the session id and store it in a single element string array. 
@@ -166,7 +166,7 @@ public class communication {
 		}
 		
 
-		/*
+		/**
 		 * Call status is the function which takes the user name, the password, and the session id which
 		 * is the id that can be found in the respond  from call start request.
 		 * The function takes the session id and store it in a single element string array. 

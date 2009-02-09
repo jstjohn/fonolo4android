@@ -117,7 +117,7 @@ public class call extends Activity implements OnClickListener, private_constants
 					else{
 						String outerror = "Member phone number invalid: "+raw_phone;
 						outerror += "\nPlease enter the same 10 digit phone number on your fonolo account. ";
-						outerror += "The correct format should be 555 555 5555 (but no spaces). Please enter your correct number and try again.";
+						outerror += "The correct format should be 555 555 5555 (without spaces). Please enter your correct number and try again.";
 						Intent i = new Intent(this, message.class);
 			        	String message = outerror;
 			        	Bundle extras = new Bundle();
@@ -135,7 +135,7 @@ public class call extends Activity implements OnClickListener, private_constants
 		case R.id.help_button:
 			String outmessage = "You need the 10 digit phone number that was added to your account on the fonolo website. " +
         			"The correct format should be:" +
-        			"\n555 555 5555 (but no spaces).";
+        			"\n555 555 5555 (without spaces).";
 			Intent j = new Intent(this, help.class); 
 			String help_message = outmessage;
 			Bundle extras = new Bundle();

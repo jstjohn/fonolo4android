@@ -12,7 +12,10 @@ import android.widget.TextView;
  * @author Craig Gardner
  * Last updated February 2009
  * 
- * ***Add description here***
+ * This is the java class associated with the home page of the program.
+ * This class will do a check on the username and password passed in from 
+ * the previous class, and pass those data points on to subsequent classes 
+ * (as in the bundle extras command) when the user inputs a search.
  *
  */
 public class home extends Activity implements OnClickListener, private_constants{
@@ -38,21 +41,23 @@ public class home extends Activity implements OnClickListener, private_constants
 		search_button.setOnClickListener(this);
 		
 		//copy into all classes into onCreate()----------
+		//each method will retrieve user/pass
 		Bundle extras = getIntent().getExtras();
 		uname = extras.getString("user");
 		passwd = extras.getString("pass");
 		//end copy---------------------------------------
 	}
-
+	//Button click handling
 	public void onClick(View v) {        
-		
+		//sending data to the next class
 		Bundle out_extras = new Bundle();		
 		out_extras.putString("user", uname);
 		out_extras.putString("pass", passwd);
 		
-		switch (v.getId()){
+		switch (v.getId()){		
 		case R.id.help_button:
 			Intent i = new Intent(this, help.class);
+			//Help message passed to the help page
         	String help_message = "This is the search screen. Here you will input a search for a company." +
         			" Only the first 30 results will be displayed. If you don't find the company you " +
         			"searched for please refine your search.";
@@ -64,7 +69,6 @@ public class home extends Activity implements OnClickListener, private_constants
         	
 		case R.id.search_button:
 			if(search_text.getText().toString().equals("")){
-				//output.setText("Please search for something");
 				Intent j = new Intent(this, message.class);
 	        	String message = "Please input search";
 	        	Bundle extras1 = new Bundle();
@@ -81,6 +85,7 @@ public class home extends Activity implements OnClickListener, private_constants
 				startActivity(s);
 				break;
 			}
+			//more buttons time permitting.
 /*		case R.id.list_all_button:
 			Intent l = new Intent(this, list.class);
 			out_extras.putInt("method", LIST_METHOD);
@@ -93,7 +98,7 @@ public class home extends Activity implements OnClickListener, private_constants
 			f.putExtras(out_extras);
 			startActivity(f);
 			break;*/
-		//more buttons
+		
 		}		
 	}
 }
