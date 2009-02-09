@@ -34,7 +34,7 @@ public class home extends Activity implements OnClickListener, private_constants
  		
 		output = (TextView)this.findViewById(R.id.output);
 		search_text = (TextView)this.findViewById(R.id.search_box);
-		
+		// Define the Buttons, and setup the listener on them.
 		View help_button = this.findViewById(R.id.help_button);
 		help_button.setOnClickListener(this);
 		View search_button = this.findViewById(R.id.search_button);
@@ -54,8 +54,8 @@ public class home extends Activity implements OnClickListener, private_constants
 		out_extras.putString("user", uname);
 		out_extras.putString("pass", passwd);
 		
-		switch (v.getId()){		
-		case R.id.help_button:
+		switch (v.getId()){	//checking the case of which button is pressed.	
+		case R.id.help_button:// case of pressing the help button.
 			Intent i = new Intent(this, help.class);
 			//Help message passed to the help page
         	String help_message = "This is the search screen. Here you will input a search for a company." +
@@ -67,7 +67,8 @@ public class home extends Activity implements OnClickListener, private_constants
         	startActivity(i);
         	break;
         	
-		case R.id.search_button:
+		case R.id.search_button:// case of pressing the search button.
+			// check if the text view is empty, and show error message if so.
 			if(search_text.getText().toString().equals("")){
 				Intent j = new Intent(this, message.class);
 	        	String message = "Please input search";
@@ -77,6 +78,7 @@ public class home extends Activity implements OnClickListener, private_constants
 	        	startActivity(j);
 				break;
 			}
+			// if the text view is not empty, then copy the content and pass it to list.class.
 			else{
 				Intent s = new Intent(this, list.class);
 				out_extras.putInt("method", SEARCH_METHOD);
