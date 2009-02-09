@@ -14,7 +14,7 @@ import android.widget.TextView;
  * @author Craig Gardner, John St. John, Abdul Binrasheed
  * Last Update February 2009
  * 
- * This is the class associated with our call page. It contains all the
+ * This is the class  associated with our call page. It contains all the
  * logic associated with that page including placing a call when the button
  * is pushed etc. It also displays some information about the company and
  * node within that company the call is about to be placed to.
