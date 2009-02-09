@@ -136,9 +136,11 @@ public class call extends Activity implements OnClickListener, private_constants
 				}
 				break;
 		case R.id.help_button:// show the help window if the pressed button is help. 
-			String outmessage = "You need the 10 digit phone number that was added to your account on the fonolo website. " +
-        			"The correct format should be:" +
-        			"\n555 555 5555 (but no spaces).";
+			String outmessage = "This is the call screen. You need the 10 digit phone number that " +
+					"was added to your account on the fonolo website. The correct format should be:" +
+        			"\n555 555 5555 (without spaces). " +
+        			"Input your phone number into the space provided and wait for a call from fonolo. " +
+        			"the call originates from 1(123) 123-1234";
 			Intent j = new Intent(this, help.class); 
 			String help_message = outmessage;
 			Bundle extras = new Bundle();
