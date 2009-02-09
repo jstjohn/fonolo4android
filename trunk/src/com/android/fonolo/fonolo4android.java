@@ -105,7 +105,7 @@ public class fonolo4android extends Activity implements private_constants, OnCli
     		case R.id.help_button:// lunch the help window if the button was pressed is help.
     			Intent i = new Intent(this, help.class);
             	String help_message = "On this screen you will input your username and password " +
-            			"that you set up on the fonolo website(www.fonolo.com)";
+            			"that you set up on the fonolo website (www.fonolo.com)";
             	Bundle extras = new Bundle();
             	extras.putString("content", help_message);
             	i.putExtras(extras);

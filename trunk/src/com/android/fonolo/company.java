@@ -53,9 +53,6 @@ public class company extends Activity implements Button.OnClickListener, private
 	//end copy------------------------------------------
 	TextView output;
 	TextView company_name;
-	//ScrollView tl;
-	//RelativeLayout tl;
-	//AbsoluteLayout tl;
 	TableLayout tl;
 	
 	 /** Called when the activity is first created. */
@@ -63,12 +60,14 @@ public class company extends Activity implements Button.OnClickListener, private
 	public void onCreate(Bundle savedInstanceState){
     	super.onCreate(savedInstanceState);
     	setContentView(R.layout.company);
+    	View new_search_button = this.findViewById(R.id.new_search_button);
+    	new_search_button.setOnClickListener(this);
+    	new_search_button.setId(611);
+    	View help_button = this.findViewById(R.id.help_button);
+    	help_button.setOnClickListener(this);
+    	help_button.setId(411);
     	
     	tl = (TableLayout)findViewById(R.id.tab_buttons);
-    	//Alternative attempts:
-    	//tl = (AbsoluteLayout)findViewById(R.id.tab_buttons);
-    	//tl = (RelativeLayout)findViewById(R.id.tab_buttons);
-    	//tl = (ScrollView)findViewById(R.id.company_scroll);
     	
     	// store the data from the UI into the variables.
     	output = (TextView)this.findViewById(R.id.output);
@@ -188,23 +187,45 @@ public class company extends Activity implements Button.OnClickListener, private
 	public void onClick(View v) {
 		int i = v.getId();
 		Bundle out_extras = new Bundle();
-		
-		/**
-		 * The button tag currently holds a string array with 2 values
-		 * The first value is the name of the node to be called and the
-		 * second value is the id of the node.
-		 */
-		String[] info = (String[])b[i].getTag();
-		String id = info[1];
-		String node_name = info[0];
-		out_extras.putString("user", uname);
-		out_extras.putString("pass", passwd);
-		Intent s = new Intent(this, call.class);
-		out_extras.putString("node_name", node_name);
-		out_extras.putString("company_name", company_name.getText().toString());
-		out_extras.putString("id", id);
-		s.putExtras(out_extras);
-		startActivity(s);		
+		//if user wants to refine search
+		if(i == 611){
+			out_extras.putString("user", uname);
+			out_extras.putString("pass", passwd);
+			Intent h = new Intent(this, home.class);
+			h.putExtras(out_extras);
+			startActivity(h);
+		}
+		else if(i == 411){
+			String outmessage = "This is the tree listing. Here you will notice different characters. " +
+					"The --| is the depth of the phone tree. The *** represents an agent (or human)\n" +
+					"Example:\n--|--| Other inquiries***\n represents tree depth level 2 speaking to an agent. " +
+					"Other inquiries is the title of the directory. ";
+			Intent j = new Intent(this, help.class); 
+			String help_message = outmessage;
+			Bundle extras = new Bundle();
+			extras.putString("content", help_message);
+			j.putExtras(extras);
+			startActivity(j);
+		}
+		//else go to make call page
+		else{			
+			/**
+			 * The button tag currently holds a string array with 2 values
+			 * The first value is the name of the node to be called and the
+			 * second value is the id of the node.
+			 */
+			String[] info = (String[])b[i].getTag();
+			String id = info[1];
+			String node_name = info[0];
+			out_extras.putString("user", uname);
+			out_extras.putString("pass", passwd);
+			Intent s = new Intent(this, call.class);
+			out_extras.putString("node_name", node_name);
+			out_extras.putString("company_name", company_name.getText().toString());
+			out_extras.putString("id", id);
+			s.putExtras(out_extras);
+			startActivity(s);	
+		}
 	}
     
 }
