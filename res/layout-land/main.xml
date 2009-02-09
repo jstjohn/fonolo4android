@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<AbsoluteLayout
-android:id="@+id/login_screen"
+<RelativeLayout
+android:id="@+id/widget45"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
 android:background="#ff3399ff"
@@ -11,19 +11,10 @@ xmlns:android="http://schemas.android.com/apk/res/android"
  * @author Craig Gardner
  * Last Update February 2009
  * 
- * This is the xml associated with our main page. It contains the landscape layout 
+ * This is the xml associated with our main page. It contains the portrait layout 
  * information for the main page, button placement, and text field information.
  *************************
 -->
-<EditText
-android:id="@+id/user_field"
-android:layout_width="383px"
-android:layout_height="wrap_content"
-android:textSize="18sp"
-android:layout_x="10px"
-android:layout_y="32px"
->
-</EditText>
 <TextView
 android:id="@+id/TextView_user"
 android:layout_width="wrap_content"
@@ -31,10 +22,19 @@ android:layout_height="wrap_content"
 android:text="User Name"
 android:textStyle="bold"
 android:textColor="#ff000033"
-android:layout_x="10px"
-android:layout_y="12px"
+android:layout_alignParentTop="true"
+android:layout_alignParentLeft="true"
 >
 </TextView>
+<EditText
+android:id="@+id/user_field"
+android:layout_width="fill_parent"
+android:layout_height="wrap_content"
+android:textSize="18sp"
+android:layout_below="@+id/TextView_user"
+android:layout_alignParentLeft="true"
+>
+</EditText>
 <TextView
 android:id="@+id/TextView_password"
 android:layout_width="wrap_content"
@@ -42,18 +42,18 @@ android:layout_height="wrap_content"
 android:text="Password"
 android:textStyle="bold"
 android:textColor="#ff000033"
-android:layout_x="10px"
-android:layout_y="92px"
+android:layout_below="@+id/user_field"
+android:layout_alignParentLeft="true"
 >
 </TextView>
 <EditText
 android:id="@+id/pass_field"
-android:layout_width="385px"
+android:layout_width="fill_parent"
 android:layout_height="wrap_content"
 android:textSize="18sp"
 android:password="true"
-android:layout_x="10px"
-android:layout_y="112px"
+android:layout_below="@+id/TextView_password"
+android:layout_alignParentLeft="true"
 >
 </EditText>
 <Button
@@ -64,29 +64,28 @@ android:text="Go!"
 android:textSize="20px"
 android:textStyle="bold"
 android:textColor="#ff000033"
-android:layout_x="400px"
-android:layout_y="62px"
+android:layout_below="@+id/pass_field"
+android:layout_centerHorizontal="true"
 >
 </Button>
 <TextView
 android:id="@+id/output"
-android:layout_width="459px"
+android:layout_width="fill_parent"
 android:layout_height="wrap_content"
-android:text=""
 android:textColor="#ffcc0000"
-android:layout_x="10px"
-android:layout_y="172px"
+android:layout_alignParentBottom="true"
+android:layout_alignParentLeft="true"
 >
 </TextView>
 <Button
 android:id="@+id/help_button"
 android:layout_width="fill_parent"
 android:layout_height="wrap_content"
+android:text="Help"
 android:textStyle="bold"
 android:textColor="#ffcc0033"
-android:text="Help"
-android:layout_x="0px"
-android:layout_y="202px"
+android:layout_alignParentBottom="true"
+android:layout_alignParentLeft="true"
 >
 </Button>
-</AbsoluteLayout>
+</RelativeLayout>
