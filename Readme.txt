@@ -1,15 +1,26 @@
 Authers: Abdul Binrasheed, Craig Gardner, John St. John
+
+
 This project was started for Software Methodologies at the University of Oregon in Winter term 2009. It provides an interface for the fonolo web service specifically for the Android smart phone OS. This code is written specifically to comply with the fonolo API version 1.1 build 5. It is likely this code will have to be modified when their new builds come out.
 
+
+
 *****Development Instructions******  
+
 Instructions on how to set up the development environment.
+
+
 
 
 **Introduction**
 
+
 For anyone who is interested in installing and running this program, please follow these instructions in setting up the environment.
 
+
+
 **Details**
+
 
 First install Java, eclipse, the android SDK, and the Eclipse plug-in for Android. Instructions for configuring eclipse to work with android may be found at the android developer site on the installation page.
 
