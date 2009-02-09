@@ -43,7 +43,7 @@ public class fonolo_library implements private_constants{
 	 */
 	private static String make_JSON_req(String method, String[] params){
 		//make the JSON content request
-		//formulate the params
+		//formulate the params that passed from communication class.
 		String p = "[ ";
 		for(int i = 0; i < params.length; i++){		
 			p += "\"";
