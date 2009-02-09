@@ -5,6 +5,15 @@
     android:layout_height="fill_parent"
     android:padding="10dip"
     >
+  <!--
+ *************************
+ * @author Craig Gardner
+ * Last Update February 2009
+ * 
+ * This is the xml associated with our message page. It contains the layout 
+ * information for the message page.
+ *************************
+-->
     <TextView
     	android:id="@+id/message_content"
     	android:layout_width="wrap_content"
