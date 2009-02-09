@@ -70,6 +70,7 @@ public class company extends Activity implements Button.OnClickListener, private
     	//tl = (RelativeLayout)findViewById(R.id.tab_buttons);
     	//tl = (ScrollView)findViewById(R.id.company_scroll);
     	
+    	// store the data from the UI into the variables.
     	output = (TextView)this.findViewById(R.id.output);
     	company_name = (TextView)this.findViewById(R.id.company_name_text);
     	
@@ -92,7 +93,7 @@ public class company extends Activity implements Button.OnClickListener, private
 		 * getter methods for grabbing out all the node information provided by fonolo
 		 * Getting the information out of the nodes could be done with a recursive loop
 		 */
-		
+		//call company details function, and store the respond info.also initinal 
 		try {
 			JSONObject info = communication.company_details(id, uname, passwd);
 			Node head = parse.parse_comp_info(info);

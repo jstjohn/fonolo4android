@@ -60,6 +60,10 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 		        	i.putExtras(extras);
 		        	startActivity(i);
 		        }
+		        /*
+		         * send the typed info to check member function, and take the user to the home screen
+		         * if the account is valid.
+		         */
 		        else{
 			        JSONObject json_result;
 			        String result = "";
@@ -69,11 +73,7 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 						JSONObject json_head = json_resp.getJSONObject("head");
 						String message = json_head.getString("response_message");
 						code = json_head.getInt("response_code");
-						//if(code >= 200 && code < 300){
-						//	result += Integer.toString(code);
-							//JSONObject session = com.call_start("fd1b39133c5f2c749fdab78b012cae2d", "888-619-8622");
-							
-						//}
+						
 						result += message;
 											
 					} catch (JSONException e) {
@@ -91,6 +91,7 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 			    		i.putExtras(extras);
 			    		startActivity(i);
 			        }
+			        // if the account does not exists, show error message.
 			        else{
 			        	Intent i = new Intent(this, message.class);
 			        	String message = result;
@@ -101,7 +102,7 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 			        }
 		        }
 		        break;
-    		case R.id.help_button:
+    		case R.id.help_button:// lunch the help window if the button was pressed is help.
     			Intent i = new Intent(this, help.class);
             	String help_message = "On this screen you will input your username and password " +
             			"that you set up on the fonolo website(www.fonolo.com)";
