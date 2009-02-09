@@ -73,7 +73,7 @@ android:layout_alignParentLeft="true"
 <ScrollView
 android:id="@+id/company_scroll"
 android:layout_width="fill_parent"
-android:layout_height="205px"
+android:layout_height="220px"
 android:layout_above="@+id/home_button"
 android:layout_alignParentLeft="true"
 >
