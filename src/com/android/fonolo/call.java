@@ -14,7 +14,7 @@ import android.widget.TextView;
  * @author Craig Gardner, John St. John, Abdul Binrasheed
  * Last Update February 2009
  * 
- * This is the class  associated with our call page. It contains all the
+ * This is the class associated with our call page. It contains all the
  * logic associated with that page including placing a call when the button
  * is pushed etc. It also displays some information about the company and
  * node within that company the call is about to be placed to.
@@ -117,7 +117,7 @@ public class call extends Activity implements OnClickListener, private_constants
 					else{
 						String outerror = "Member phone number invalid: "+raw_phone;
 						outerror += "\nPlease enter the same 10 digit phone number on your fonolo account. ";
-						outerror += "The correct format should be 555 555 5555 (without spaces). Please enter your correct number and try again.";
+						outerror += "The correct format should be 555 555 5555 (but no spaces). Please enter your correct number and try again.";
 						Intent i = new Intent(this, message.class);
 			        	String message = outerror;
 			        	Bundle extras = new Bundle();
@@ -135,7 +135,7 @@ public class call extends Activity implements OnClickListener, private_constants
 		case R.id.help_button:
 			String outmessage = "You need the 10 digit phone number that was added to your account on the fonolo website. " +
         			"The correct format should be:" +
-        			"\n555 555 5555 (without spaces).";
+        			"\n555 555 5555 (but no spaces).";
 			Intent j = new Intent(this, help.class); 
 			String help_message = outmessage;
 			Bundle extras = new Bundle();
