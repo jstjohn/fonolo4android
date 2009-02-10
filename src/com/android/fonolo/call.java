@@ -140,7 +140,7 @@ public class call extends Activity implements OnClickListener, private_constants
 					"was added to your account on the fonolo website. The correct format should be:" +
         			"\n555 555 5555 (without spaces). " +
         			"Input your phone number into the space provided and wait for a call from fonolo. " +
-        			"the call originates from 1(123) 123-1234";
+        			"the call originates from 1(416)366-2500";
 			Intent j = new Intent(this, help.class); 
 			String help_message = outmessage;
 			Bundle extras = new Bundle();
