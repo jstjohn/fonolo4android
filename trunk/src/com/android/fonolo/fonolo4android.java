@@ -3,6 +3,7 @@ package com.android.fonolo;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,12 +24,12 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 	TextView output;
 	TextView user;
 	TextView pass;
+	ProgressDialog myProgressDialog = null;
 	
     /** Called when the activity is first created. */
     @Override
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
         setContentView(R.layout.main);
         /*
          * Store the informations from the UI into the variables.
@@ -45,7 +46,9 @@ public class fonolo4android extends Activity implements private_constants, OnCli
         help_button.setOnClickListener(this);
         }
     	   // Setup the action caused by buttons listener 	
-    	public void onClick(View v){
+    	public void onClick(View v){  
+    		myProgressDialog = ProgressDialog.show(fonolo4android.this,     
+                    "Please wait...", "Doing Extreme Calculations...", true); 
     		switch (v.getId()){
     		case R.id.go_button:
 	    		String uname = user.getText().toString(); 
@@ -72,14 +75,15 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 						JSONObject json_resp = json_result.getJSONObject("result");
 						JSONObject json_head = json_resp.getJSONObject("head");
 						String message = json_head.getString("response_message");
-						code = json_head.getInt("response_code");
-						
+						code = json_head.getInt("response_code");						
 						result += message;
+						setProgressBarIndeterminateVisibility(false); 
 											
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
+					myProgressDialog.dismiss(); 
 	
 					//gets user to the main screen
 			        //output.setText(result);
