@@ -24,7 +24,6 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 	TextView output;
 	TextView user;
 	TextView pass;
-	ProgressDialog myProgressDialog = null;
 	
     /** Called when the activity is first created. */
     @Override
@@ -47,8 +46,6 @@ public class fonolo4android extends Activity implements private_constants, OnCli
         }
     	   // Setup the action caused by buttons listener 	
     	public void onClick(View v){  
-    		myProgressDialog = ProgressDialog.show(fonolo4android.this,     
-                    "Please wait...", "Doing Extreme Calculations...", true); 
     		switch (v.getId()){
     		case R.id.go_button:
 	    		String uname = user.getText().toString(); 
@@ -77,14 +74,12 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 						String message = json_head.getString("response_message");
 						code = json_head.getInt("response_code");						
 						result += message;
-						setProgressBarIndeterminateVisibility(false); 
 											
 					} catch (JSONException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					myProgressDialog.dismiss(); 
-	
+					
 					//gets user to the main screen
 			        //output.setText(result);
 			        if(code >= 200 && code <= 299){

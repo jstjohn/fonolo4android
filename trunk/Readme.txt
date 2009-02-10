@@ -24,6 +24,10 @@ For anyone who is interested in installing and running this program, please foll
 
 First install Java, eclipse, the android SDK, and the Eclipse plug-in for Android. Instructions for configuring eclipse to work with android may be found at the android developer site on the installation page.
 
+
+
+http://code.google.com/android/intro/installing.html
+
 Next do an SVN checkout of the source code on this site.
 
 In the folder you just checked out, make a new folder named bin.
