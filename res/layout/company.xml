@@ -3,7 +3,8 @@
 android:id="@+id/company_screen"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
-android:background="#ff3399ff"
+android:padding="5dip"
+android:background="@drawable/background"
 xmlns:android="http://schemas.android.com/apk/res/android"
 >
 <!--
@@ -40,7 +41,7 @@ android:layout_alignParentRight="true"
 -->
 <Button
 android:id="@+id/new_search_button"
-android:layout_width="200px"
+android:layout_width="195px"
 android:layout_height="wrap_content"
 android:text="New Search"
 android:textStyle="bold"
@@ -50,7 +51,7 @@ android:layout_alignParentRight="true"
 </Button>
 <Button
 android:id="@+id/help_button"
-android:layout_width="120px"
+android:layout_width="115px"
 android:layout_height="wrap_content"
 android:text="Help"
 android:textStyle="bold"

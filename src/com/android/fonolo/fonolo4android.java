@@ -3,7 +3,6 @@ package com.android.fonolo;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
