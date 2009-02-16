@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
@@ -24,6 +25,71 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 	TextView output;
 	TextView user;
 	TextView pass;
+	
+	// Need handler for callbacks to the UI thread
+    final Handler mHandler = new Handler();
+    int code;
+    String result;
+    String glob_uname;
+    String glob_passwd;
+
+    // Create runnable for posting
+    final Runnable mUpdateResults = new Runnable() {
+        public void run() {
+            updateResultsInUi();
+        }	
+    };
+    private void updateResultsInUi() {
+    	//gets user to the main screen
+        //output.setText(result);
+        if(code >= 200 && code <= 299){
+        	Intent i = new Intent(this, home.class);
+        	Bundle extras = new Bundle();
+        	extras.putString("user", glob_uname);
+        	extras.putString("pass", glob_passwd);		        	
+    		i.putExtras(extras);
+    		startActivity(i);
+        }
+        // if the account does not exists, show error message.
+        else{
+        	Intent i = new Intent(this, message.class);
+        	String message = result;
+        	Bundle extras = new Bundle();
+        	extras.putString("message", message);
+        	i.putExtras(extras);
+        	startActivity(i);
+        }
+			
+	}
+    protected void startLongRunningOperation(final String uname, final String passwd) {
+
+        // Fire off a thread to do some work that we shouldn't do directly in the UI thread
+        Thread t = new Thread() {
+            public void run() {
+            	/*
+		         * send the typed info to check member function, and take the user to the home screen
+		         * if the account is valid.
+		         */
+		        JSONObject json_result;
+		        glob_uname = uname;
+		        glob_passwd = passwd;
+				try {
+					json_result = communication.check_member(uname, passwd);
+					JSONObject json_resp = json_result.getJSONObject("result");
+					JSONObject json_head = json_resp.getJSONObject("head");
+					String message = json_head.getString("response_message");
+					code = json_head.getInt("response_code");						
+					result += message;
+										
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				mHandler.post(mUpdateResults);
+	        }
+        };
+        t.start();
+    }
 	
     /** Called when the activity is first created. */
     @Override
@@ -65,40 +131,7 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 		         * if the account is valid.
 		         */
 		        else{
-			        JSONObject json_result;
-			        String result = "";
-					try {
-						json_result = communication.check_member(uname, passwd);
-						JSONObject json_resp = json_result.getJSONObject("result");
-						JSONObject json_head = json_resp.getJSONObject("head");
-						String message = json_head.getString("response_message");
-						code = json_head.getInt("response_code");						
-						result += message;
-											
-					} catch (JSONException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
-					
-					//gets user to the main screen
-			        //output.setText(result);
-			        if(code >= 200 && code <= 299){
-			        	Intent i = new Intent(this, home.class);
-			        	Bundle extras = new Bundle();
-			        	extras.putString("user", uname);
-			        	extras.putString("pass", passwd);		        	
-			    		i.putExtras(extras);
-			    		startActivity(i);
-			        }
-			        // if the account does not exists, show error message.
-			        else{
-			        	Intent i = new Intent(this, message.class);
-			        	String message = result;
-			        	Bundle extras = new Bundle();
-			        	extras.putString("message", message);
-			        	i.putExtras(extras);
-			        	startActivity(i);
-			        }
+			        startLongRunningOperation(uname,passwd);
 		        }
 		        break;
     		case R.id.help_button:// lunch the help window if the button was pressed is help.

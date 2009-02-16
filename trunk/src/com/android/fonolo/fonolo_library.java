@@ -18,7 +18,7 @@ import org.apache.commons.httpclient.methods.PostMethod;
  * changed slightly to reflect updated specifications.
  * 
  */
-public class fonolo_library extends Thread implements private_constants{
+public class fonolo_library implements private_constants{
 	private static String auth_key = AUTH_KEY; //Stored in the private_constants interface!
 	private static String response_server = "https://json-rpc.live.fonolo.com"; //provided in fonolo API
 	private static String version = "0.1";
