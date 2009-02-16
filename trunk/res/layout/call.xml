@@ -3,7 +3,8 @@
 android:id="@+id/call_screen"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
-android:background="#ff3399ff"
+android:padding="5dip"
+android:background="@drawable/background"
 xmlns:android="http://schemas.android.com/apk/res/android"
 >
 <!--
@@ -17,7 +18,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 -->
 <Button
 android:id="@+id/place_call"
-android:layout_width="200px"
+android:layout_width="195px"
 android:layout_height="wrap_content"
 android:text="Place Call"
 android:textStyle="bold"
@@ -58,7 +59,7 @@ android:layout_alignParentLeft="true"
 </TextView>
 <Button
 android:id="@+id/help_button"
-android:layout_width="120px"
+android:layout_width="115px"
 android:layout_height="wrap_content"
 android:text="Help"
 android:textStyle="bold"
