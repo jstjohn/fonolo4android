@@ -18,7 +18,7 @@ import org.apache.commons.httpclient.methods.PostMethod;
  * changed slightly to reflect updated specifications.
  * 
  */
-public class fonolo_library implements private_constants{
+public class fonolo_library extends Thread implements private_constants{
 	private static String auth_key = AUTH_KEY; //Stored in the private_constants interface!
 	private static String response_server = "https://json-rpc.live.fonolo.com"; //provided in fonolo API
 	private static String version = "0.1";
@@ -72,7 +72,7 @@ public class fonolo_library implements private_constants{
 	 * the JSONObject is able to parse the string properly into a JSON Object.
 	 */
 	@SuppressWarnings("deprecation")
-	public static String get_json_contents(String method, String[] params, String user, String pass){
+	public static String run(String method, String[] params, String user, String pass){
 		PostMethod postMethod = new PostMethod(response_server); 
 		String output = "";
 		String request_string = make_JSON_req(method,params);
@@ -125,7 +125,7 @@ public class fonolo_library implements private_constants{
 	 * @return
 	 */
 	@SuppressWarnings("deprecation")
-	public static String get_json_contents(String method, String[] params){
+	public static String run(String method, String[] params){
 		PostMethod postMethod = new PostMethod(response_server); 
 		String output = "";
 		String request_string = make_JSON_req(method,params);
