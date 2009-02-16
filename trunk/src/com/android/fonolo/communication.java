@@ -18,7 +18,7 @@ import org.json.JSONObject;
  *
  */
 
-public class communication {
+public class communication{
 
 		/**
 		 * Check member is the function which takes the user name and the password and check if the
@@ -34,7 +34,7 @@ public class communication {
 			String[] params = new String[2];
 			params[0]=username;
 			params[1]=password;
-	       String json = fonolo_library.get_json_contents("check_member", params);
+	       String json = fonolo_library.run("check_member", params);
 			return make_json(json);
 		} 
 		// End check member info function
@@ -58,7 +58,7 @@ public class communication {
 			params[1]=password;
 			params[2]=phone;
 	       
-			String json = fonolo_library.get_json_contents("check_member_number", params);
+			String json = fonolo_library.run("check_member_number", params);
 			return make_json(json);
 		} 
 		// End check member number info function
@@ -81,7 +81,7 @@ public class communication {
 			String[] params = new String[1];
 			params[0]=searchstring;
 			
-			String json = fonolo_library.get_json_contents("company_search", params, user, pass);
+			String json = fonolo_library.run("company_search", params, user, pass);
 			return make_json(json);
 		}
 		// End company search results function
@@ -103,7 +103,7 @@ public class communication {
 		{
 			String[] params = new String[1];
 			params[0] = treeid;
-			String json = fonolo_library.get_json_contents("company_details", params, user, pass);
+			String json = fonolo_library.run("company_details", params, user, pass);
 			return make_json(json);
 		}
 		// End company lookup function
@@ -128,7 +128,7 @@ public class communication {
 			params[1]=pageno;
 			params[2]=date;
 	       
-			String json = fonolo_library.get_json_contents("company_list", params, user, pass);
+			String json = fonolo_library.run("company_list", params, user, pass);
 			return make_json(json);
 		} 
 		
@@ -146,7 +146,7 @@ public class communication {
 			String[] params = new String[2];
 			params[0] = node_id;
 			params[1] = user_phone_number;
-			String json = fonolo_library.get_json_contents("call_start", params, user, pass);
+			String json = fonolo_library.run("call_start", params, user, pass);
 			return make_json(json);
 		}
 		
@@ -161,7 +161,7 @@ public class communication {
 		public static JSONObject call_cancel(String session_id, String user, String pass) throws JSONException{
 			String[] params = new String[1];
 			params[0] = session_id;
-			String json = fonolo_library.get_json_contents("call_cancel", params, user, pass);
+			String json = fonolo_library.run("call_cancel", params, user, pass);
 			return make_json(json);
 		}
 		
@@ -177,7 +177,7 @@ public class communication {
 		public static JSONObject call_status(String session_id, String user, String pass) throws JSONException{
 			String[] params = new String[1];
 			params[0] = session_id;
-			String json = fonolo_library.get_json_contents("call_status", params, user, pass);
+			String json = fonolo_library.run("call_status", params, user, pass);
 			return make_json(json);
 		}
 		
