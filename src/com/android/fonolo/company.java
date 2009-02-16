@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -36,6 +37,8 @@ public class company extends Activity implements Button.OnClickListener, private
 	 */
 	private static final int button_number = 30;
 	Button[] b = new Button[button_number];
+	Node head;
+	final Handler mHandler = new Handler();
 	
 	/**
 	 * The recursive definitions in this code are fairly fragile. If the following
@@ -54,6 +57,41 @@ public class company extends Activity implements Button.OnClickListener, private
 	TextView output;
 	TextView company_name;
 	TableLayout tl;
+	
+	
+    protected void startLongRunningOperation() {
+
+        // Fire off a thread to do some work that we shouldn't do directly in the UI thread
+        Thread t = new Thread() {
+            public void run() {
+        		/**
+        		 * Nodes hold all of the company tree information. Here is how they work.
+        		 * Each node has sisters and children, they also have methods to check
+        		 * whether or not their sisters or children actually exist. They also have
+        		 * getter methods for grabbing out all the node information provided by fonolo
+        		 * Getting the information out of the nodes could be done with a recursive loop
+        		 */
+        		//call company details function, and store the respond info.also initinal 
+        		try {
+        			JSONObject info = communication.company_details(id, uname, passwd);
+        			head = parse.parse_comp_info(info);  				
+        		} catch (JSONException e) {
+        			// TODO Auto-generated catch block
+        			e.printStackTrace();
+        		}
+                mHandler.post(mUpdateResults);
+            }
+        };
+        t.start();
+    }
+	
+    // Create runnable for posting
+    final Runnable mUpdateResults = new Runnable() {
+        public void run() {
+            make_button(head,0);
+        }
+    };
+	
 	
 	 /** Called when the activity is first created. */
     @Override
@@ -82,29 +120,8 @@ public class company extends Activity implements Button.OnClickListener, private
 		id = extras.getString("id");
 		String name = extras.getString("company_name");
         company_name.setText(name);
-
 		
-		
-		/**
-		 * Nodes hold all of the company tree information. Here is how they work.
-		 * Each node has sisters and children, they also have methods to check
-		 * whether or not their sisters or children actually exist. They also have
-		 * getter methods for grabbing out all the node information provided by fonolo
-		 * Getting the information out of the nodes could be done with a recursive loop
-		 */
-		//call company details function, and store the respond info.also initinal 
-		try {
-			JSONObject info = communication.company_details(id, uname, passwd);
-			Node head = parse.parse_comp_info(info);
-			
-			//just call it a child because it is at the beginning
-			make_button(head,0);	
-			
-		} catch (JSONException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		
+        startLongRunningOperation();
     }
     
     /**
