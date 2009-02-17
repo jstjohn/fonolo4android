@@ -162,7 +162,7 @@ public class company extends Activity implements Button.OnClickListener, private
 					String stars = "";
 					if(node_type.equalsIgnoreCase("NODE_TYPE_AGENT")){
 						//color for agent
-						stars = "***";
+						stars = " (Human)";
 					}else{
 						//color other way
 					}
@@ -214,8 +214,8 @@ public class company extends Activity implements Button.OnClickListener, private
 		}
 		else if(i == 411){
 			String outmessage = "This is the tree listing. Here you will notice different characters. " +
-					"The --| is the depth of the phone tree. The *** represents an agent (or human)\n" +
-					"Example:\n--|--| Other inquiries***\n represents tree depth level 2 speaking to an agent. " +
+					"Spaces before the description represent the depth of the phone tree. The (Human) tells you that the node gets you to a human\n" +
+					"Example:\n     |Other inquiries (Human)\n represents a sub node (because of its spaces) that connects you to an agent. " +
 					"Other inquiries is the title of the directory. ";
 			Intent j = new Intent(this, help.class); 
 			String help_message = outmessage;
