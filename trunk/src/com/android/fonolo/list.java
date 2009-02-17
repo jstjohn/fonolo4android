@@ -8,6 +8,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
@@ -31,18 +32,76 @@ public class list extends Activity implements Button.OnClickListener, private_co
 	String passwd = "";
 	//end copy------------------------------------------
 	
-	String json_temp_string = "";
+	LinkedList<String[]> list;
+	final Handler mHandler = new Handler();
 	private static final int button_number = 30;// define a variable that holds the max number of records.  
 	Button[] b = new Button[button_number];// define an array of type button.
 	
+	// Create runnable for posting
+    final Runnable mUpdateResults = new Runnable() {
+        public void run() {
+            updateResultsInUi();
+        }
+    };
+    protected void updateResultsInUi() {
+    	
+    	TableLayout tl = (TableLayout)findViewById(R.id.table_buttons);// choose table layout to display the company list.
+    	if (list.size() == 0){
+			Intent j = new Intent(this, message.class);
+        	String message = "Your search yielded no results.\n" +
+        			"Please retry your search.";
+        	Bundle extras1 = new Bundle();
+        	extras1.putString("message", message);
+        	j.putExtras(extras1);
+        	startActivity(j);
+		}
+		else{
+		//limit the size to button_number effectively limiting buttons to 30
+			int size = 0;
+			if (list.size() > button_number){
+				size = button_number;
+			} else {
+				size = list.size();
+			}
+			
+			// create the buttons dynamically.
+			for(int j = 0; j < size; j++){
+				b[j] = new Button(this);
+				String[] temp = list.get(j);// reset the array, and store the company name and id. 
+				// the 0 position in the result is name, the 1 position is company id
+		        b[j].setText(temp[0]);
+		        b[j].setTag(temp[1]);
+		        b[j].setId(j);
+		        b[j].setOnClickListener(this);
+		        tl.addView(b[j]);
+			}
+		}
+		
+	}
+    
+    protected void startLongRunningOperation(final String query) {
+
+        // Fire off a thread to do some work that we shouldn't do directly in the UI thread
+        Thread t = new Thread() {
+            public void run() {
+            	try {
+    				JSONObject result = communication.company_search(query,uname,passwd);// send the request, and save the respond
+    				list = parse.parse_comp_search(result);// save the result as a string linked list.
+            	} catch (JSONException e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+    			mHandler.post(mUpdateResults);
+            }
+        };
+        t.start();
+    }
     /** Called when the activity is first created. */
     @Override
-    
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
         setContentView(R.layout.list);  
-        TableLayout tl = (TableLayout)findViewById(R.id.table_buttons);// choose table layout to display the company list.
     	View new_search_button = this.findViewById(R.id.new_search_button);
     	new_search_button.setOnClickListener(this);
     	new_search_button.setId(611);
@@ -60,46 +119,7 @@ public class list extends Activity implements Button.OnClickListener, private_co
 		int method = extras.getInt("method");
 		if(method == SEARCH_METHOD/* defined in private_cons..*/){
 			String query = extras.getString("search");
-
-			try {
-				JSONObject result = communication.company_search(query,uname,passwd);// send the request, and save the respond
-				LinkedList<String[]> list = parse.parse_comp_search(result);// save the result as a string linked list.
-				json_temp_string = result.toString();
-				if (list.size() == 0){
-					Intent j = new Intent(this, message.class);
-		        	String message = "Your search yielded no results.\n" +
-		        			"Please retry your search.";
-		        	Bundle extras1 = new Bundle();
-		        	extras1.putString("message", message);
-		        	j.putExtras(extras1);
-		        	startActivity(j);
-				}
-				else{
-				//limit the size to button_number effectively limiting buttons to 30
-					int size = 0;
-					if (list.size() > button_number){
-						size = button_number;
-					} else {
-						size = list.size();
-					}
-					
-					// create the buttons dynamically.
-					for(int j = 0; j < size; j++){
-						b[j] = new Button(this);
-						String[] temp = list.get(j);// reset the array, and store the company name and id. 
-						// the 0 position in the result is name, the 1 position is company id
-				        b[j].setText(temp[0]);
-				        b[j].setTag(temp[1]);
-				        b[j].setId(j);
-				        b[j].setOnClickListener(this);
-				        tl.addView(b[j]);
-					}
-				}
-			} catch (JSONException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-
+			startLongRunningOperation(query);
 		}
 		
     }
