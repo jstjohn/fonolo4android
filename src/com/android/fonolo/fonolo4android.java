@@ -78,7 +78,7 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 					JSONObject json_head = json_resp.getJSONObject("head");
 					String message = json_head.getString("response_message");
 					code = json_head.getInt("response_code");						
-					result += message;
+					result = message;
 										
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
@@ -115,7 +115,6 @@ public class fonolo4android extends Activity implements private_constants, OnCli
     		case R.id.go_button:
 	    		String uname = user.getText().toString(); 
 	    		String passwd = pass.getText().toString();
-	    		int code = 0;
 	    		//Check if the the username, password fields are empty
 		        if((uname.equals(""))||(passwd.equals(""))){		        	
 		        	Intent i = new Intent(this, message.class);
