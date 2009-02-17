@@ -168,9 +168,9 @@ public class company extends Activity implements Button.OnClickListener, private
 					}
 					String tabs = "";
 					for(int i = 0; i < tabbing; i++){
-						tabs += "--|";
+						tabs += "   ";
 					}
-					tabs += " ";
+					tabs += "|";
 					String[] info = new String[2];
 					info[0] = node_name;
 					info[1] = headNodeid;
