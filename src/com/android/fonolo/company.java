@@ -4,6 +4,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -39,6 +40,8 @@ public class company extends Activity implements Button.OnClickListener, private
 	Button[] b = new Button[button_number];
 	Node head;
 	final Handler mHandler = new Handler();
+	
+	ProgressDialog myProgressDialog = null;
 	
 	/**
 	 * The recursive definitions in this code are fairly fragile. If the following
@@ -80,6 +83,7 @@ public class company extends Activity implements Button.OnClickListener, private
         			e.printStackTrace();
         		}
                 mHandler.post(mUpdateResults);
+                myProgressDialog.dismiss();
             }
         };
         t.start();
@@ -120,7 +124,9 @@ public class company extends Activity implements Button.OnClickListener, private
 		id = extras.getString("id");
 		String name = extras.getString("company_name");
         company_name.setText(name);
-		
+        
+        myProgressDialog = ProgressDialog.show(company.this,
+                "Please wait...", "Populating the company tree.", true);
         startLongRunningOperation();
     }
     

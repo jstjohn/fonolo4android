@@ -118,8 +118,7 @@ public class fonolo4android extends Activity implements private_constants, OnCli
     		case R.id.go_button:
 	    		String uname = user.getText().toString(); 
 	    		String passwd = pass.getText().toString();
-	    		myProgressDialog = ProgressDialog.show(fonolo4android.this,     
-                        "Please wait...", "Confirming username and password with fonolo.", true); 
+	    		
 	    		//Check if the the username, password fields are empty
 		        if((uname.equals(""))||(passwd.equals(""))){		        	
 		        	Intent i = new Intent(this, message.class);
@@ -134,6 +133,8 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 		         * if the account is valid.
 		         */
 		        else{
+		        	myProgressDialog = ProgressDialog.show(fonolo4android.this,     
+                        "Please wait...", "Confirming username and password with fonolo.", true); 
 			        startLongRunningOperation(uname,passwd);			        
 		        }
 		        break;

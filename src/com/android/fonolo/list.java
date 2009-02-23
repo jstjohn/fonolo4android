@@ -6,6 +6,7 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,6 +32,8 @@ public class list extends Activity implements Button.OnClickListener, private_co
 	String uname = "";
 	String passwd = "";
 	//end copy------------------------------------------
+	
+	ProgressDialog myProgressDialog = null;
 	
 	LinkedList<String[]> list;
 	final Handler mHandler = new Handler();
@@ -92,6 +95,7 @@ public class list extends Activity implements Button.OnClickListener, private_co
     				e.printStackTrace();
     			}
     			mHandler.post(mUpdateResults);
+    			myProgressDialog.dismiss();
             }
         };
         t.start();
@@ -119,6 +123,8 @@ public class list extends Activity implements Button.OnClickListener, private_co
 		int method = extras.getInt("method");
 		if(method == SEARCH_METHOD/* defined in private_cons..*/){
 			String query = extras.getString("search");
+			myProgressDialog = ProgressDialog.show(list.this,
+                    "Please wait...", "Getting search results.", true);
 			startLongRunningOperation(query);
 		}
 		
