@@ -3,6 +3,7 @@ package com.android.fonolo;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,6 +42,8 @@ public class call extends Activity implements OnClickListener, private_constants
 
 	int response_code;
 	String raw_phone;
+	
+	ProgressDialog myProgressDialog = null;
 
 	// Need handler for callbacks to the UI thread
 	final Handler mHandler = new Handler();
@@ -70,6 +73,7 @@ public class call extends Activity implements OnClickListener, private_constants
 					e.printStackTrace();
 				}
 				mHandler.post(mUpdateResults);
+				myProgressDialog.dismiss();
 			}
 		};
 		t.start();
@@ -176,7 +180,9 @@ public class call extends Activity implements OnClickListener, private_constants
 				next3 = raw_phone.substring(3,6);
 				final4 = raw_phone.substring(6,10);
 			}
-
+			
+			myProgressDialog = ProgressDialog.show(call.this,
+                    "Please wait...", "Checking phone number against fonolo database.", true);
 			startLongRunningOperation();
 			break;
 		case R.id.help_button:// show the help window if the pressed button is help. 
