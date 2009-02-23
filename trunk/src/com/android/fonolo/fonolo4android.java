@@ -3,6 +3,7 @@ package com.android.fonolo;
 import org.json.JSONException;
 import org.json.JSONObject;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,6 +25,7 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 	TextView output;
 	TextView user;
 	TextView pass;
+	ProgressDialog myProgressDialog = null;
 	
 	// Need handler for callbacks to the UI thread
     final Handler mHandler = new Handler();
@@ -61,7 +63,7 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 			
 	}
     protected void startLongRunningOperation(final String uname, final String passwd) {
-
+    	
         // Fire off a thread to do some work that we shouldn't do directly in the UI thread
         Thread t = new Thread() {
             public void run() {
@@ -85,6 +87,7 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 					e.printStackTrace();
 				}
 				mHandler.post(mUpdateResults);
+				myProgressDialog.dismiss(); 
 	        }
         };
         t.start();
@@ -115,6 +118,8 @@ public class fonolo4android extends Activity implements private_constants, OnCli
     		case R.id.go_button:
 	    		String uname = user.getText().toString(); 
 	    		String passwd = pass.getText().toString();
+	    		myProgressDialog = ProgressDialog.show(fonolo4android.this,     
+                        "Please wait...", "Confirming username and password with fonolo.", true); 
 	    		//Check if the the username, password fields are empty
 		        if((uname.equals(""))||(passwd.equals(""))){		        	
 		        	Intent i = new Intent(this, message.class);
@@ -129,7 +134,7 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 		         * if the account is valid.
 		         */
 		        else{
-			        startLongRunningOperation(uname,passwd);
+			        startLongRunningOperation(uname,passwd);			        
 		        }
 		        break;
     		case R.id.help_button:// lunch the help window if the button was pressed is help.

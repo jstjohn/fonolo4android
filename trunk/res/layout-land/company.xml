@@ -4,7 +4,7 @@ android:id="@+id/company_screen"
 android:layout_width="fill_parent"
 android:layout_height="fill_parent"
 android:padding="5dip"
-android:background="@drawable/background"
+android:background="@drawable/background_land"
 xmlns:android="http://schemas.android.com/apk/res/android"
 >
 <!--
@@ -74,7 +74,7 @@ android:layout_alignParentLeft="true"
 <ScrollView
 android:id="@+id/company_scroll"
 android:layout_width="fill_parent"
-android:layout_height="205px"
+android:layout_height="195px"
 android:layout_below="@+id/company_name_text"
 android:layout_alignParentLeft="true"
 >
