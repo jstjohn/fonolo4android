@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -52,6 +53,7 @@ public class company extends Activity implements Button.OnClickListener, private
 	private int button_count = 0;
 	
 	private String id = "";
+	private String name = "";
 	
 	//copy into all classes-----------------------------
 	String uname = "";
@@ -60,6 +62,8 @@ public class company extends Activity implements Button.OnClickListener, private
 	TextView output;
 	TextView company_name;
 	TableLayout tl;
+	
+	private storage_get_set mDbHelper;
 	
 	
     protected void startLongRunningOperation() {
@@ -103,11 +107,25 @@ public class company extends Activity implements Button.OnClickListener, private
     	super.onCreate(savedInstanceState);
     	setContentView(R.layout.company);
     	View new_search_button = this.findViewById(R.id.new_search_button);
+    	View favs_button = this.findViewById(R.id.favs_button);
+    	favs_button.setOnClickListener(this);
+    	favs_button.setId(911);
     	new_search_button.setOnClickListener(this);
     	new_search_button.setId(611);
     	View help_button = this.findViewById(R.id.help_button);
     	help_button.setOnClickListener(this);
     	help_button.setId(411);
+    	mDbHelper = new storage_get_set(this);
+    	try{
+    		mDbHelper = mDbHelper.open();
+    	}catch(SQLException e){
+    		Intent i = new Intent(this, message.class);
+        	String message = e.getMessage();
+        	Bundle extras = new Bundle();
+        	extras.putString("message", message);
+        	i.putExtras(extras);
+        	startActivity(i);
+    	}
     	
     	tl = (TableLayout)findViewById(R.id.tab_buttons);
     	
@@ -122,7 +140,7 @@ public class company extends Activity implements Button.OnClickListener, private
 		//end copy---------------------------------------
 
 		id = extras.getString("id");
-		String name = extras.getString("company_name");
+		name = extras.getString("company_name");
         company_name.setText(name);
         
         myProgressDialog = ProgressDialog.show(company.this,
@@ -230,6 +248,12 @@ public class company extends Activity implements Button.OnClickListener, private
 			j.putExtras(extras);
 			startActivity(j);
 		}
+		
+		//add to favorites
+		else if(i == 911){
+			mDbHelper.createFavorites(id, name);
+		}
+		
 		//else go to make call page
 		else{			
 			/**

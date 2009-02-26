@@ -42,7 +42,7 @@ public class storage_get_set {
     public static final String KEY_PHONE= "phone";
     
     //stuff for our favorites list table
-    public static final String KEY_ID = "_id";
+    public static final String KEY_ID = "c_id";
     public static final String KEY_NAME = "name";
 
     private static final String TAG = "storage_get_set";
@@ -56,7 +56,7 @@ public class storage_get_set {
             "create table login (user varchar(40) primary key, "
                     + "password varchar(40) not null, phone varchar(14) not null);";
     private static final String FAVS_DB_CREATE = 
-    	"create table login (_id varchar(34) primary key, "
+    	"create table favorites (c_id varchar(34) primary key, "
         + "name varchar(40) not null);";
     private static final String DATABASE_NAME = "data";
     private static final String LOGIN_DB_TABLE = "login";
@@ -73,9 +73,8 @@ public class storage_get_set {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-
-            db.execSQL(LOGIN_DB_CREATE);
-            db.execSQL(FAVS_DB_CREATE);
+        		db.execSQL(LOGIN_DB_CREATE);
+        		db.execSQL(FAVS_DB_CREATE);
             
         }
 
@@ -146,9 +145,9 @@ public class storage_get_set {
      * @param body the body of the note
      * @return rowId or -1 if failed
      */
-    public long createFavorites(String _id, String name) {
+    public long createFavorites(String id, String name) {
         ContentValues initialValues = new ContentValues();
-        initialValues.put(KEY_ID, _id);
+        initialValues.put(KEY_ID, id);
         initialValues.put(KEY_NAME, name);
 
         return mDb.insert(FAVORITES_DB_TABLE, null, initialValues);
@@ -171,9 +170,9 @@ public class storage_get_set {
      * @param user username of person to delete
      * @return true if deleted, false otherwise
      */
-    public boolean deleteFavorites(String _id) {
+    public boolean deleteFavorites(String id) {
 
-        return mDb.delete(FAVORITES_DB_TABLE, KEY_ID + "=" + _id, null) > 0;
+        return mDb.delete(FAVORITES_DB_TABLE, KEY_ID + "=" + id, null) > 0;
     }
 
     /**

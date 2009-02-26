@@ -8,6 +8,8 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.SQLException;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -39,6 +41,9 @@ public class list extends Activity implements Button.OnClickListener, private_co
 	final Handler mHandler = new Handler();
 	private static final int button_number = 30;// define a variable that holds the max number of records.  
 	Button[] b = new Button[button_number];// define an array of type button.
+	
+	private storage_get_set mDbHelper;
+	
 	
 	// Create runnable for posting
     final Runnable mUpdateResults = new Runnable() {
@@ -112,7 +117,18 @@ public class list extends Activity implements Button.OnClickListener, private_co
     	View help_button = this.findViewById(R.id.help_button);
     	help_button.setOnClickListener(this);
     	help_button.setId(411);
-        
+    	mDbHelper = new storage_get_set(this);
+    	try{
+    		mDbHelper = mDbHelper.open();
+    	}catch(SQLException e){
+    		Intent i = new Intent(this, message.class);
+        	String message = e.getMessage();
+        	Bundle extras = new Bundle();
+        	extras.putString("message", message);
+        	i.putExtras(extras);
+        	startActivity(i);
+    	}
+    	
         //copy into all classes--------------------------
 		Bundle extras = getIntent().getExtras();
 		uname = extras.getString("user");
@@ -121,11 +137,14 @@ public class list extends Activity implements Button.OnClickListener, private_co
 		
 		
 		int method = extras.getInt("method");
-		if(method == SEARCH_METHOD/* defined in private_cons..*/){
+		if(method != SEARCH_METHOD/* defined in private_cons..*/){
 			String query = extras.getString("search");
 			myProgressDialog = ProgressDialog.show(list.this,
                     "Please wait...", "Getting search results.", true);
 			startLongRunningOperation(query);
+		}
+		else if(method != FAVS_METHOD){
+			fillData();
 		}
 		
     }
@@ -165,4 +184,58 @@ public class list extends Activity implements Button.OnClickListener, private_co
 			startActivity(s);
 		}
 	}
+	
+	
+	
+	/**
+	 * this method should get called when the screen needs to be populated
+	 * by favorites from the database
+	 */
+	private void fillData() {
+        // Get all of the notes from the database and create the item list
+		try{
+    		mDbHelper = mDbHelper.open();
+    	
+        Cursor c = mDbHelper.fetchAllFavorites();
+        TableLayout tl = (TableLayout)findViewById(R.id.table_buttons);// choose table layout to display the company list.
+        startManagingCursor(c);
+        if(!c.equals(null)){
+	        if (c.getCount() == 0){
+				Intent j = new Intent(this, message.class);
+	        	String message = "You have no favorites.\n" +
+	        			"Click on the heart at the top of a company information page to add it to your favorites list.";
+	        	Bundle extras1 = new Bundle();
+	        	extras1.putString("message", message);
+	        	j.putExtras(extras1);
+	        	startActivity(j);
+			}
+	        int id_column = c.getColumnIndex(storage_get_set.KEY_ID);
+	        int name_column = c.getColumnIndex(storage_get_set.KEY_NAME);
+	        if(c.moveToFirst()){
+	        	int i = 0;
+	        	do{
+	        		String id = c.getString(id_column);
+	        		String name = c.getString(name_column);
+	        		
+	        		b[i] = new Button(this);
+			        b[i].setText(name);
+			        b[i].setTag(id);
+			        b[i].setId(i);
+			        b[i].setOnClickListener(this);
+			        tl.addView(b[i]);
+	        		
+	        		i++;
+	        		if(i == button_number) break;
+	        	}while(c.moveToNext());
+	        }
+        }
+        }catch(SQLException e){
+    		Intent i = new Intent(this, message.class);
+        	String message = e.getMessage();
+        	Bundle extras = new Bundle();
+        	extras.putString("message", message);
+        	i.putExtras(extras);
+        	startActivity(i);
+    	}
+    }
 }
