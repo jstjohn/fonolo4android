@@ -137,13 +137,13 @@ public class list extends Activity implements Button.OnClickListener, private_co
 		
 		
 		int method = extras.getInt("method");
-		if(method != SEARCH_METHOD/* defined in private_cons..*/){
+		if(method == SEARCH_METHOD/* defined in private_cons..*/){
 			String query = extras.getString("search");
 			myProgressDialog = ProgressDialog.show(list.this,
                     "Please wait...", "Getting search results.", true);
 			startLongRunningOperation(query);
 		}
-		else if(method != FAVS_METHOD){
+		else if(method == FAVS_METHOD){
 			fillData();
 		}
 		
