@@ -118,16 +118,16 @@ public class list extends Activity implements Button.OnClickListener, private_co
     	help_button.setOnClickListener(this);
     	help_button.setId(411);
     	mDbHelper = new storage_get_set(this);
-    	try{
-    		mDbHelper = mDbHelper.open();
-    	}catch(SQLException e){
-    		Intent i = new Intent(this, message.class);
-        	String message = e.getMessage();
-        	Bundle extras = new Bundle();
-        	extras.putString("message", message);
-        	i.putExtras(extras);
-        	startActivity(i);
-    	}
+//    	try{
+    		mDbHelper.open();
+//    	}catch(SQLException e){
+//    		Intent i = new Intent(this, message.class);
+//        	String message = e.getMessage();
+//        	Bundle extras = new Bundle();
+//        	extras.putString("message", message);
+//        	i.putExtras(extras);
+//        	startActivity(i);
+//    	}
     	
         //copy into all classes--------------------------
 		Bundle extras = getIntent().getExtras();
@@ -194,7 +194,6 @@ public class list extends Activity implements Button.OnClickListener, private_co
 	private void fillData() {
         // Get all of the notes from the database and create the item list
 		try{
-    		mDbHelper = mDbHelper.open();
     	
         Cursor c = mDbHelper.fetchAllFavorites();
         TableLayout tl = (TableLayout)findViewById(R.id.table_buttons);// choose table layout to display the company list.

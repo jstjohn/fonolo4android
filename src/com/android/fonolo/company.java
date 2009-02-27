@@ -116,16 +116,16 @@ public class company extends Activity implements Button.OnClickListener, private
     	help_button.setOnClickListener(this);
     	help_button.setId(411);
     	mDbHelper = new storage_get_set(this);
-    	try{
-    		mDbHelper = mDbHelper.open();
-    	}catch(SQLException e){
-    		Intent i = new Intent(this, message.class);
-        	String message = e.getMessage();
-        	Bundle extras = new Bundle();
-        	extras.putString("message", message);
-        	i.putExtras(extras);
-        	startActivity(i);
-    	}
+//    	try{
+    		mDbHelper.open();
+//    	}catch(SQLException e){
+//    		Intent i = new Intent(this, message.class);
+//        	String message = e.getMessage();
+//        	Bundle extras = new Bundle();
+//        	extras.putString("message", message);
+//        	i.putExtras(extras);
+//        	startActivity(i);
+//    	}
     	
     	tl = (TableLayout)findViewById(R.id.tab_buttons);
     	
@@ -251,7 +251,15 @@ public class company extends Activity implements Button.OnClickListener, private
 		
 		//add to favorites
 		else if(i == 911){
-			mDbHelper.createFavorites(id, name);
+			if(mDbHelper.createFavorites(id, name) == -1){}
+			else{		
+				Intent q = new Intent(this, message.class);
+	        	String message = "Failed to add the company to your favorites";
+	        	Bundle extras = new Bundle();
+	        	extras.putString("message", message);
+	        	q.putExtras(extras);
+	        	startActivity(q);
+			}
 		}
 		
 		//else go to make call page
