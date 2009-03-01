@@ -251,10 +251,15 @@ public class company extends Activity implements Button.OnClickListener, private
 		
 		//add to favorites
 		else if(i == 911){
-			if(mDbHelper.createFavorites(id, name) == -1){}
+			if(mDbHelper.createFavorites(id, name) != -1){}
 			else{		
 				Intent q = new Intent(this, message.class);
-	        	String message = "Failed to add the company to your favorites";
+				String message = "Company successfully removed from favorites";
+				try{
+					mDbHelper.deleteFavorites(id);
+				}catch(Exception e){
+					message = e.getMessage();
+				}
 	        	Bundle extras = new Bundle();
 	        	extras.putString("message", message);
 	        	q.putExtras(extras);
