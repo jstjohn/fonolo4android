@@ -35,6 +35,7 @@ public class fonolo4android extends Activity implements private_constants, OnCli
     String result;
     String glob_uname;
     String glob_passwd;
+    String glob_phone;
 
     // Create runnable for posting
     final Runnable mUpdateResults = new Runnable() {
@@ -47,10 +48,13 @@ public class fonolo4android extends Activity implements private_constants, OnCli
         //output.setText(result);
         if(code >= 200 && code <= 299){
         	Intent i = new Intent(this, home.class);
-        	Bundle extras = new Bundle();
-        	extras.putString("user", glob_uname);
-        	extras.putString("pass", glob_passwd);		        	
-    		i.putExtras(extras);
+//        	Bundle extras = new Bundle();
+//        	extras.putString("user", glob_uname);
+//        	extras.putString("pass", glob_passwd);		        	
+//   		i.putExtras(extras);
+        	if(mDbHelper.createLogin(glob_uname, glob_passwd, glob_phone) == -1){
+        		mDbHelper.updateLogin(glob_uname, glob_passwd, glob_phone);
+        	}
     		startActivity(i);
         }
         // if the account does not exists, show error message.
