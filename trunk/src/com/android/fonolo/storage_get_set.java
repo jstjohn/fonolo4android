@@ -53,15 +53,15 @@ public class storage_get_set {
      * Database creation sql statement
      */
     private static final String LOGIN_DB_CREATE =
-            "create table login (user varchar(40) primary key, "
-                    + "password varchar(40) not null, phone varchar(14) not null);";
+            "create table login (user text primary key, "
+                    + "password text not null, phone text not null);";
     private static final String FAVS_DB_CREATE = 
-    	"create table favorites (c_id varchar(34) primary key, "
-        + "name varchar(40) not null);";
+    	"create table favorites (c_id text primary key, "
+        + "name text not null);";
     private static final String DATABASE_NAME = "data";
     private static final String LOGIN_DB_TABLE = "login";
     private static final String FAVORITES_DB_TABLE = "favorites";
-    private static final int DATABASE_VERSION = 2;
+    private static final int DATABASE_VERSION = 4;
 
     private final Context mCtx;
 
@@ -161,7 +161,7 @@ public class storage_get_set {
      */
     public boolean deleteLogin(String user) {
 
-        return mDb.delete(LOGIN_DB_TABLE, KEY_UNAME + "=" + user, null) > 0;
+        return mDb.delete(LOGIN_DB_TABLE, KEY_UNAME + "='" + user + "'", null) > 0;
     }
     
     /**
@@ -172,7 +172,7 @@ public class storage_get_set {
      */
     public boolean deleteFavorites(String id) {
 
-        return mDb.delete(FAVORITES_DB_TABLE, KEY_ID + "=" + id, null) > 0;
+        return mDb.delete(FAVORITES_DB_TABLE, KEY_ID + "='" + id + "'", null) > 0;
     }
 
     /**
