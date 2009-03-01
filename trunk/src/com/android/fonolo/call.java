@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -28,16 +29,18 @@ public class call extends Activity implements OnClickListener, private_constants
 	//copy into all classes-----------------------------
 	String uname = "";
 	String passwd = "";
+	String phone = "";
 	//end copy------------------------------------------
 	TextView output;
-	TextView phone;
+	TextView phone_entry;
 	String id = "";
 	String outMessage;
 
 	String first3 = "XXX";
 	String next3 = "XXX";
 	String final4 = "XXXX";
-
+	
+	private storage_get_set mDbHelper;
 	JSONObject call_result;
 
 	int response_code;
@@ -134,12 +137,33 @@ public class call extends Activity implements OnClickListener, private_constants
 		setContentView(R.layout.call);
 
 		output = (TextView)this.findViewById(R.id.output);
-		phone = (TextView)this.findViewById(R.id.my_phone_number);
+		phone_entry = (TextView)this.findViewById(R.id.my_phone_number);
+		
+		mDbHelper = new storage_get_set(this);
+    	mDbHelper.open();
+		
+		Cursor c = mDbHelper.fetchLogin();
+		startManagingCursor(c);
+		int uname_column = c.getColumnIndex(storage_get_set.KEY_UNAME);
+        int pass_column = c.getColumnIndex(storage_get_set.KEY_PASS);
+        int phone_column = c.getColumnIndex(storage_get_set.KEY_PHONE);
+		if(!c.equals(null)){
+			if(c.getCount() == 0){
+				//send the person to the user settings page because we have no info
+
+			}else{
+				if(c.moveToFirst()){
+					uname = c.getString(uname_column);
+					passwd = c.getString(pass_column);
+					phone = c.getString(phone_column);
+				}
+			}
+		}
 
 		//copy into all classes--------------------------
 		Bundle extras = getIntent().getExtras();
-		uname = extras.getString("user");
-		passwd = extras.getString("pass");
+//		uname = extras.getString("user");
+//		passwd = extras.getString("pass");
 		//end copy---------------------------------------
 		// setup the needed values.
 		id = extras.getString("id");
@@ -162,7 +186,7 @@ public class call extends Activity implements OnClickListener, private_constants
 	public void onClick(View v) {
 		switch (v.getId()){
 		case R.id.place_call:// if the place a call pressed, the do the following.
-			raw_phone = phone.getText().toString();// get the typed number.
+			raw_phone = phone_entry.getText().toString();// get the typed number.
 
 			// the following regular expression strips out
 			// everything that isn't a digit in the person's text field

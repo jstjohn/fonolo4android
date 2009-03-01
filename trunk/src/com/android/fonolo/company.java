@@ -6,6 +6,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.SQLException;
 import android.os.Bundle;
 import android.os.Handler;
@@ -126,6 +127,23 @@ public class company extends Activity implements Button.OnClickListener, private
 //        	i.putExtras(extras);
 //        	startActivity(i);
 //    	}
+    		
+    		Cursor c = mDbHelper.fetchLogin();
+    		startManagingCursor(c);
+    		int uname_column = c.getColumnIndex(storage_get_set.KEY_UNAME);
+            int pass_column = c.getColumnIndex(storage_get_set.KEY_PASS);
+    		if(!c.equals(null)){
+    			if(c.getCount() == 0){
+    				//send the person to the user settings page because we have no info
+
+    			}else{
+    				if(c.moveToFirst()){
+    					uname = c.getString(uname_column);
+    					passwd = c.getString(pass_column);
+    				}
+    			}
+    		}	
+    		
     	
     	tl = (TableLayout)findViewById(R.id.tab_buttons);
     	
@@ -135,8 +153,8 @@ public class company extends Activity implements Button.OnClickListener, private
     	
     	//copy into all classes--------------------------
 		Bundle extras = getIntent().getExtras();
-		uname = extras.getString("user");
-		passwd = extras.getString("pass");
+//		uname = extras.getString("user");
+//		passwd = extras.getString("pass");
 		//end copy---------------------------------------
 
 		id = extras.getString("id");

@@ -2,6 +2,7 @@ package com.android.fonolo;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,6 +28,8 @@ public class home extends Activity implements OnClickListener, private_constants
 	String passwd = "";
 	//end copy------------------------------------------
 	
+	private storage_get_set mDbHelper;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
@@ -39,13 +42,31 @@ public class home extends Activity implements OnClickListener, private_constants
 		help_button.setOnClickListener(this);
 		View search_button = this.findViewById(R.id.search_button);
 		search_button.setOnClickListener(this);
+		mDbHelper = new storage_get_set(this);
+		mDbHelper.open();
 		
-		//copy into all classes into onCreate()----------
-		//each method will retrieve user/pass
-		Bundle extras = getIntent().getExtras();
-		uname = extras.getString("user");
-		passwd = extras.getString("pass");
-		//end copy---------------------------------------
+		Cursor c = mDbHelper.fetchLogin();
+		startManagingCursor(c);
+		int uname_column = c.getColumnIndex(storage_get_set.KEY_UNAME);
+        int pass_column = c.getColumnIndex(storage_get_set.KEY_PASS);
+		if(!c.equals(null)){
+			if(c.getCount() == 0){
+				//send the person to the user settings page because we have no info
+
+			}else{
+				if(c.moveToFirst()){
+					uname = c.getString(uname_column);
+					passwd = c.getString(pass_column);
+				}
+			}
+		}
+		
+//		//copy into all classes into onCreate()----------
+//		//each method will retrieve user/pass
+//		Bundle extras = getIntent().getExtras();
+//		uname = extras.getString("user");
+//		passwd = extras.getString("pass");
+//		//end copy---------------------------------------
 	}
 	//Button click handling
 	public void onClick(View v) {        

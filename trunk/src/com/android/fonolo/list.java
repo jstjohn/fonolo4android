@@ -128,12 +128,30 @@ public class list extends Activity implements Button.OnClickListener, private_co
 //        	i.putExtras(extras);
 //        	startActivity(i);
 //    	}
-    	
-        //copy into all classes--------------------------
+    		Cursor c = mDbHelper.fetchLogin();
+    		startManagingCursor(c);
+    		int uname_column = c.getColumnIndex(storage_get_set.KEY_UNAME);
+            int pass_column = c.getColumnIndex(storage_get_set.KEY_PASS);
+    		if(!c.equals(null)){
+    			if(c.getCount() == 0){
+    				//send the person to the user settings page because we have no info
+
+    			}else{
+    				if(c.moveToFirst()){
+    					uname = c.getString(uname_column);
+    					passwd = c.getString(pass_column);
+    				}
+    			}
+    		}
+    		
+    		
+    		
+    		
+//        //copy into all classes--------------------------
 		Bundle extras = getIntent().getExtras();
-		uname = extras.getString("user");
-		passwd = extras.getString("pass");
-		//end copy---------------------------------------
+//		uname = extras.getString("user");
+//		passwd = extras.getString("pass");
+//		//end copy---------------------------------------
 		
 		
 		int method = extras.getInt("method");

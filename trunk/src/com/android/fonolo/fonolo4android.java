@@ -5,6 +5,7 @@ import org.json.JSONObject;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -26,6 +27,7 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 	TextView user;
 	TextView pass;
 	ProgressDialog myProgressDialog = null;
+	private storage_get_set mDbHelper;
 	
 	// Need handler for callbacks to the UI thread
     final Handler mHandler = new Handler();
@@ -104,6 +106,26 @@ public class fonolo4android extends Activity implements private_constants, OnCli
         output = (TextView)this.findViewById(R.id.output);
         user = (TextView)this.findViewById(R.id.user_field);
         pass = (TextView)this.findViewById(R.id.pass_field);
+        
+		mDbHelper = new storage_get_set(this);
+		mDbHelper.open();
+		
+		Cursor c = mDbHelper.fetchLogin();
+		startManagingCursor(c);
+		int uname_column = c.getColumnIndex(storage_get_set.KEY_UNAME);
+        int pass_column = c.getColumnIndex(storage_get_set.KEY_PASS);
+		if(!c.equals(null)){
+			if(c.getCount() == 0){
+				//send the person to the user settings page because we have no info
+
+			}else{
+				if(c.moveToFirst()){
+					user.setText(c.getString(uname_column));
+					pass.setText(c.getString(pass_column));
+					//add phone part here too
+				}
+			}
+		}
 
         
          //Create buttons
