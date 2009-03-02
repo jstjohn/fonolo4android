@@ -64,6 +64,8 @@ public class company extends Activity implements Button.OnClickListener, private
 	TextView company_name;
 	TableLayout tl;
 	
+	Button favs_button;
+	
 	private storage_get_set mDbHelper;
 	
 	
@@ -108,7 +110,7 @@ public class company extends Activity implements Button.OnClickListener, private
     	super.onCreate(savedInstanceState);
     	setContentView(R.layout.company);
     	View new_search_button = this.findViewById(R.id.new_search_button);
-    	View favs_button = this.findViewById(R.id.favs_button);
+    	favs_button = (Button) this.findViewById(R.id.favs_button);
     	favs_button.setOnClickListener(this);
     	favs_button.setId(911);
     	new_search_button.setOnClickListener(this);
@@ -160,6 +162,14 @@ public class company extends Activity implements Button.OnClickListener, private
 		id = extras.getString("id");
 		name = extras.getString("company_name");
         company_name.setText(name);
+        
+        Boolean fav = mDbHelper.checkFavorite(id);
+        if(fav){
+        	favs_button.setText("Remove");
+        }
+        else{
+        	favs_button.setText("Add");
+        }
         
         myProgressDialog = ProgressDialog.show(company.this,
                 "Please wait...", "Populating the company tree.", true);
@@ -269,20 +279,23 @@ public class company extends Activity implements Button.OnClickListener, private
 		
 		//add to favorites
 		else if(i == 911){
-			if(mDbHelper.createFavorites(id, name) != -1){}
+			
+			if(mDbHelper.createFavorites(id, name) != -1){
+				
+			}
 			else{		
-				Intent q = new Intent(this, message.class);
-				String message = "Company successfully removed from favorites";
 				try{
 					mDbHelper.deleteFavorites(id);
 				}catch(Exception e){
-					message = e.getMessage();
-				}
-	        	Bundle extras = new Bundle();
-	        	extras.putString("message", message);
-	        	q.putExtras(extras);
-	        	startActivity(q);
+				}	
 			}
+			Boolean fav = mDbHelper.checkFavorite(id);
+	        if(fav){
+	        	favs_button.setText("Remove");
+	        }
+	        else{
+	        	favs_button.setText("Add");
+	        }
 		}
 		
 		//else go to make call page
