@@ -137,7 +137,7 @@ public class call extends Activity implements OnClickListener, private_constants
 		setContentView(R.layout.call);
 
 		output = (TextView)this.findViewById(R.id.output);
-		phone_entry = (TextView)this.findViewById(R.id.my_phone_number);
+		//phone_entry = (TextView)this.findViewById(R.id.my_phone_number);
 		
 		mDbHelper = new storage_get_set(this);
     	mDbHelper.open();
