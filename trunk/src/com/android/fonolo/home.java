@@ -43,6 +43,8 @@ public class home extends Activity implements OnClickListener, private_constants
 		View search_button = this.findViewById(R.id.search_button);
 		search_button.setOnClickListener(this);
 		View favs_button = this.findViewById(R.id.favs_button);
+		View settings_button = this.findViewById(R.id.settings_button);
+		settings_button.setOnClickListener(this);
 		favs_button.setOnClickListener(this);
 		mDbHelper = new storage_get_set(this);
 		mDbHelper.open();
@@ -122,6 +124,10 @@ public class home extends Activity implements OnClickListener, private_constants
 			out_extras.putInt("method", FAVS_METHOD);
 			f.putExtras(out_extras);
 			startActivity(f);
+			break;
+		case R.id.settings_button:
+			Intent j = new Intent(this, settings.class);
+			startActivity(j);
 			break;
 		
 		}		
