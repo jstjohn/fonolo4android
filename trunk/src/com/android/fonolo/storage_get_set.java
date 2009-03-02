@@ -229,6 +229,10 @@ public class storage_get_set {
         return mDb.query(LOGIN_DB_TABLE, new String[] {KEY_UNAME, KEY_PASS, KEY_PHONE}, null, null, null, null, null);
     }
     
+    public Cursor fetchEula() {
+    	
+        return mDb.query(EULA_DB_TABLE, new String[] {KEY_EULA_ID, KEY_EULA}, null, null, null, null, null);
+    }
 
     /**
      * Update the note using the details provided. The note to be updated is

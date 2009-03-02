@@ -26,6 +26,7 @@ public class settings extends Activity implements private_constants, OnClickList
 	TextView output;
 	TextView user;
 	TextView pass;
+	TextView phone;
 	ProgressDialog myProgressDialog = null;
 	private storage_get_set mDbHelper;
 	
@@ -68,7 +69,7 @@ public class settings extends Activity implements private_constants, OnClickList
         }
 			
 	}
-    protected void startLongRunningOperation(final String uname, final String passwd) {
+    protected void startLongRunningOperation(final String uname, final String passwd, final String phone_num) {
     	
         // Fire off a thread to do some work that we shouldn't do directly in the UI thread
         Thread t = new Thread() {
@@ -80,8 +81,9 @@ public class settings extends Activity implements private_constants, OnClickList
 		        JSONObject json_result;
 		        glob_uname = uname;
 		        glob_passwd = passwd;
+		        glob_phone = phone_num;
 				try {
-					json_result = communication.check_member(uname, passwd);
+					json_result = communication.check_member_number(uname, passwd, phone_num);
 					JSONObject json_resp = json_result.getJSONObject("result");
 					JSONObject json_head = json_resp.getJSONObject("head");
 					String message = json_head.getString("response_message");
@@ -110,6 +112,7 @@ public class settings extends Activity implements private_constants, OnClickList
         output = (TextView)this.findViewById(R.id.output);
         user = (TextView)this.findViewById(R.id.user_field);
         pass = (TextView)this.findViewById(R.id.pass_field);
+        phone = (TextView)this.findViewById(R.id.number_field);
         
 		mDbHelper = new storage_get_set(this);
 		mDbHelper.open();
@@ -118,14 +121,15 @@ public class settings extends Activity implements private_constants, OnClickList
 		startManagingCursor(c);
 		int uname_column = c.getColumnIndex(storage_get_set.KEY_UNAME);
         int pass_column = c.getColumnIndex(storage_get_set.KEY_PASS);
+        int phone_column = c.getColumnIndex(storage_get_set.KEY_PHONE);
 		if(!c.equals(null)){
 			if(c.getCount() == 0){
-				//send the person to the user settings page because we have no info
-
+				//do nothing, the person needs to enter this information
 			}else{
 				if(c.moveToFirst()){
 					user.setText(c.getString(uname_column));
 					pass.setText(c.getString(pass_column));
+					phone.setText(c.getString(phone_column));
 					//add phone part here too
 				}
 			}
@@ -144,9 +148,10 @@ public class settings extends Activity implements private_constants, OnClickList
     		case R.id.go_button:
 	    		String uname = user.getText().toString(); 
 	    		String passwd = pass.getText().toString();
+	    		String phone_num = phone.getText().toString();
 	    		
 	    		//Check if the the username, password fields are empty
-		        if((uname.equals(""))||(passwd.equals(""))){		        	
+		        if((uname.equals(""))||(passwd.equals(""))||(phone_num.equals(""))){		        	
 		        	Intent i = new Intent(this, message.class);
 		        	String message = "Please input a valid username and password";
 		        	Bundle extras = new Bundle();
@@ -161,7 +166,7 @@ public class settings extends Activity implements private_constants, OnClickList
 		        else{
 		        	myProgressDialog = ProgressDialog.show(settings.this,     
                         "Please wait...", "Confirming username and password with fonolo.", true); 
-			        startLongRunningOperation(uname,passwd);			        
+			        startLongRunningOperation(uname,passwd,phone_num);			        
 		        }
 		        break;
     		case R.id.help_button:// lunch the help window if the button was pressed is help.
