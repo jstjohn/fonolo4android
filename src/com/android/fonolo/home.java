@@ -115,12 +115,12 @@ public class home extends Activity implements OnClickListener, private_constants
 			l.putExtras(out_extras);
 			startActivity(l);
 			break;*/
-		/*case R.id.favorites_button:
+		case R.id.favs_button:
 			Intent f = new Intent(this, list.class);
 			out_extras.putInt("method", FAVS_METHOD);
 			f.putExtras(out_extras);
 			startActivity(f);
-			break;*/
+			break;
 		
 		}		
 	}
