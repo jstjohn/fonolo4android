@@ -43,13 +43,31 @@ public class fonolo4android extends Activity {
 				//send the person to the user settings page because we have no info
 				Intent i = new Intent(this, settings.class);
 				startActivity(i);
+//				Intent i = new Intent(this, message.class);
+//				Bundle extras = new Bundle();
+//				String message = "going to settings 1";
+//				extras.putString("message", message);
+//				i.putExtras(extras);
+//				startActivity(i);
 			}else{
 				Intent i = new Intent(this, home.class);
 				startActivity(i);
+//				Intent i = new Intent(this, message.class);
+//				Bundle extras = new Bundle();
+//				String message = "going home";
+//				extras.putString("message", message);
+//				i.putExtras(extras);
+//				startActivity(i);
 			}
 		}else{
 			Intent i = new Intent(this, settings.class);
 			startActivity(i);
+//			Intent i = new Intent(this, message.class);
+//			Bundle extras = new Bundle();
+//			String message = "going to settings 2";
+//			extras.putString("message", message);
+//			i.putExtras(extras);
+//			startActivity(i);
 		}
 		}catch(Exception e3){
 			Intent i = new Intent(this, message.class);
