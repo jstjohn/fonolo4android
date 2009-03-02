@@ -17,4 +17,5 @@
     <string name="call_name">Call Info</string>
     <string name="message_name">MESSAGE</string>
     <string name="settings_name">Settings</string>
+    <string name="eula_name">EULA</string>
 </resources>
