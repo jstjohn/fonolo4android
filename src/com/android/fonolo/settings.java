@@ -108,7 +108,7 @@ public class settings extends Activity implements private_constants, OnClickList
     @Override
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.settings);
         /*
          * Store the informations from the UI into the variables.
          */
