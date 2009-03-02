@@ -92,12 +92,15 @@ public class settings extends Activity implements private_constants, OnClickList
 					JSONObject json_resp = json_result.getJSONObject("result");
 					JSONObject json_head = json_resp.getJSONObject("head");
 					String message = json_head.getString("response_message");
-					code = json_head.getInt("response_code");						
+					code = json_head.getInt("response_code");
+					if(message.equals("")){
+						message = "You have no internet connection!";
+					}
 					result = message;
 										
 				} catch (JSONException e) {
 					// TODO Auto-generated catch block
-					e.printStackTrace();
+					
 				}
 				mHandler.post(mUpdateResults);
 				myProgressDialog.dismiss(); 
