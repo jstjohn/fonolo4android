@@ -44,6 +44,9 @@ public class storage_get_set {
     //stuff for our favorites list table
     public static final String KEY_ID = "c_id";
     public static final String KEY_NAME = "name";
+    
+    public static final String KEY_EULA_ID = "junk";
+    public static final String KEY_EULA = "value";
 
     private static final String TAG = "storage_get_set";
     private DatabaseHelper mDbHelper;
@@ -58,10 +61,14 @@ public class storage_get_set {
     private static final String FAVS_DB_CREATE = 
     	"create table favorites (c_id text primary key, "
         + "name text not null);";
+    private static final String EULA_DB_CREATE = 
+    	"create table eula (junk integer primary key, "
+        + "value boolean not null);";
     private static final String DATABASE_NAME = "data";
     private static final String LOGIN_DB_TABLE = "login";
+    private static final String EULA_DB_TABLE = "eula";
     private static final String FAVORITES_DB_TABLE = "favorites";
-    private static final int DATABASE_VERSION = 4;
+    private static final int DATABASE_VERSION = 5;
 
     private final Context mCtx;
 
@@ -75,6 +82,18 @@ public class storage_get_set {
         public void onCreate(SQLiteDatabase db) {
         		db.execSQL(LOGIN_DB_CREATE);
         		db.execSQL(FAVS_DB_CREATE);
+        		db.execSQL(EULA_DB_CREATE);
+        		try{
+        		String initialize = "insert into eula values (0,0);";
+        		db.execSQL(initialize);
+        		}catch(Exception e){
+        			try{
+        				String initialize = "update eula set value=0 where junk=0;";
+                		db.execSQL(initialize);
+        			}catch(Exception e2){
+        				//do nothing, hopeless case...
+        			}
+        		}
             
         }
 
@@ -84,6 +103,7 @@ public class storage_get_set {
                     + newVersion + ", which will destroy all old data");
             db.execSQL("DROP TABLE IF EXISTS favorites");
             db.execSQL("DROP TABLE IF EXISTS login");
+            db.execSQL("DROP TABLE IF EXISTS eula");
             onCreate(db);
         }
     }
@@ -153,6 +173,20 @@ public class storage_get_set {
         return mDb.insert(FAVORITES_DB_TABLE, null, initialValues);
     }
 
+    public boolean setEulaTrue() {
+        ContentValues args = new ContentValues();
+        args.put(KEY_EULA_ID, 0);
+        args.put(KEY_EULA, 1);
+
+        return mDb.update(EULA_DB_TABLE, args, KEY_EULA_ID + "=" + "0", null) > 0;
+    }
+    public boolean setEulaFalse(){
+    	ContentValues args = new ContentValues();
+        args.put(KEY_EULA_ID, 0);
+        args.put(KEY_EULA, 0);
+
+        return mDb.update(EULA_DB_TABLE, args, KEY_EULA_ID + "=" + "0", null) > 0;
+    }
     /**
      * Delete the note with the given rowId
      * 
