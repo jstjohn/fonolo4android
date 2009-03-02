@@ -84,4 +84,6 @@ android:layout_below="@+id/search_text"
 android:layout_alignParentLeft="true"
 >
 </EditText>
+<Button
+android:layout
 </RelativeLayout>
