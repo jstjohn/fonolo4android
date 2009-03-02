@@ -32,19 +32,15 @@ public class call extends Activity implements OnClickListener, private_constants
 	String phone = "";
 	//end copy------------------------------------------
 	TextView output;
-	TextView phone_entry;
+	TextView phone_call_details;
 	String id = "";
 	String outMessage;
-
-	String first3 = "XXX";
-	String next3 = "XXX";
-	String final4 = "XXXX";
 	
 	private storage_get_set mDbHelper;
 	JSONObject call_result;
 
 	int response_code;
-	String raw_phone;
+	String phone_num;
 	
 	ProgressDialog myProgressDialog = null;
 
@@ -64,11 +60,11 @@ public class call extends Activity implements OnClickListener, private_constants
 			public void run() {
 				try {
 					//check if the typed number matches the number that stored under the user account. 
-					JSONObject result = communication.check_member_number(uname, passwd, first3+"-"+next3+"-"+final4);
+					JSONObject result = communication.check_member_number(uname, passwd, phone);
 					response_code = result.getJSONObject("result").getJSONObject("head").getInt("response_code");
 					// if the typed number is correct, then place the call and display the call placing message.
 					if(response_code >= 200 && response_code < 300){
-						call_result = communication.call_start(id, first3+"-"+next3+"-"+final4, uname, passwd);
+						call_result = communication.call_start(id, phone, uname, passwd);
 					}
 
 				} catch (JSONException e) {
@@ -86,8 +82,6 @@ public class call extends Activity implements OnClickListener, private_constants
 		// Back in the UI thread -- update our UI elements based on the data in mResults
 		// if the typed number is correct, then place the call and display the call placing message.
 		if(response_code >= 200 && response_code < 300){
-			outMessage += "\nMember phone number valid: "+first3+"-"+next3+"-"+final4;
-			output.setText(outMessage);
 			int call_code = 999;
 			String outsuccess = "";
 			try {
@@ -104,19 +98,15 @@ public class call extends Activity implements OnClickListener, private_constants
 			}else{
 				outsuccess += "\n\nAn error occured, this node may be unavailable. Please try your call again later or try a different node in the menu.";
 			}
-			//setup the info to be displayed in popup window. 
-			Intent i = new Intent(this, message.class);
-			String message = outsuccess;
-			Bundle extras = new Bundle();
-			extras.putString("message", message);
-			i.putExtras(extras);
-			startActivity(i);
+			phone_call_details.setText(outsuccess);
+			//now update information periodically from fonolo;
+			
 		}					
 		//If the typed number is not correct, show error message and asked to retype the number.
 		else{
-			String outerror = "Member phone number invalid: "+raw_phone;
+			String outerror = "Member phone number invalid: "+phone;
 			outerror += "\nPlease enter the same 10 digit phone number on your fonolo account. ";
-			outerror += "The correct format should be 555 555 5555 (but no spaces). Please enter your correct number and try again.";
+			outerror += "The correct format should be 555 555 5555 (but no spaces). Please enter your correct number in the settings page and try again.";
 			Intent i = new Intent(this, message.class);
 			String message = outerror;
 			Bundle extras = new Bundle();
@@ -137,7 +127,7 @@ public class call extends Activity implements OnClickListener, private_constants
 		setContentView(R.layout.call);
 
 		output = (TextView)this.findViewById(R.id.output);
-		//phone_entry = (TextView)this.findViewById(R.id.my_phone_number);
+		phone_call_details = (TextView)this.findViewById(R.id.phone_call_details);
 		
 		mDbHelper = new storage_get_set(this);
     	mDbHelper.open();
@@ -185,35 +175,14 @@ public class call extends Activity implements OnClickListener, private_constants
 	// setup the actions when the buttons were pressed.
 	public void onClick(View v) {
 		switch (v.getId()){
-		case R.id.place_call:// if the place a call pressed, the do the following.
-			raw_phone = phone_entry.getText().toString();// get the typed number.
-
-			// the following regular expression strips out
-			// everything that isn't a digit in the person's text field
-			raw_phone = raw_phone.replaceAll("\\D", "");
-
-
-			// store the user phone number in the right format.
-			if(raw_phone.length() == 11){//if the user entered the country code"1", ignore it.
-				first3 = raw_phone.substring(1,4);
-				next3 = raw_phone.substring(4,7);
-				final4 = raw_phone.substring(7,11);
-			}
-			else if (raw_phone.length() == 10){
-				first3 = raw_phone.substring(0,3);
-				next3 = raw_phone.substring(3,6);
-				final4 = raw_phone.substring(6,10);
-			}
+		case R.id.place_call:// if the place a call pressed, the do the following
 			
 			myProgressDialog = ProgressDialog.show(call.this,
-                    "Please wait...", "Checking phone number against fonolo database.", true);
+                    "Please wait...", "Checking verifying information and sending request.", true);
 			startLongRunningOperation();
 			break;
 		case R.id.help_button:// show the help window if the pressed button is help. 
-			String outmessage = "This is the call screen. You need the 10 digit phone number that " +
-			"was added to your account on the fonolo website. The correct format should be:" +
-			"\n555 555 5555 (without spaces). " +
-			"Input your phone number into the space provided and wait for a call from fonolo. " +
+			String outmessage = "This is the call screen, please wait for a call from fonolo. " +
 			"the call originates from 1(416)366-2500";
 			Intent j = new Intent(this, help.class); 
 			String help_message = outmessage;

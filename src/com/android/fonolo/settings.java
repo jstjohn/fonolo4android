@@ -29,6 +29,9 @@ public class settings extends Activity implements private_constants, OnClickList
 	TextView phone;
 	ProgressDialog myProgressDialog = null;
 	private storage_get_set mDbHelper;
+	String first3 = "XXX";
+	String next3 = "XXX";
+	String final4 = "XXXX";
 	
 	// Need handler for callbacks to the UI thread
     final Handler mHandler = new Handler();
@@ -148,12 +151,35 @@ public class settings extends Activity implements private_constants, OnClickList
     		case R.id.go_button:
 	    		String uname = user.getText().toString(); 
 	    		String passwd = pass.getText().toString();
-	    		String phone_num = phone.getText().toString();
+	    		String raw_phone = phone.getText().toString();
+
+				// the following regular expression strips out
+				// everything that isn't a digit in the person's text field
+				raw_phone = raw_phone.replaceAll("\\D", "");
+				String phone_num = "";
+
+				// store the user phone number in the right format.
+				if(raw_phone.length() == 11){//if the user entered the country code"1", ignore it.
+					first3 = raw_phone.substring(1,4);
+					next3 = raw_phone.substring(4,7);
+					final4 = raw_phone.substring(7,11);
+					phone_num = first3+"-"+next3+"-"+final4;
+				}
+				else if (raw_phone.length() == 10){
+					first3 = raw_phone.substring(0,3);
+					next3 = raw_phone.substring(3,6);
+					final4 = raw_phone.substring(6,10);
+					phone_num = first3+"-"+next3+"-"+final4;
+				} else {
+					phone_num = raw_phone;
+				}
+				
 	    		
 	    		//Check if the the username, password fields are empty
 		        if((uname.equals(""))||(passwd.equals(""))||(phone_num.equals(""))){		        	
 		        	Intent i = new Intent(this, message.class);
-		        	String message = "Please input a valid username and password";
+		        	String message = "Please input a valid username, password and the "
+		        		+"phone number registered with fonolo, in the format: XXX-XXX-XXXX";
 		        	Bundle extras = new Bundle();
 		        	extras.putString("message", message);
 		        	i.putExtras(extras);
