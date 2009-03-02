@@ -18,7 +18,7 @@
 <activity android:name=".call" android:label="@string/call_name"></activity>
 <activity android:label="@string/message_name" android:name=".message" android:theme="@android:style/Theme.Dialog"></activity>
 <activity android:name=".settings" android:label="@string/settings_name"></activity>
-<activity android:name=".eula" android:label="@string/eula_name"></activity>
+<activity android:name=".eula" android:label="@string/eula_name" android:theme="@android:style/Theme.Dialog"></activity>
 </application>
 <uses-permission android:name="android.permission.INTERNET"></uses-permission>
 
