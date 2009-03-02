@@ -56,7 +56,9 @@ public class settings extends Activity implements private_constants, OnClickList
 //        	extras.putString("user", glob_uname);
 //        	extras.putString("pass", glob_passwd);		        	
 //   		i.putExtras(extras);
-        	if(mDbHelper.createLogin(glob_uname, glob_passwd, glob_phone) == -1){
+        	try{
+        		mDbHelper.createLogin(glob_uname, glob_passwd, glob_phone);
+        	}catch(Exception e){
         		mDbHelper.updateLogin(glob_uname, glob_passwd, glob_phone);
         	}
     		startActivity(i);
