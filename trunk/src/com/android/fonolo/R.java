@@ -16,6 +16,8 @@ public final class R {
         public static final int icon=0x7f020002;
         public static final int icon_beta=0x7f020003;
         public static final int icon_ours=0x7f020004;
+        public static final int splash_back=0x7f020005;
+        public static final int splash_back_land=0x7f020006;
     }
     public static final class id {
         public static final int TextView_number=0x7f05001b;
