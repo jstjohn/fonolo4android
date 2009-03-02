@@ -1,16 +1,10 @@
 package com.android.fonolo;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+
 import android.app.Activity;
-import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.TextView;
 
 /**
  * 
@@ -22,7 +16,7 @@ import android.widget.TextView;
  * and password.
  *
  */
-public class fonolo4android extends Activity implements private_constants, OnClickListener {
+public class fonolo4android extends Activity {
 	private storage_get_set mDbHelper;
 	
     /** Called when the activity is first created. */
@@ -30,7 +24,7 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
-        
+        try{
 		mDbHelper = new storage_get_set(this);
 		mDbHelper.open();
 		Cursor e = mDbHelper.fetchEula();
@@ -57,8 +51,14 @@ public class fonolo4android extends Activity implements private_constants, OnCli
 			Intent i = new Intent(this, settings.class);
 			startActivity(i);
 		}
+		}catch(Exception e3){
+			Intent i = new Intent(this, message.class);
+			Bundle extras = new Bundle();
+			String message = e3.getMessage();
+			extras.putString("message", message);
+			i.putExtras(extras);
+			startActivity(i);
+		}
     }
-    	   // Setup the action caused by buttons listener 	
-    public void onClick(View v){  
-    }
+
 }
