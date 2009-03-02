@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:id="@+id/eula_layout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:padding="10dip"
+    >
+  <!--
+ *************************
+ * @author Craig Gardner
+ * Last Update February 2009
+ * 
+ * This is the xml associated with our message page. It contains the layout 
+ * information for the message page.
+ *************************
+-->
+<ScrollView
+	android:id="@+id/eula_scroll"
+    android:layout_width="fill_parent"
+    android:layout_height="365px"
+>
+    <TextView
+    	android:id="@+id/eula_content"
+    	android:layout_width="wrap_content"
+    	android:layout_height="wrap_content"
+    	android:text=""
+    />
+    </ScrollView>
+    <Button
+    	android:id="@+id/accept_eula_button"
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:text="Accept"
+    	android:textStyle="bold"
+    	android:layout_below="@+id/eula_scroll"
+    >
+    </Button>
+</RelativeLayout>
