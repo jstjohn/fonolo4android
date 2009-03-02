@@ -172,6 +172,21 @@ public class storage_get_set {
 
         return mDb.insert(FAVORITES_DB_TABLE, null, initialValues);
     }
+    
+    public boolean checkFavorite(String id) throws SQLException {
+
+        Cursor mCursor =
+
+                mDb.query(true, FAVORITES_DB_TABLE, new String[] {KEY_ID,
+                        KEY_NAME}, KEY_ID + "='" + id + "'", null,
+                        null, null, null, null);
+        if (mCursor != null && mCursor.getCount() != 0) {
+            return true;
+        }else{
+        	return false;
+        }
+
+    }
 
     public boolean setEulaTrue() {
         ContentValues args = new ContentValues();
