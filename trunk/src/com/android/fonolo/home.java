@@ -42,6 +42,8 @@ public class home extends Activity implements OnClickListener, private_constants
 		help_button.setOnClickListener(this);
 		View search_button = this.findViewById(R.id.search_button);
 		search_button.setOnClickListener(this);
+		View favs_button = this.findViewById(R.id.favs_button);
+		favs_button.setOnClickListener(this);
 		mDbHelper = new storage_get_set(this);
 		mDbHelper.open();
 		
