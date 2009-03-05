@@ -24,13 +24,12 @@ public class eula extends Activity{
 		setContentView(R.layout.eula);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,  
                 WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
-
 		
 		eula_content = (TextView)this.findViewById(R.id.eula_content);
 		//getting bundled content
-		Bundle extras = getIntent().getExtras();
-		content = extras.getString("content");
+		//Bundle extras = getIntent().getExtras();
+		//content = extras.getString("content");
 		//displaying bundled content
-		eula_content.setText(content);
+		//eula_content.setText(content);
 	}
 }
