@@ -36,6 +36,8 @@ public class fonolo4android extends Activity {
 			int eula = e.getInt(eula_column);
 			if (eula == 0){
 				//go to EULA page
+				Intent i = new Intent(this, eula.class);
+				startActivity(i);
 			}
 		}
 		if(!c.equals(null)){
