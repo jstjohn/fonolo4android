@@ -2,7 +2,9 @@ package com.android.fonolo;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.view.View;
 import android.view.WindowManager;
+import android.view.View.OnClickListener;
 import android.widget.TextView;
 
 /**
@@ -15,12 +17,15 @@ import android.widget.TextView;
  * program when the help button is pressed.
  * 
  */
-public class eula extends Activity{
+public class eula extends Activity implements OnClickListener{
 	TextView eula_content;
 	String content;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+		View eula_button = this.findViewById(R.id.accept_eula_button);
+		eula_button.setOnClickListener(this);
 		setContentView(R.layout.eula);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,  
                 WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
@@ -31,5 +36,11 @@ public class eula extends Activity{
 		//content = extras.getString("content");
 		//displaying bundled content
 		//eula_content.setText(content);
+	}
+
+	@Override
+	public void onClick(View arg0) {
+		// TODO Auto-generated method stub
+		
 	}
 }
