@@ -182,8 +182,9 @@ public class call extends Activity implements OnClickListener, private_constants
 			startLongRunningOperation();
 			break;
 		case R.id.help_button:// show the help window if the pressed button is help. 
-			String outmessage = "This is the call screen, please wait for a call from fonolo. " +
-			"the call originates from 1(416)366-2500";
+			String outmessage = "This is the call screen, after pressing place call, " +
+					"please wait for a call from fonolo. " +
+			"The call originates from 1(416)366-2500";
 			Intent j = new Intent(this, help.class); 
 			String help_message = outmessage;
 			Bundle extras = new Bundle();
