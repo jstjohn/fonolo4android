@@ -1,12 +1,12 @@
 /*
  * Copyright (C) 2008 Google Inc.
- * 
+ *
  * Licensed under the Apache License, Version 2.0 (the "License"); you may not
  * use this file except in compliance with the License. You may obtain a copy of
  * the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
  * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
@@ -28,47 +28,47 @@ import android.util.Log;
  * Simple notes database access helper class. Defines the basic CRUD operations
  * for the notepad example, and gives the ability to list all notes as well as
  * retrieve or modify a specific note.
- * 
+ *
  * This has been improved from the first version of this tutorial through the
  * addition of better error handling and also using returning a Cursor instead
  * of using a collection of inner classes (which is less scalable and not
  * recommended).
  */
 public class storage_get_set {
-	
-	//stuff for our user information table
+       
+        //stuff for our user information table
     public static final String KEY_UNAME = "user";
     public static final String KEY_PASS = "password";
     public static final String KEY_PHONE= "phone";
-    
+   
     //stuff for our favorites list table
     public static final String KEY_ID = "c_id";
     public static final String KEY_NAME = "name";
-    
+   
     public static final String KEY_EULA_ID = "junk";
     public static final String KEY_EULA = "value";
 
     private static final String TAG = "storage_get_set";
     private DatabaseHelper mDbHelper;
     private SQLiteDatabase mDb;
-    
+   
     /**
      * Database creation sql statement
      */
     private static final String LOGIN_DB_CREATE =
             "create table login (user text primary key, "
                     + "password text not null, phone text not null);";
-    private static final String FAVS_DB_CREATE = 
-    	"create table favorites (c_id text primary key, "
+    private static final String FAVS_DB_CREATE =
+        "create table favorites (c_id text primary key, "
         + "name text not null);";
-    private static final String EULA_DB_CREATE = 
-    	"create table eula (junk integer primary key, "
+    private static final String EULA_DB_CREATE =
+        "create table eula (junk integer primary key, "
         + "value boolean not null);";
     private static final String DATABASE_NAME = "data";
     private static final String LOGIN_DB_TABLE = "login";
     private static final String EULA_DB_TABLE = "eula";
     private static final String FAVORITES_DB_TABLE = "favorites";
-    private static final int DATABASE_VERSION = 5;
+    private static final int DATABASE_VERSION = 10;
 
     private final Context mCtx;
 
@@ -80,21 +80,21 @@ public class storage_get_set {
 
         @Override
         public void onCreate(SQLiteDatabase db) {
-        		db.execSQL(LOGIN_DB_CREATE);
-        		db.execSQL(FAVS_DB_CREATE);
-        		db.execSQL(EULA_DB_CREATE);
-        		try{
-        		String initialize = "insert into eula values (0,0);";
-        		db.execSQL(initialize);
-        		}catch(Exception e){
-        			try{
-        				String initialize = "update eula set value=0 where junk=0;";
-                		db.execSQL(initialize);
-        			}catch(Exception e2){
-        				//do nothing, hopeless case...
-        			}
-        		}
-            
+                        db.execSQL(LOGIN_DB_CREATE);
+                        db.execSQL(FAVS_DB_CREATE);
+                        db.execSQL(EULA_DB_CREATE);
+                        try{
+                        String initialize = "insert into eula values (0,0);";
+                        db.execSQL(initialize);
+                        }catch(Exception e){
+                                try{
+                                        String initialize = "update eula set value=0 where junk=0;";
+                                db.execSQL(initialize);
+                                }catch(Exception e2){
+                                        //do nothing, hopeless case...
+                                }
+                        }
+           
         }
 
         @Override
@@ -111,7 +111,7 @@ public class storage_get_set {
     /**
      * Constructor - takes the context to allow the database to be
      * opened/created
-     * 
+     *
      * @param ctx the Context within which to work
      */
     public storage_get_set(Context ctx) {
@@ -122,7 +122,7 @@ public class storage_get_set {
      * Open the notes database. If it cannot be opened, try to create a new
      * instance of the database. If it cannot be created, throw an exception to
      * signal the failure
-     * 
+     *
      * @return this (self reference, allowing this to be chained in an
      *         initialization call)
      * @throws SQLException if the database could be neither opened or created
@@ -132,7 +132,7 @@ public class storage_get_set {
         mDb = mDbHelper.getWritableDatabase();
         return this;
     }
-    
+   
     public void close() {
         mDbHelper.close();
     }
@@ -142,7 +142,7 @@ public class storage_get_set {
      * Create a new note using the title and body provided. If the note is
      * successfully created return the new rowId for that note, otherwise return
      * a -1 to indicate failure.
-     * 
+     *
      * @param title the title of the note
      * @param body the body of the note
      * @return rowId or -1 if failed
@@ -155,12 +155,12 @@ public class storage_get_set {
 
         return mDb.insert(LOGIN_DB_TABLE, null, initialValues);
     }
-    
+   
     /**
      * Create a new note using the title and body provided. If the note is
      * successfully created return the new rowId for that note, otherwise return
      * a -1 to indicate failure.
-     * 
+     *
      * @param title the title of the note
      * @param body the body of the note
      * @return rowId or -1 if failed
@@ -172,7 +172,7 @@ public class storage_get_set {
 
         return mDb.insert(FAVORITES_DB_TABLE, null, initialValues);
     }
-    
+   
     public boolean checkFavorite(String id) throws SQLException {
 
         Cursor mCursor =
@@ -183,7 +183,7 @@ public class storage_get_set {
         if (mCursor != null && mCursor.getCount() != 0) {
             return true;
         }else{
-        	return false;
+                return false;
         }
 
     }
@@ -196,15 +196,16 @@ public class storage_get_set {
         return mDb.update(EULA_DB_TABLE, args, KEY_EULA_ID + "=" + "0", null) > 0;
     }
     public boolean setEulaFalse(){
-    	ContentValues args = new ContentValues();
+        ContentValues args = new ContentValues();
         args.put(KEY_EULA_ID, 0);
         args.put(KEY_EULA, 0);
+
 
         return mDb.update(EULA_DB_TABLE, args, KEY_EULA_ID + "=" + "0", null) > 0;
     }
     /**
      * Delete the note with the given rowId
-     * 
+     *
      * @param user username of person to delete
      * @return true if deleted, false otherwise
      */
@@ -212,10 +213,10 @@ public class storage_get_set {
 
         return mDb.delete(LOGIN_DB_TABLE, KEY_UNAME + "='" + user + "'", null) > 0;
     }
-    
+   
     /**
      * Delete the note with the given rowId
-     * 
+     *
      * @param user username of person to delete
      * @return true if deleted, false otherwise
      */
@@ -226,26 +227,26 @@ public class storage_get_set {
 
     /**
      * Return a Cursor over the list of all favorites in the database
-     * 
+     *
      * @return Cursor over all notes
      */
     public Cursor fetchAllFavorites() {
-    	
-        return mDb.query(FAVORITES_DB_TABLE, new String[] {KEY_ID, KEY_NAME}, null, null, null, null, null);
+
+        return mDb.query(FAVORITES_DB_TABLE, new String[] {KEY_ID, KEY_NAME}, null, null, null, null, KEY_NAME);
     }
-    
+   
     /**
      * Return a Cursor over the list of all favorites in the database
-     * 
+     *
      * @return Cursor over all notes
      */
     public Cursor fetchLogin() {
-    	
+       
         return mDb.query(LOGIN_DB_TABLE, new String[] {KEY_UNAME, KEY_PASS, KEY_PHONE}, null, null, null, null, null);
     }
-    
+   
     public Cursor fetchEula() {
-    	
+       
         return mDb.query(EULA_DB_TABLE, new String[] {KEY_EULA_ID, KEY_EULA}, null, null, null, null, null);
     }
 
@@ -253,7 +254,7 @@ public class storage_get_set {
      * Update the note using the details provided. The note to be updated is
      * specified using the rowId, and it is altered to use the title and body
      * values passed in
-     * 
+     *
      * @param rowId id of note to update
      * @param title value to set note title to
      * @param body value to set note body to
@@ -268,3 +269,4 @@ public class storage_get_set {
         return mDb.update(LOGIN_DB_TABLE, args, KEY_UNAME + "=" + user, null) > 0;
     }
 }
+
