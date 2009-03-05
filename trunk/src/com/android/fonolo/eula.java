@@ -34,12 +34,9 @@ public class eula extends Activity implements OnClickListener{
 		mDbHelper = new storage_get_set(this);
 		mDbHelper.open();
 		
-		message = "This software is provided \"as-is\". You agree that we are not " +
-				"liable for any damage caused through the use of this sofware. No " +
-				"warranty is given or implied. We are also not responsible for the " +
-				"actions of fonolo, or how they chose to use your information. By " +
-				"clicking accept you agree to all these terms, and that we are not " +
-				"to be held responsible for anything.";
+		message = "By accepting you agree not to hold the developers responsible for damages " +
+				"caused while using this software. Additionally, as the developers are not affiliated with " +
+				"fonolo, you agree that said developers are not responsible for fonolo's actions.";
 		
 		eula_content = (TextView)this.findViewById(R.id.eula_content);
 		eula_content.setText(message);

@@ -18,7 +18,7 @@ xmlns:android="http://schemas.android.com/apk/res/android"
 -->
 <Button
 android:id="@+id/place_call"
-android:layout_width="195px"
+android:layout_width="315px"
 android:layout_height="wrap_content"
 android:text="Place Call"
 android:textStyle="bold"
@@ -30,6 +30,7 @@ android:layout_alignParentRight="true"
 android:id="@+id/output"
 android:layout_width="fill_parent"
 android:layout_height="80px"
+android:textSize="21sp"
 android:textStyle="bold"
 android:textColor="#ffff0000"
 android:layout_alignParentTop="true"
@@ -47,13 +48,15 @@ android:layout_alignParentLeft="true"
 android:id="@+id/phone_call_details"
 android:layout_width="wrap_content"
 android:layout_height="wrap_content"
+android:textColor="#ff000000"
+android:textSize="21sp"
 android:textStyle="bold"
 >
 </TextView>
 </ScrollView>
 <Button
 android:id="@+id/help_button"
-android:layout_width="115px"
+android:layout_width="155px"
 android:layout_height="wrap_content"
 android:text="Help"
 android:textStyle="bold"

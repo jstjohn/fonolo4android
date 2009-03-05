@@ -85,7 +85,8 @@ public class home extends Activity implements OnClickListener, private_constants
 			//Help message passed to the help page
         	String help_message = "This is the search screen. Here you will input a search for a company." +
         			" Only the first 30 results will be displayed. If you don't find the company you " +
-        			"searched for, please refine your search.";
+        			"searched for, please refine your search.\n\n" +
+        			"Press favorites to view your saved favorites list. ";
         	Bundle extras = new Bundle();
         	extras.putString("content", help_message);
         	i.putExtras(extras);
