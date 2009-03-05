@@ -149,6 +149,8 @@ public class settings extends Activity implements private_constants, OnClickList
         go_button.setOnClickListener(this);
         View help_button = this.findViewById(R.id.help_button);
         help_button.setOnClickListener(this);
+        View clear_button = this.findViewById(R.id.clear_button);
+        clear_button.setOnClickListener(this);
         }
     	   // Setup the action caused by buttons listener 	
     	public void onClick(View v){  
@@ -203,12 +205,20 @@ public class settings extends Activity implements private_constants, OnClickList
     		case R.id.help_button:// lunch the help window if the button was pressed is help.
     			Intent i = new Intent(this, help.class);
             	String help_message = "On this screen you will input your username, password " +
-            			"and phone number that you set up on the fonolo website (www.fonolo.com)";
+            			"and phone number that you set up on the fonolo website (www.fonolo.com) " +
+            			"Click save to save your login information. Click clear to clear this " +
+            			"information from the database.";
             	Bundle extras = new Bundle();
             	extras.putString("content", help_message);
             	i.putExtras(extras);
             	startActivity(i);
             	break;
+    		case R.id.clear_button:
+    			user.setText("");
+    			pass.setText("");
+    			phone.setText("");
+    			mDbHelper.deleteLogin();
+    			break;
     		}
     	}
 }

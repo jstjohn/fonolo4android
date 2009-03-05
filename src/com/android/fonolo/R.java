@@ -26,6 +26,7 @@ public final class R {
         public static final int accept_eula_button=0x7f05000f;
         public static final int call_screen=0x7f050000;
         public static final int call_scroll=0x7f050003;
+        public static final int clear_button=0x7f050022;
         public static final int company_name_text=0x7f050007;
         public static final int company_screen=0x7f050006;
         public static final int company_scroll=0x7f05000a;

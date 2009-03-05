@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.TextView;
 
 /**
@@ -35,12 +36,15 @@ public class call extends Activity implements OnClickListener, private_constants
 	TextView phone_call_details;
 	String id = "";
 	String outMessage;
+	Button call_button;
 	
 	private storage_get_set mDbHelper;
 	JSONObject call_result;
 
 	int response_code;
 	String phone_num;
+	
+	String status_message = "";
 	
 	ProgressDialog myProgressDialog = null;
 
@@ -53,7 +57,18 @@ public class call extends Activity implements OnClickListener, private_constants
 			updateResultsInUi();
 		}
 	};
-	protected void startLongRunningOperation() {
+	
+	final Runnable mUpdatePostCancel = new Runnable() {
+		public void run() {
+			updatePostCancel();
+		}
+	};
+	
+	//do stuff here
+	private void updatePostCancel(){
+		phone_call_details.setText(status_message);
+	}
+	protected void startFonoloCallCommunication() {
 
 		// Fire off a thread to do some work that we shouldn't do directly in the UI thread
 		Thread t = new Thread() {
@@ -83,10 +98,10 @@ public class call extends Activity implements OnClickListener, private_constants
 		// if the typed number is correct, then place the call and display the call placing message.
 		if(response_code >= 200 && response_code < 300){
 			int call_code = 999;
-			String outsuccess = "";
+			
 			try {
 				call_code = call_result.getJSONObject("result").getJSONObject("head").getInt("response_code");
-				outsuccess = call_result.getJSONObject("result").getJSONObject("head").getString("response_message");
+				status_message = call_result.getJSONObject("result").getJSONObject("head").getString("response_message");
 			} catch (JSONException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -94,11 +109,11 @@ public class call extends Activity implements OnClickListener, private_constants
 
 			// check the respond from start_call.class
 			if(call_code >= 200 && call_code < 300){
-				outsuccess += "\n\nPlease wait for the call from Fonolo.";
+				status_message += "\n\nPlease wait for the call from Fonolo.";
 			}else{
-				outsuccess += "\n\nAn error occured, this node may be unavailable. Please try your call again later or try a different node in the menu.";
+				status_message += "\n\nAn error occured, this node may be unavailable. Please try your call again later or try a different node in the menu.";
 			}
-			phone_call_details.setText(outsuccess);
+			phone_call_details.setText(status_message);
 			//now update information periodically from fonolo;
 			
 		}					
@@ -160,13 +175,13 @@ public class call extends Activity implements OnClickListener, private_constants
 		String node_name = extras.getString("node_name");
 		String company_name = extras.getString("company_name");
 		//Create buttons and setup a listener. 
-		View call_button = this.findViewById(R.id.place_call); 
+		call_button = (Button) this.findViewById(R.id.place_call); 
 		call_button.setOnClickListener(this);
 		View help_button = this.findViewById(R.id.help_button);
 		help_button.setOnClickListener(this);
 		//setup and display the output message to display the company name, and the name of the node you are reaching.
-		outMessage = "Company Name: "+company_name+"\n";
-		outMessage += "Destination: "+node_name+"\n";
+		outMessage = company_name+": ";
+		outMessage += node_name+"\n";
 
 		output.setText(outMessage);
 
@@ -175,16 +190,27 @@ public class call extends Activity implements OnClickListener, private_constants
 	// setup the actions when the buttons were pressed.
 	public void onClick(View v) {
 		switch (v.getId()){
+		case 199:
+			call_button.setText("Place Call");
+			call_button.setId(R.id.place_call);
+			myProgressDialog = ProgressDialog.show(call.this,
+                    "Please wait...", "Sending request to end call.", true);
+			startFonoloCallCommunication();
+			startFonoloCallCancel();
+			break;
 		case R.id.place_call:// if the place a call pressed, the do the following
-			
+			call_button.setText("End Call");
+			call_button.setId(199);
 			myProgressDialog = ProgressDialog.show(call.this,
                     "Please wait...", "Checking verifying information and sending request.", true);
-			startLongRunningOperation();
+			startFonoloCallCommunication();
+			
 			break;
 		case R.id.help_button:// show the help window if the pressed button is help. 
-			String outmessage = "This is the call screen, after pressing place call, " +
-					"please wait for a call from fonolo. " +
-			"The call originates from 1(416)366-2500";
+			String outmessage = "This is the call screen, after pressing Place Call, " +
+					"please wait for a call from fonolo. The call originates from 1(416)366-2500. " +
+					"the End Call button that replaces the Place Call button, may be pressed to notify " +
+					"fonolo that you are done with your call.";
 			Intent j = new Intent(this, help.class); 
 			String help_message = outmessage;
 			Bundle extras = new Bundle();
@@ -194,5 +220,39 @@ public class call extends Activity implements OnClickListener, private_constants
 			break;
 		}
 
+	}
+
+	protected void startFonoloCallCancel() {
+		// TODO Auto-generated method stub
+		// Fire off a thread to do some work that we shouldn't do directly in the UI thread
+		Thread t = new Thread() {
+			public void run() {
+				try {
+					//check if the typed number matches the number that stored under the user account. 
+					JSONObject result = communication.check_member_number(uname, passwd, phone);
+					response_code = result.getJSONObject("result").getJSONObject("head").getInt("response_code");
+					// if the typed number is correct, then place the call and display the call placing message.
+					if(response_code >= 200 && response_code < 300){
+						
+						try{
+							String session_id = call_result.getJSONObject("result").getJSONObject("data").getString("session_id");
+							JSONObject cancel = communication.call_cancel(session_id, uname, passwd);
+							String response = cancel.getJSONObject("result").getJSONObject("head").getString("response_message");
+							status_message = response;
+						}catch(Exception e){
+							
+						}
+					}
+
+				} catch (JSONException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				mHandler.post(mUpdatePostCancel);
+				myProgressDialog.dismiss();
+			}
+		};
+		t.start();
+		
 	}
 }

@@ -180,8 +180,8 @@ public class list extends Activity implements Button.OnClickListener, private_co
                 }
                 else if(i == 411){
                         String outmessage = "This is the search listing. If you see the company you " +
-                                        "searched for in the list, select it to see the phone tree for that company. " +
-                                        "If your search is not listed, please refine your search. ";
+                                        "searched for in the list, select it to see the phone tree for that " +
+                                        "company. If your search is not listed, please refine your search. ";
                         Intent j = new Intent(this, help.class); 
                         String help_message = outmessage;
                         Bundle extras = new Bundle();
@@ -220,8 +220,10 @@ public class list extends Activity implements Button.OnClickListener, private_co
                 if (c.getCount() == 0){
                                 Intent j = new Intent(this, message.class);
                         String message = "You have no favorites.\n" +
-                                        "Click on the add button at the top of a company information page to add it to your favorites list. " +
-                                        "Click the remove button to remove a favorite.";
+                                        "To add a favorite to this list, first search for the company you want to add from " +
+                                        "the previous page, then click on the add button at the top of the company information " +
+                                        "page to add it to this list. " +
+                                        "Click the remove button on that same page to remove the company from this list.";
                         Bundle extras1 = new Bundle();
                         extras1.putString("message", message);
                         j.putExtras(extras1);

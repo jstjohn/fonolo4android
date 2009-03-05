@@ -266,10 +266,15 @@ public class company extends Activity implements Button.OnClickListener, private
                         startActivity(h);
                 }
                 else if(i == 411){
-                        String outmessage = "This is the tree listing. Here you will notice different characters. " +
-                                        "Spaces before the description represent the depth of the phone tree. The (Human) tells you that the node gets you to a human\n" +
-                                        "Example:\n     |Other inquiries (Human)\n represents a sub node (because of its spaces) that connects you to an agent. " +
-                                        "Other inquiries is the title of the directory. ";
+                        String outmessage = "This is the tree listing. Here you will notice different " +
+                        		"characters. Spaces before the description represent the depth of the " +
+                        		"phone tree. The (Human) tells you that the node gets you to a human\n" +
+                        		"Example:\n     |Other inquiries (Human)\n represents a sub node (because " +
+                        		"of its spaces) that connects you to an agent. Other inquiries is the " +
+                        		"title of the directory. \n\n" +
+                        		"Press the add button to add this company to your favorites list. " +
+                        		"If you would like to remove this favorite press the button that now says " +
+                        		"\"remove\".";
                         Intent j = new Intent(this, help.class);
                         String help_message = outmessage;
                         Bundle extras = new Bundle();

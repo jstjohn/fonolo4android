@@ -209,9 +209,9 @@ public class storage_get_set {
      * @param user username of person to delete
      * @return true if deleted, false otherwise
      */
-    public boolean deleteLogin(String user) {
-
-        return mDb.delete(LOGIN_DB_TABLE, KEY_UNAME + "='" + user + "'", null) > 0;
+    public boolean deleteLogin() {
+//        return mDb.delete(LOGIN_DB_TABLE, KEY_UNAME + "='" + user + "'", null) > 0;
+    	return mDb.delete(LOGIN_DB_TABLE, null, null) > 0;
     }
    
     /**
