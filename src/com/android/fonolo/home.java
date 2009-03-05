@@ -85,7 +85,7 @@ public class home extends Activity implements OnClickListener, private_constants
 			//Help message passed to the help page
         	String help_message = "This is the search screen. Here you will input a search for a company." +
         			" Only the first 30 results will be displayed. If you don't find the company you " +
-        			"searched for please refine your search.";
+        			"searched for, please refine your search.";
         	Bundle extras = new Bundle();
         	extras.putString("content", help_message);
         	i.putExtras(extras);
@@ -96,7 +96,7 @@ public class home extends Activity implements OnClickListener, private_constants
 			// check if the text view is empty, and show error message if so.
 			if(search_text.getText().toString().equals("")){
 				Intent j = new Intent(this, message.class);
-	        	String message = "Please input search";
+	        	String message = "Please input a search";
 	        	Bundle extras1 = new Bundle();
 	        	extras1.putString("message", message);
 	        	j.putExtras(extras1);
