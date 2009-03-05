@@ -63,12 +63,12 @@ public class storage_get_set {
         + "name text not null);";
     private static final String EULA_DB_CREATE =
         "create table eula (junk integer primary key, "
-        + "value boolean not null);";
+        + "value integer not null);";
     private static final String DATABASE_NAME = "data";
     private static final String LOGIN_DB_TABLE = "login";
     private static final String EULA_DB_TABLE = "eula";
     private static final String FAVORITES_DB_TABLE = "favorites";
-    private static final int DATABASE_VERSION = 10;
+    private static final int DATABASE_VERSION = 11;
 
     private final Context mCtx;
 
@@ -89,7 +89,7 @@ public class storage_get_set {
                         }catch(Exception e){
                                 try{
                                         String initialize = "update eula set value=0 where junk=0;";
-                                db.execSQL(initialize);
+                                        db.execSQL(initialize);
                                 }catch(Exception e2){
                                         //do nothing, hopeless case...
                                 }
