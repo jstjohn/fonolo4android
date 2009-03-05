@@ -24,6 +24,9 @@
     	android:id="@+id/eula_content"
     	android:layout_width="wrap_content"
     	android:layout_height="wrap_content"
+    	android:textSize="19sp"
+    	android:textColor="#ff000000"
+    	android:textStyle="bold"
     	android:text=""
     />
     </ScrollView>
@@ -33,7 +36,7 @@
     	android:layout_height="wrap_content"
     	android:text="Accept"
     	android:textStyle="bold"
-    	android:layout_below="@+id/eula_scroll"
+    	android:layout_alignParentBottom="true"
     >
     </Button>
 </RelativeLayout>
