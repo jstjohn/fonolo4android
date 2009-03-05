@@ -38,9 +38,7 @@ public class fonolo4android extends Activity {
 				//go to EULA page
 				Intent i = new Intent(this, eula.class);
 				startActivity(i);
-			}
-		}
-		if(!c.equals(null)){
+			}else if(!c.equals(null)){
 			if(c.getCount() == 0){
 				//send the person to the user settings page because we have no info
 				Intent i = new Intent(this, settings.class);
@@ -61,6 +59,8 @@ public class fonolo4android extends Activity {
 //				i.putExtras(extras);
 //				startActivity(i);
 			}
+		}
+		
 		}else{
 			Intent i = new Intent(this, settings.class);
 			startActivity(i);
