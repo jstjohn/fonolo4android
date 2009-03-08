@@ -1,18 +1,14 @@
-/*
- * Copyright (C) 2008 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License"); you may not
- * use this file except in compliance with the License. You may obtain a copy of
- * the License at
- *
- * http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
- * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
- * License for the specific language governing permissions and limitations under
- * the License.
+/***
+ * 
+ * @author Craig Gardner, John St. John, Abdul Binrsheed
+ * Last update March 2009
+ * 
+ * The Storage get set class has methods that deal with the sqlite data base.
+ * The DB is used to store the user login information, a list of companies favorites list that created 
+ * by the user, and to store the value of the eula statues. We used the Google note DB tutorial to 
+ * implement some of the class functionality.  
  */
+ 
 
 package com.android.fonolo;
 
@@ -24,16 +20,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
-/**
- * Simple notes database access helper class. Defines the basic CRUD operations
- * for the notepad example, and gives the ability to list all notes as well as
- * retrieve or modify a specific note.
- *
- * This has been improved from the first version of this tutorial through the
- * addition of better error handling and also using returning a Cursor instead
- * of using a collection of inner classes (which is less scalable and not
- * recommended).
- */
+
 public class storage_get_set {
        
         //set the columns name for the user information table

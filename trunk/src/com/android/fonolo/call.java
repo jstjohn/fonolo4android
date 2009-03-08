@@ -67,7 +67,7 @@ public class call extends Activity implements OnClickListener, private_constants
 		}
 	};
 	
-	//do stuff here
+	//update the call statues
 	private void updatePostCancel(){
 		phone_call_details.setText(status_message);
 	}
@@ -146,10 +146,10 @@ public class call extends Activity implements OnClickListener, private_constants
 
 		output = (TextView)this.findViewById(R.id.output);
 		phone_call_details = (TextView)this.findViewById(R.id.phone_call_details);
-		
+		// access the DB 
 		mDbHelper = new storage_get_set(this);
     	mDbHelper.open();
-		
+		// Fetch the user login info
 		Cursor c = mDbHelper.fetchLogin();
 		startManagingCursor(c);
 		int uname_column = c.getColumnIndex(storage_get_set.KEY_UNAME);
