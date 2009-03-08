@@ -32,17 +32,14 @@ public class eula extends Activity implements OnClickListener{
 		mDbHelper = new storage_get_set(this);
 		mDbHelper.open();
 		
-		message = "By accepting you agree not to hold the developers responsible for damages " +
-				"caused while using this software. Additionally, as the developers are not affiliated with " +
-				"fonolo, you agree that said developers are not responsible for fonolo's actions.";
+		message = "By accepting you agree not to hold the developers responsible for " +
+				"damages caused while using this software. Additionally, as the developers " +
+				"are not affiliated with fonolo, you agree that said developers are not " +
+				"responsible for fonolo's actions.";
 		
+		//for inserting the eula content into the page
 		eula_content = (TextView)this.findViewById(R.id.eula_content);
 		eula_content.setText(message);
-		//getting bundled content
-		//Bundle extras = getIntent().getExtras();
-		//content = extras.getString("content");
-		//displaying bundled content
-		//eula_content.setText(content);
 	}
 
 	public void onClick(View arg0) {
@@ -53,7 +50,5 @@ public class eula extends Activity implements OnClickListener{
 			startActivity(i);
 			break;
 		}
-			
-		
 	}
 }
