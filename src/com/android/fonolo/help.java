@@ -21,6 +21,7 @@ public class help extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
+		//start help page
 		setContentView(R.layout.help);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,  
                 WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
