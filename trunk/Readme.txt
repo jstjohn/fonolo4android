@@ -26,9 +26,9 @@ First install Java, eclipse, the android SDK, and the Eclipse plug-in for Androi
 
 
 
-http://code.google.com/android/intro/installing.html
+http://developer.android.com
 
-Next do an SVN checkout of the source code on this site.
+Next do an SVN checkout of the source code on our google code development site: http://code.google.com/p/fonolo4android/
 
 In the folder you just checked out, make a new folder named bin.
 
