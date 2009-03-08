@@ -38,14 +38,16 @@ public class call extends Activity implements OnClickListener, private_constants
 	String outMessage;
 	Button call_button;
 	
+	// create a handler to access the sqlite database
 	private storage_get_set mDbHelper;
+	
 	JSONObject call_result;
 
 	int response_code;
 	String phone_num;
 	
 	String status_message = "";
-	
+
 	//code for adding a progress dialog box for user to see status of communication
 	ProgressDialog myProgressDialog = null;
 

@@ -45,7 +45,6 @@ public class eula extends Activity implements OnClickListener{
 		//eula_content.setText(content);
 	}
 
-	@Override
 	public void onClick(View arg0) {
 		switch (arg0.getId()){
 		case R.id.accept_eula_button:
