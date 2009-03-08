@@ -64,13 +64,6 @@ public class home extends Activity implements OnClickListener, private_constants
 				}
 			}
 		}
-		
-//		//copy into all classes into onCreate()----------
-//		//each method will retrieve user/pass
-//		Bundle extras = getIntent().getExtras();
-//		uname = extras.getString("user");
-//		passwd = extras.getString("pass");
-//		//end copy---------------------------------------
 	}
 	//Button click handling
 	public void onClick(View v) {        
@@ -113,23 +106,16 @@ public class home extends Activity implements OnClickListener, private_constants
 				startActivity(s);
 				break;
 			}
-			//more buttons time permitting.
-/*		case R.id.list_all_button:
-			Intent l = new Intent(this, list.class);
-			out_extras.putInt("method", LIST_METHOD);
-			l.putExtras(out_extras);
-			startActivity(l);
-			break;*/
-		case R.id.favs_button:
-			Intent f = new Intent(this, list.class);
-			out_extras.putInt("method", FAVS_METHOD);
-			f.putExtras(out_extras);
-			startActivity(f);
-			break;
-		case R.id.settings_button:
-			Intent j = new Intent(this, settings.class);
-			startActivity(j);
-			break;
+			case R.id.favs_button:// case of pressing the favorites button
+				Intent f = new Intent(this, list.class);
+				out_extras.putInt("method", FAVS_METHOD);
+				f.putExtras(out_extras);
+				startActivity(f);
+				break;
+			case R.id.settings_button:// case of pressing the settings button
+				Intent j = new Intent(this, settings.class);
+				startActivity(j);
+				break;
 		
 		}		
 	}

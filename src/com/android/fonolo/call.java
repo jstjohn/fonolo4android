@@ -46,6 +46,7 @@ public class call extends Activity implements OnClickListener, private_constants
 	
 	String status_message = "";
 	
+	//code for adding a progress dialog box for user to see status of communication
 	ProgressDialog myProgressDialog = null;
 
 	// Need handler for callbacks to the UI thread
@@ -167,8 +168,6 @@ public class call extends Activity implements OnClickListener, private_constants
 
 		//copy into all classes--------------------------
 		Bundle extras = getIntent().getExtras();
-//		uname = extras.getString("user");
-//		passwd = extras.getString("pass");
 		//end copy---------------------------------------
 		// setup the needed values.
 		id = extras.getString("id");
@@ -193,6 +192,7 @@ public class call extends Activity implements OnClickListener, private_constants
 		case 199:
 			call_button.setText("Place Call");
 			call_button.setId(R.id.place_call);
+			//start progress dialog
 			myProgressDialog = ProgressDialog.show(call.this,
                     "Please wait...", "Sending request to end call.", true);
 			startFonoloCallCommunication();
@@ -223,7 +223,6 @@ public class call extends Activity implements OnClickListener, private_constants
 	}
 
 	protected void startFonoloCallCancel() {
-		// TODO Auto-generated method stub
 		// Fire off a thread to do some work that we shouldn't do directly in the UI thread
 		Thread t = new Thread() {
 			public void run() {
@@ -245,10 +244,10 @@ public class call extends Activity implements OnClickListener, private_constants
 					}
 
 				} catch (JSONException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				mHandler.post(mUpdatePostCancel);
+				//end progress dialog
 				myProgressDialog.dismiss();
 			}
 		};

@@ -10,13 +10,11 @@ import android.widget.TextView;
 
 /**
  * 
- * @author Craig Gardner
+ * @author Craig Gardner, John St. John
  * Last updated February 2009
  * 
- * This is the java class for our help page. It is a dynamic page
- * and provides help information based on where you are in the
- * program when the help button is pressed.
- * 
+ * This is the java class for our eula page. this page contains
+ * the End User License Agreement.
  */
 public class eula extends Activity implements OnClickListener{
 	TextView eula_content;

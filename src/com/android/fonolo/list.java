@@ -96,7 +96,6 @@ public class list extends Activity implements Button.OnClickListener, private_co
                                 JSONObject result = communication.company_search(query,uname,passwd);// send the request, and save the respond
                                 list = parse.parse_comp_search(result);// save the result as a string linked list.
                 } catch (JSONException e) {
-                                // TODO Auto-generated catch block
                                 e.printStackTrace();
                         }
                         mHandler.post(mUpdateResults);
@@ -110,97 +109,83 @@ public class list extends Activity implements Button.OnClickListener, private_co
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        setContentView(R.layout.list);  
+        setContentView(R.layout.list); 
+        //button variables set up
         View new_search_button = this.findViewById(R.id.new_search_button);
         new_search_button.setOnClickListener(this);
         new_search_button.setId(611);
         View help_button = this.findViewById(R.id.help_button);
         help_button.setOnClickListener(this);
         help_button.setId(411);
+        //database set up
         mDbHelper = new storage_get_set(this);
-//      try{
-                mDbHelper.open();
-//      }catch(SQLException e){
-//              Intent i = new Intent(this, message.class);
-//              String message = e.getMessage();
-//              Bundle extras = new Bundle();
-//              extras.putString("message", message);
-//              i.putExtras(extras);
-//              startActivity(i);
-//      }
-                Cursor c = mDbHelper.fetchLogin();
-                startManagingCursor(c);
-                int uname_column = c.getColumnIndex(storage_get_set.KEY_UNAME);
-            int pass_column = c.getColumnIndex(storage_get_set.KEY_PASS);
-                if(!c.equals(null)){
-                        if(c.getCount() == 0){
-                                //send the person to the user settings page because we have no info
+        mDbHelper.open();
+        Cursor c = mDbHelper.fetchLogin();
+        startManagingCursor(c);
+        int uname_column = c.getColumnIndex(storage_get_set.KEY_UNAME);
+        int pass_column = c.getColumnIndex(storage_get_set.KEY_PASS);
+        if(!c.equals(null)){
+            if(c.getCount() == 0){
+                    //send the person to the user settings page because we have no info
 
-                        }else{
-                                if(c.moveToFirst()){
-                                        uname = c.getString(uname_column);
-                                        passwd = c.getString(pass_column);
-                                }
-                        }
+            }
+            else{                        	
+                if(c.moveToFirst()){
+                    uname = c.getString(uname_column);
+                    passwd = c.getString(pass_column);
                 }
-                
-                
-                
-                
-//        //copy into all classes--------------------------
-                Bundle extras = getIntent().getExtras();
-//              uname = extras.getString("user");
-//              passwd = extras.getString("pass");
-//              //end copy---------------------------------------
-                
-                
-                int method = extras.getInt("method");
-                if(method == SEARCH_METHOD/* defined in private_cons..*/){
-                        String query = extras.getString("search");
-                        myProgressDialog = ProgressDialog.show(list.this,
-                    "Please wait...", "Getting search results.", true);
-                        startLongRunningOperation(query);
-                }
-                else if(method == FAVS_METHOD){
-                        fillData();
-                }
-                
+            }
+        }         
+//        		//copy into all classes--------------------------
+        Bundle extras = getIntent().getExtras();
+//              //end copy---------------------------------------                
+        
+        int method = extras.getInt("method");
+        if(method == SEARCH_METHOD/* defined in private_cons..*/){
+                String query = extras.getString("search");
+                myProgressDialog = ProgressDialog.show(list.this,
+            "Please wait...", "Getting search results.", true);
+                startLongRunningOperation(query);
+        }
+        else if(method == FAVS_METHOD){
+                fillData();
+        }                
     }
 // Setup the listener for the company list buttons.
         public void onClick(View v) {
-                int i = v.getId(); // get the id of the button that was pressed.
-                Bundle out_extras = new Bundle();
-                //if user wants to refine search
-                if(i == 611){
-                        out_extras.putString("user", uname);
-                        out_extras.putString("pass", passwd);
-                        Intent h = new Intent(this, home.class);
-                        h.putExtras(out_extras);
-                        startActivity(h);
-                }
-                else if(i == 411){
-                        String outmessage = "This is the search listing. If you see the company you " +
-                                        "searched for in the list, select it to see the phone tree for that " +
-                                        "company. If your search is not listed, please refine your search. ";
-                        Intent j = new Intent(this, help.class); 
-                        String help_message = outmessage;
-                        Bundle extras = new Bundle();
-                        extras.putString("content", help_message);
-                        j.putExtras(extras);
-                        startActivity(j);
-                }
-                //else get tree info
-                else{
-                        String id = (String)b[i].getTag();
-                        String company_name = (String)b[i].getText();
-                        out_extras.putString("user", uname);
-                        out_extras.putString("pass", passwd);
-                        Intent s = new Intent(this, company.class);// choose the next page to be displayed.
-                        out_extras.putString("company_name", company_name);
-                        out_extras.putString("id", id);
-                        s.putExtras(out_extras);// pass the company info to the company.class.
-                        startActivity(s);
-                }
+            int i = v.getId(); // get the id of the button that was pressed.
+            Bundle out_extras = new Bundle();
+            //if user wants to refine search
+            if(i == 611){
+                out_extras.putString("user", uname);
+                out_extras.putString("pass", passwd);
+                Intent h = new Intent(this, home.class);
+                h.putExtras(out_extras);
+                startActivity(h);
+            }
+            else if(i == 411){
+                String outmessage = "This is the search listing. If you see the company you " +
+                                "searched for in the list, select it to see the phone tree for that " +
+                                "company. If your search is not listed, please refine your search. ";
+                Intent j = new Intent(this, help.class); 
+                String help_message = outmessage;
+                Bundle extras = new Bundle();
+                extras.putString("content", help_message);
+                j.putExtras(extras);
+                startActivity(j);
+            }
+            //else get tree info
+            else{
+                String id = (String)b[i].getTag();
+                String company_name = (String)b[i].getText();
+                out_extras.putString("user", uname);
+                out_extras.putString("pass", passwd);
+                Intent s = new Intent(this, company.class);// choose the next page to be displayed.
+                out_extras.putString("company_name", company_name);
+                out_extras.putString("id", id);
+                s.putExtras(out_extras);// pass the company info to the company.class.
+                startActivity(s);
+            }
         }
         
         
@@ -217,37 +202,37 @@ public class list extends Activity implements Button.OnClickListener, private_co
         TableLayout tl = (TableLayout)findViewById(R.id.table_buttons);// choose table layout to display the company list.
         startManagingCursor(c);
         if(!c.equals(null)){
-                if (c.getCount() == 0){
-                                Intent j = new Intent(this, message.class);
-                        String message = "You have no favorites.\n" +
-                                        "To add a favorite to this list, first search for the company you want to add from " +
-                                        "the previous page, then click on the add button at the top of the company information " +
-                                        "page to add it to this list. " +
-                                        "Click the remove button on that same page to remove the company from this list.";
-                        Bundle extras1 = new Bundle();
-                        extras1.putString("message", message);
-                        j.putExtras(extras1);
-                        startActivity(j);
-                        }
-                int id_column = c.getColumnIndex(storage_get_set.KEY_ID);
-                int name_column = c.getColumnIndex(storage_get_set.KEY_NAME);
-                if(c.moveToFirst()){
-                        int i = 0;
-                        do{
-                                String id = c.getString(id_column);
-                                String name = c.getString(name_column);
-                                
-                                b[i] = new Button(this);
-                                b[i].setText(name);
-                                b[i].setTag(id);
-                                b[i].setId(i);
-                                b[i].setOnClickListener(this);
-                                tl.addView(b[i]);
-                                
-                                i++;
-                                if(i == button_number) break;
-                        }while(c.moveToNext());
+            if (c.getCount() == 0){  
+            	//text to message window
+                Intent j = new Intent(this, message.class);
+                String message = "You have no favorites.\n" +
+                                "To add a favorite to this list, first search for the company you want to add from " +
+                                "the previous page, then click on the add button at the top of the company information " +
+                                "page to add it to this list. " +
+                                "Click the remove button on that same page to remove the company from this list.";
+                Bundle extras1 = new Bundle();
+                extras1.putString("message", message);
+                j.putExtras(extras1);
+                startActivity(j);
                 }
+            int id_column = c.getColumnIndex(storage_get_set.KEY_ID);
+            int name_column = c.getColumnIndex(storage_get_set.KEY_NAME);
+            if(c.moveToFirst()){
+                int i = 0;
+                do{
+                    String id = c.getString(id_column);
+                    String name = c.getString(name_column);
+                    //setting up buttons with company information
+                    b[i] = new Button(this);
+                    b[i].setText(name);
+                    b[i].setTag(id);
+                    b[i].setId(i);
+                    b[i].setOnClickListener(this);
+                    tl.addView(b[i]);                    
+                    i++;
+                    if(i == button_number) break;
+                }while(c.moveToNext());
+            }
         }
         }catch(SQLException e){
                 Intent i = new Intent(this, message.class);
