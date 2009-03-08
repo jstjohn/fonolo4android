@@ -49,13 +49,8 @@ public class settings extends Activity implements private_constants, OnClickList
     };
     private void updateResultsInUi() {
     	//gets user to the main screen
-        //output.setText(result);
         if(code >= 200 && code <= 299){
         	Intent i = new Intent(this, home.class);
-//        	Bundle extras = new Bundle();
-//        	extras.putString("user", glob_uname);
-//        	extras.putString("pass", glob_passwd);		        	
-//   		i.putExtras(extras);
         	try{
         		mDbHelper.createLogin(glob_uname, glob_passwd, glob_phone);
         	}catch(Exception e){
@@ -74,8 +69,7 @@ public class settings extends Activity implements private_constants, OnClickList
         }
 			
 	}
-    protected void startLongRunningOperation(final String uname, final String passwd, final String phone_num) {
-    	
+    protected void startLongRunningOperation(final String uname, final String passwd, final String phone_num) {    	
         // Fire off a thread to do some work that we shouldn't do directly in the UI thread
         Thread t = new Thread() {
             public void run() {
@@ -98,9 +92,9 @@ public class settings extends Activity implements private_constants, OnClickList
 					}
 					result = message;
 										
-				} catch (JSONException e) {
-					// TODO Auto-generated catch block
-					
+				}
+				catch (JSONException e) {
+					//empty catch block
 				}
 				mHandler.post(mUpdateResults);
 				myProgressDialog.dismiss(); 
@@ -144,7 +138,7 @@ public class settings extends Activity implements private_constants, OnClickList
 		}
 
         
-         //Create buttons
+        //Create buttons
         View go_button = this.findViewById(R.id.go_button);
         go_button.setOnClickListener(this);
         View help_button = this.findViewById(R.id.help_button);
@@ -152,7 +146,7 @@ public class settings extends Activity implements private_constants, OnClickList
         View clear_button = this.findViewById(R.id.clear_button);
         clear_button.setOnClickListener(this);
         }
-    	   // Setup the action caused by buttons listener 	
+    	// Setup the action caused by buttons listener 	
     	public void onClick(View v){  
     		switch (v.getId()){
     		case R.id.go_button:
@@ -197,6 +191,7 @@ public class settings extends Activity implements private_constants, OnClickList
 		         * if the account is valid.
 		         */
 		        else{
+		        	//setting up progress dialog
 		        	myProgressDialog = ProgressDialog.show(settings.this,     
                         "Please wait...", "Confirming username and password with fonolo.", true); 
 			        startLongRunningOperation(uname,passwd,phone_num);			        

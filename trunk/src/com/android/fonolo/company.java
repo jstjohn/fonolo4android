@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -230,11 +229,9 @@ public class company extends Activity implements Button.OnClickListener, private
                                 b[button_count].setTag(info);                  
                                 b[button_count].setId(button_count);
                                 b[button_count].setOnClickListener(this);                              
-                                //b[button_count].offsetTopAndBottom(button_count*b[button_count].getHeight());
-                                //b[button_count].offsetLeftAndRight(tabbing*5);
+
                                 tl.addView(b[button_count]);
-                                //b[button_count].setWidth(200);
-                                //b[button_count].setLayoutParams(new LayoutParams(200,LayoutParams.WRAP_CONTENT));
+
                                 b[button_count].setGravity(3);
                                 button_count++;
                                 }
@@ -259,69 +256,68 @@ public class company extends Activity implements Button.OnClickListener, private
                 Bundle out_extras = new Bundle();
                 //if user wants to refine search
                 if(i == 611){
-                        out_extras.putString("user", uname);
-                        out_extras.putString("pass", passwd);
-                        Intent h = new Intent(this, home.class);
-                        h.putExtras(out_extras);
-                        startActivity(h);
+                    out_extras.putString("user", uname);
+                    out_extras.putString("pass", passwd);
+                    Intent h = new Intent(this, home.class);
+                    h.putExtras(out_extras);
+                    startActivity(h);
                 }
                 else if(i == 411){
-                        String outmessage = "This is the tree listing. Here you will notice different " +
-                        		"characters. Spaces before the description represent the depth of the " +
-                        		"phone tree. The (Human) tells you that the node gets you to a human\n" +
-                        		"Example:\n     |Other inquiries (Human)\n represents a sub node (because " +
-                        		"of its spaces) that connects you to an agent. Other inquiries is the " +
-                        		"title of the directory. \n\n" +
-                        		"Press the add button to add this company to your favorites list. " +
-                        		"If you would like to remove this favorite press the button that now says " +
-                        		"\"remove\".";
-                        Intent j = new Intent(this, help.class);
-                        String help_message = outmessage;
-                        Bundle extras = new Bundle();
-                        extras.putString("content", help_message);
-                        j.putExtras(extras);
-                        startActivity(j);
+                	//text for help window
+                    String outmessage = "This is the tree listing. Here you will notice different " +
+                    		"characters. Spaces before the description represent the depth of the " +
+                    		"phone tree. The (Human) tells you that the node gets you to a human\n" +
+                    		"Example:\n     |Other inquiries (Human)\n represents a sub node (because " +
+                    		"of its spaces) that connects you to an agent. Other inquiries is the " +
+                    		"title of the directory. \n\n" +
+                    		"Press the add button to add this company to your favorites list. " +
+                    		"If you would like to remove this favorite press the button that now says " +
+                    		"\"remove\".";
+                    Intent j = new Intent(this, help.class);
+                    String help_message = outmessage;
+                    Bundle extras = new Bundle();
+                    extras.putString("content", help_message);
+                    j.putExtras(extras);
+                    startActivity(j);
                 }
                
                 //add to favorites
-                else if(i == 911){
-                       
-                        if(mDbHelper.createFavorites(id, name) != -1){
-                               
-                        }
-                        else{          
-                                try{
-                                        mDbHelper.deleteFavorites(id);
-                                }catch(Exception e){
-                                }      
-                        }
-                        Boolean fav = mDbHelper.checkFavorite(id);
+                else if(i == 911){                	                       
+                    if(mDbHelper.createFavorites(id, name) != -1){                           
+                    }
+                    else{          
+                            try{
+                                    mDbHelper.deleteFavorites(id);
+                            }
+                            catch(Exception e){}
+                    }
+                    Boolean fav = mDbHelper.checkFavorite(id);
                 if(fav){
-                        favs_button.setText("Remove");
+                    favs_button.setText("Remove");
                 }
                 else{
-                        favs_button.setText("Add");
+                    favs_button.setText("Add");
                 }
                 }
                
                 //else go to make call page
                 else{                  
-                        /**
-                         * The button tag currently holds a string array with 2 values
-                         * The first value is the name of the node to be called and the
-                         * second value is the id of the node.
-                         */
-                        String[] info = (String[])b[i].getTag();
-                        String id = info[1];
-                        String node_name = info[0];
-                        out_extras.putString("user", uname);
-                        out_extras.putString("pass", passwd);
-                        Intent s = new Intent(this, call.class);
-                        out_extras.putString("node_name", node_name);
-                        out_extras.putString("company_name", company_name.getText().toString());
-                        out_extras.putString("id", id);
-                        s.putExtras(out_extras);
-                        startActivity(s);      
+                    /**
+                     * The button tag currently holds a string array with 2 values
+                     * The first value is the name of the node to be called and the
+                     * second value is the id of the node.
+                     */
+                    String[] info = (String[])b[i].getTag();
+                    String id = info[1];
+                    String node_name = info[0];
+                    out_extras.putString("user", uname);
+                    out_extras.putString("pass", passwd);
+                    Intent s = new Intent(this, call.class);
+                    out_extras.putString("node_name", node_name);
+                    out_extras.putString("company_name", company_name.getText().toString());
+                    out_extras.putString("id", id);
+                    s.putExtras(out_extras);
+                    startActivity(s);      
                 }
         }
    
