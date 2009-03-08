@@ -36,15 +36,16 @@ import android.util.Log;
  */
 public class storage_get_set {
        
-        //stuff for our user information table
+        //set the columns name for the user information table
     public static final String KEY_UNAME = "user";
     public static final String KEY_PASS = "password";
     public static final String KEY_PHONE= "phone";
    
-    //stuff for our favorites list table
+    //set the columns name for the favorites list table
     public static final String KEY_ID = "c_id";
     public static final String KEY_NAME = "name";
    
+    //set the columns name for the eula table
     public static final String KEY_EULA_ID = "junk";
     public static final String KEY_EULA = "value";
 
@@ -64,6 +65,8 @@ public class storage_get_set {
     private static final String EULA_DB_CREATE =
         "create table eula (junk integer primary key, "
         + "value integer not null);";
+    
+    // Set the DB schema
     private static final String DATABASE_NAME = "data";
     private static final String LOGIN_DB_TABLE = "login";
     private static final String EULA_DB_TABLE = "eula";
@@ -71,7 +74,8 @@ public class storage_get_set {
     private static final int DATABASE_VERSION = 11;
 
     private final Context mCtx;
-
+    
+    //Initialize the DB.
     private static class DatabaseHelper extends SQLiteOpenHelper {
 
         DatabaseHelper(Context context) {
@@ -79,6 +83,7 @@ public class storage_get_set {
         }
 
         @Override
+        //Set an initialize value eula table
         public void onCreate(SQLiteDatabase db) {
                         db.execSQL(LOGIN_DB_CREATE);
                         db.execSQL(FAVS_DB_CREATE);
@@ -91,13 +96,14 @@ public class storage_get_set {
                                         String initialize = "update eula set value=0 where junk=0;";
                                         db.execSQL(initialize);
                                 }catch(Exception e2){
-                                        //do nothing, hopeless case...
+                                        //Never gets to here, only to throw a try catch.
                                 }
                         }
            
         }
 
         @Override
+        // Recreate the DB when the DB version is changed to get the new updates.
         public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
             Log.w(TAG, "Upgrading database from version " + oldVersion + " to "
                     + newVersion + ", which will destroy all old data");
@@ -114,12 +120,13 @@ public class storage_get_set {
      *
      * @param ctx the Context within which to work
      */
+    //
     public storage_get_set(Context ctx) {
         this.mCtx = ctx;
     }
 
     /**
-     * Open the notes database. If it cannot be opened, try to create a new
+     * Open the DB. If it cannot be opened, try to create a new
      * instance of the database. If it cannot be created, throw an exception to
      * signal the failure
      *
@@ -132,20 +139,17 @@ public class storage_get_set {
         mDb = mDbHelper.getWritableDatabase();
         return this;
     }
-   
+   // Close the DB.
     public void close() {
         mDbHelper.close();
     }
 
 
     /**
-     * Create a new note using the title and body provided. If the note is
-     * successfully created return the new rowId for that note, otherwise return
+     * Store the user login info using the info provided. If entry is
+     * successfully stored return the rowId for that note, otherwise return
      * a -1 to indicate failure.
      *
-     * @param title the title of the note
-     * @param body the body of the note
-     * @return rowId or -1 if failed
      */
     public long createLogin(String user, String password, String phone) {
         ContentValues initialValues = new ContentValues();
@@ -157,13 +161,10 @@ public class storage_get_set {
     }
    
     /**
-     * Create a new note using the title and body provided. If the note is
-     * successfully created return the new rowId for that note, otherwise return
+     * Store a new favorite using the company name and id provided. If entry is
+     * successfully stored return the rowId for that note, otherwise return
      * a -1 to indicate failure.
      *
-     * @param title the title of the note
-     * @param body the body of the note
-     * @return rowId or -1 if failed
      */
     public long createFavorites(String id, String name) {
         ContentValues initialValues = new ContentValues();
@@ -172,7 +173,8 @@ public class storage_get_set {
 
         return mDb.insert(FAVORITES_DB_TABLE, null, initialValues);
     }
-   
+    
+   // Check if the favorite table has records.
     public boolean checkFavorite(String id) throws SQLException {
 
         Cursor mCursor =
@@ -187,7 +189,8 @@ public class storage_get_set {
         }
 
     }
-
+    
+    // Change the eula record when the user agree to the agreement.
     public boolean setEulaTrue() {
         ContentValues args = new ContentValues();
         args.put(KEY_EULA_ID, 0);
@@ -195,6 +198,7 @@ public class storage_get_set {
 
         return mDb.update(EULA_DB_TABLE, args, KEY_EULA_ID + "=" + "0", null) > 0;
     }
+    // have the ability to change the eula value if needed.(currently not used)
     public boolean setEulaFalse(){
         ContentValues args = new ContentValues();
         args.put(KEY_EULA_ID, 0);
@@ -204,20 +208,17 @@ public class storage_get_set {
         return mDb.update(EULA_DB_TABLE, args, KEY_EULA_ID + "=" + "0", null) > 0;
     }
     /**
-     * Delete the note with the given rowId
+     * Delete the login info(we delete all from the table since we only allow for one user login info)
      *
-     * @param user username of person to delete
      * @return true if deleted, false otherwise
      */
     public boolean deleteLogin() {
-//        return mDb.delete(LOGIN_DB_TABLE, KEY_UNAME + "='" + user + "'", null) > 0;
     	return mDb.delete(LOGIN_DB_TABLE, null, null) > 0;
     }
    
     /**
-     * Delete the note with the given rowId
+     * Delete from favorites company with the given Id
      *
-     * @param user username of person to delete
      * @return true if deleted, false otherwise
      */
     public boolean deleteFavorites(String id) {
@@ -228,7 +229,7 @@ public class storage_get_set {
     /**
      * Return a Cursor over the list of all favorites in the database
      *
-     * @return Cursor over all notes
+     * @return Cursor over all favorites
      */
     public Cursor fetchAllFavorites() {
 
@@ -236,29 +237,29 @@ public class storage_get_set {
     }
    
     /**
-     * Return a Cursor over the list of all favorites in the database
+     * Return a Cursor over the user login info in the database
      *
-     * @return Cursor over all notes
+     * @return Cursor over login info
      */
     public Cursor fetchLogin() {
        
         return mDb.query(LOGIN_DB_TABLE, new String[] {KEY_UNAME, KEY_PASS, KEY_PHONE}, null, null, null, null, null);
     }
-   
+    /**
+     * Return a Cursor over the eula status in the database
+     *
+     * @return Cursor over eula value
+     */
     public Cursor fetchEula() {
        
         return mDb.query(EULA_DB_TABLE, new String[] {KEY_EULA_ID, KEY_EULA}, null, null, null, null, null);
     }
 
     /**
-     * Update the note using the details provided. The note to be updated is
-     * specified using the rowId, and it is altered to use the title and body
-     * values passed in
+     * Update the user login info using the details provided. The note to be updated is
+     * specified using the username, and it is altered to use the new values passed in
      *
-     * @param rowId id of note to update
-     * @param title value to set note title to
-     * @param body value to set note body to
-     * @return true if the note was successfully updated, false otherwise
+     * @return true if the record was successfully updated, false otherwise
      */
     public boolean updateLogin(String user, String pass, String phone) {
         ContentValues args = new ContentValues();
