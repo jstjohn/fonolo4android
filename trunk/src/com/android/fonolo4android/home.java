@@ -59,7 +59,8 @@ public class home extends Activity implements OnClickListener, private_constants
 		if(!c.equals(null)){
 			if(c.getCount() == 0){
 				//send the person to the user settings page because we have no info
-
+				Intent s = new Intent(this,settings.class);
+				startActivity(s);
 			}else{
 				if(c.moveToFirst()){
 					uname = c.getString(uname_column);
@@ -70,56 +71,68 @@ public class home extends Activity implements OnClickListener, private_constants
 	}
 	//Button click handling
 	public void onClick(View v) {        
-		//sending data to the next class
 		Bundle out_extras = new Bundle();		
+		//sending user and password data to the next class, probably not needed at this point, delete and test
 		out_extras.putString("user", uname);
 		out_extras.putString("pass", passwd);
-		
-		switch (v.getId()){	//get the id of the button pressed.	
-		case R.id.help_button:// case of pressing the help button.
-			Intent i = new Intent(this, help.class);
-			//Help message passed to the help page
-        	String help_message = "This is the search screen. Here you will input a search " +
-        			"for a company. Only the first 30 results will be displayed. If you don't " +
-        			"find the company you searched for, please refine your search.\n\n" +
-        			"Press favorites to view your saved favorites list. ";
-        	Bundle extras = new Bundle();
-        	extras.putString("content", help_message);
-        	i.putExtras(extras);
-        	startActivity(i);
-        	break;
-        	
-    	//case structure for deciding which code to run
-		case R.id.search_button:// case of pressing the search button.
-			// check if the text view is empty, and show error message if so.
-			if(search_text.getText().toString().equals("")){
-				Intent j = new Intent(this, message.class);
-	        	String message = "Please input a search";
-	        	Bundle extras1 = new Bundle();
-	        	extras1.putString("message", message);
-	        	j.putExtras(extras1);
-	        	startActivity(j);
-				break;
-			}
-			// if the text view is not empty, then copy the content and pass it to list.class.
-			else{
-				Intent s = new Intent(this, list.class);
-				out_extras.putInt("method", SEARCH_METHOD);
-				out_extras.putString("search", search_text.getText().toString());
-				s.putExtras(out_extras);
+		Cursor c = mDbHelper.fetchLogin();
+		startManagingCursor(c);
+		if(!c.equals(null)){
+			if(c.getCount() == 0){
+				//send the person to the user settings page because we have no info
+				Intent s = new Intent(this,settings.class);
 				startActivity(s);
-				break;
+			}else{
+				//if username and password is there, no need to do anything, just proceed
+				switch (v.getId()){	//get the id of the button pressed.	
+				case R.id.help_button:// case of pressing the help button.
+					Intent i = new Intent(this, help.class);
+					//Help message passed to the help page
+		        	String help_message = "This is the search screen. Here you will input a search " +
+		        			"for a company. Only the first 30 results will be displayed. If you don't " +
+		        			"find the company you searched for, please refine your search.\n\n" +
+		        			"Press favorites to view your saved favorites list. ";
+		        	Bundle extras = new Bundle();
+		        	extras.putString("content", help_message);
+		        	i.putExtras(extras);
+		        	startActivity(i);
+		        	break;
+		        	
+		    	//case structure for deciding which code to run
+				case R.id.search_button:// case of pressing the search button.
+					// check if the text view is empty, and show error message if so.
+					if(search_text.getText().toString().equals("")){
+						Intent j = new Intent(this, message.class);
+			        	String message = "Please input a search";
+			        	Bundle extras1 = new Bundle();
+			        	extras1.putString("message", message);
+			        	j.putExtras(extras1);
+			        	startActivity(j);
+						break;
+					}
+					// if the text view is not empty, then copy the content and pass it to list.class.
+					else{
+						Intent s = new Intent(this, list.class);
+						out_extras.putInt("method", SEARCH_METHOD);
+						out_extras.putString("search", search_text.getText().toString());
+						s.putExtras(out_extras);
+						startActivity(s);
+						break;
+					}
+				case R.id.favs_button:// case of pressing the favorites button
+					Intent f = new Intent(this, list.class);
+					out_extras.putInt("method", FAVS_METHOD);
+					f.putExtras(out_extras);
+					startActivity(f);
+					break;
+				case R.id.settings_button:// case of pressing the settings button
+					Intent j = new Intent(this, settings.class);
+					startActivity(j);
+					break;		
+				}		
 			}
-		case R.id.favs_button:// case of pressing the favorites button
-			Intent f = new Intent(this, list.class);
-			out_extras.putInt("method", FAVS_METHOD);
-			f.putExtras(out_extras);
-			startActivity(f);
-			break;
-		case R.id.settings_button:// case of pressing the settings button
-			Intent j = new Intent(this, settings.class);
-			startActivity(j);
-			break;		
-		}		
+		}
+		
+		
 	}
 }

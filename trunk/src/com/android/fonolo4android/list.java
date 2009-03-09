@@ -127,6 +127,8 @@ public class list extends Activity implements Button.OnClickListener, private_co
         if(!c.equals(null)){
             if(c.getCount() == 0){
                     //send the person to the user settings page because we have no info
+            	Intent s = new Intent(this, settings.class);
+            	startActivity(s);
             }
             else{                        	
                 if(c.moveToFirst()){
