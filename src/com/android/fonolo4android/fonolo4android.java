@@ -25,53 +25,40 @@ public class fonolo4android extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
         try{
-		mDbHelper = new storage_get_set(this);
-		mDbHelper.open();
-		Cursor e = mDbHelper.fetchEula();
-		Cursor c = mDbHelper.fetchLogin();
-		startManagingCursor(c);
-		startManagingCursor(e);
-		int eula_column = e.getColumnIndex(storage_get_set.KEY_EULA);
-		if(e.moveToFirst()){
-			int eula = e.getInt(eula_column);
-			if (eula == 0){
-				//go to EULA page
-				Intent i = new Intent(this, eula.class);
-				startActivity(i);
-			}else if(!c.equals(null)){
-			if(c.getCount() == 0){
-				//send the person to the user settings page because we have no info
+        	//set up database
+			mDbHelper = new storage_get_set(this);
+			mDbHelper.open();
+			Cursor e = mDbHelper.fetchEula();
+			Cursor c = mDbHelper.fetchLogin();
+			startManagingCursor(c);
+			startManagingCursor(e);
+			int eula_column = e.getColumnIndex(storage_get_set.KEY_EULA);
+			if(e.moveToFirst()){
+				//eula unseen or not accepted
+				int eula = e.getInt(eula_column);
+				if (eula == 0){//go to EULA page					
+					Intent i = new Intent(this, eula.class);
+					startActivity(i);
+				}
+				else if(!c.equals(null)){
+					if(c.getCount() == 0){
+						//send the person to the user settings page because we have no info
+						Intent i = new Intent(this, settings.class);
+						startActivity(i);
+					}
+					else{
+						//go to the home page because we have info
+						Intent i = new Intent(this, home.class);
+						startActivity(i);
+					}
+				}			
+			}
+			else{//eula accepted				
 				Intent i = new Intent(this, settings.class);
 				startActivity(i);
-//				Intent i = new Intent(this, message.class);
-//				Bundle extras = new Bundle();
-//				String message = "going to settings 1";
-//				extras.putString("message", message);
-//				i.putExtras(extras);
-//				startActivity(i);
-			}else{
-				Intent i = new Intent(this, home.class);
-				startActivity(i);
-//				Intent i = new Intent(this, message.class);
-//				Bundle extras = new Bundle();
-//				String message = "going home";
-//				extras.putString("message", message);
-//				i.putExtras(extras);
-//				startActivity(i);
 			}
 		}
-		
-		}else{
-			Intent i = new Intent(this, settings.class);
-			startActivity(i);
-//			Intent i = new Intent(this, message.class);
-//			Bundle extras = new Bundle();
-//			String message = "going to settings 2";
-//			extras.putString("message", message);
-//			i.putExtras(extras);
-//			startActivity(i);
-		}
-		}catch(Exception e3){
+        catch(Exception e3){//catch errors
 			Intent i = new Intent(this, message.class);
 			Bundle extras = new Bundle();
 			String message = e3.getMessage();
@@ -80,5 +67,4 @@ public class fonolo4android extends Activity {
 			startActivity(i);
 		}
     }
-
 }
