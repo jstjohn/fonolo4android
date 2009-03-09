@@ -1,4 +1,4 @@
-package com.android.fonolo;
+package com.android.fonolo4android;
 
 
 import android.app.Activity;
