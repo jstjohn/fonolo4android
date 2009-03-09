@@ -158,7 +158,8 @@ public class call extends Activity implements OnClickListener, private_constants
 		if(!c.equals(null)){
 			if(c.getCount() == 0){
 				//send the person to the user settings page because we have no info
-
+				Intent s = new Intent(this, settings.class);
+				startActivity(s);
 			}else{
 				if(c.moveToFirst()){
 					uname = c.getString(uname_column);
