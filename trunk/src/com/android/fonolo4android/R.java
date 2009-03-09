@@ -53,6 +53,7 @@ public final class R {
         public static final int tab_buttons=0x7f05000b;
         public static final int table_buttons=0x7f05001a;
         public static final int user_field=0x7f050013;
+        public static final int view_eula_button=0x7f050023;
         public static final int widget45=0x7f05001b;
         public static final int widget70=0x7f050011;
     }

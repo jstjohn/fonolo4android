@@ -27,7 +27,9 @@ public class settings extends Activity implements private_constants, OnClickList
 	TextView user;
 	TextView pass;
 	TextView phone;
+	//set up progress dialog
 	ProgressDialog myProgressDialog = null;
+	//set up database
 	private storage_get_set mDbHelper;
 	String first3 = "XXX";
 	String next3 = "XXX";
@@ -109,16 +111,18 @@ public class settings extends Activity implements private_constants, OnClickList
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
         /*
-         * Store the informations from the UI into the variables.
+         * Store the information from the UI into the variables.
          */
         output = (TextView)this.findViewById(R.id.output);
         user = (TextView)this.findViewById(R.id.user_field);
         pass = (TextView)this.findViewById(R.id.pass_field);
         phone = (TextView)this.findViewById(R.id.number_field);
         
+        //set up database
 		mDbHelper = new storage_get_set(this);
 		mDbHelper.open();
 		
+		//get login information from database
 		Cursor c = mDbHelper.fetchLogin();
 		startManagingCursor(c);
 		int uname_column = c.getColumnIndex(storage_get_set.KEY_UNAME);
@@ -136,7 +140,6 @@ public class settings extends Activity implements private_constants, OnClickList
 				}
 			}
 		}
-
         
         //Create buttons
         View go_button = this.findViewById(R.id.go_button);
@@ -145,6 +148,8 @@ public class settings extends Activity implements private_constants, OnClickList
         help_button.setOnClickListener(this);
         View clear_button = this.findViewById(R.id.clear_button);
         clear_button.setOnClickListener(this);
+        View license_button = this.findViewById(R.id.view_eula_button);
+        license_button.setOnClickListener(this);
         }
     	// Setup the action caused by buttons listener 	
     	public void onClick(View v){  
@@ -173,14 +178,13 @@ public class settings extends Activity implements private_constants, OnClickList
 					phone_num = first3+"-"+next3+"-"+final4;
 				} else {
 					phone_num = raw_phone;
-				}
-				
+				}				
 	    		
 	    		//Check if the the username, password fields are empty
 		        if((uname.equals(""))||(passwd.equals(""))||(phone_num.equals(""))){		        	
 		        	Intent i = new Intent(this, message.class);
-		        	String message = "Please input a valid username, password and the "
-		        		+"phone number registered with fonolo, in the format: XXX-XXX-XXXX";
+		        	String message = "Please input a valid username, password and the " +
+		        			"phone number registered with fonolo, in the format: XXX-XXX-XXXX";
 		        	Bundle extras = new Bundle();
 		        	extras.putString("message", message);
 		        	i.putExtras(extras);
@@ -197,7 +201,7 @@ public class settings extends Activity implements private_constants, OnClickList
 			        startLongRunningOperation(uname,passwd,phone_num);			        
 		        }
 		        break;
-    		case R.id.help_button:// lunch the help window if the button was pressed is help.
+    		case R.id.help_button:// case for when help button is pressed.
     			Intent i = new Intent(this, help.class);
             	String help_message = "On this screen you will input your username, password " +
             			"and phone number that you set up on the fonolo website (www.fonolo.com) " +
@@ -208,11 +212,15 @@ public class settings extends Activity implements private_constants, OnClickList
             	i.putExtras(extras);
             	startActivity(i);
             	break;
-    		case R.id.clear_button:
+    		case R.id.clear_button:// case for when clear button is pressed
     			user.setText("");
     			pass.setText("");
     			phone.setText("");
     			mDbHelper.deleteLogin();
+    			break;
+    		case R.id.view_eula_button:
+    			Intent e = new Intent(this, eula.class);
+    			startActivity(e);
     			break;
     		}
     	}

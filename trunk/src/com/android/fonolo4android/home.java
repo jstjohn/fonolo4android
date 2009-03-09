@@ -37,6 +37,7 @@ public class home extends Activity implements OnClickListener, private_constants
  		
 		output = (TextView)this.findViewById(R.id.output);
 		search_text = (TextView)this.findViewById(R.id.search_box);
+		
 		// Define the Buttons, and setup the listener on them.
 		View help_button = this.findViewById(R.id.help_button);
 		help_button.setOnClickListener(this);
@@ -46,6 +47,8 @@ public class home extends Activity implements OnClickListener, private_constants
 		View settings_button = this.findViewById(R.id.settings_button);
 		settings_button.setOnClickListener(this);
 		favs_button.setOnClickListener(this);
+		
+		//set up database
 		mDbHelper = new storage_get_set(this);
 		mDbHelper.open();
 		
@@ -72,13 +75,13 @@ public class home extends Activity implements OnClickListener, private_constants
 		out_extras.putString("user", uname);
 		out_extras.putString("pass", passwd);
 		
-		switch (v.getId()){	//checking the case of which button is pressed.	
+		switch (v.getId()){	//get the id of the button pressed.	
 		case R.id.help_button:// case of pressing the help button.
 			Intent i = new Intent(this, help.class);
 			//Help message passed to the help page
-        	String help_message = "This is the search screen. Here you will input a search for a company." +
-        			" Only the first 30 results will be displayed. If you don't find the company you " +
-        			"searched for, please refine your search.\n\n" +
+        	String help_message = "This is the search screen. Here you will input a search " +
+        			"for a company. Only the first 30 results will be displayed. If you don't " +
+        			"find the company you searched for, please refine your search.\n\n" +
         			"Press favorites to view your saved favorites list. ";
         	Bundle extras = new Bundle();
         	extras.putString("content", help_message);
@@ -86,6 +89,7 @@ public class home extends Activity implements OnClickListener, private_constants
         	startActivity(i);
         	break;
         	
+    	//case structure for deciding which code to run
 		case R.id.search_button:// case of pressing the search button.
 			// check if the text view is empty, and show error message if so.
 			if(search_text.getText().toString().equals("")){
@@ -106,17 +110,16 @@ public class home extends Activity implements OnClickListener, private_constants
 				startActivity(s);
 				break;
 			}
-			case R.id.favs_button:// case of pressing the favorites button
-				Intent f = new Intent(this, list.class);
-				out_extras.putInt("method", FAVS_METHOD);
-				f.putExtras(out_extras);
-				startActivity(f);
-				break;
-			case R.id.settings_button:// case of pressing the settings button
-				Intent j = new Intent(this, settings.class);
-				startActivity(j);
-				break;
-		
+		case R.id.favs_button:// case of pressing the favorites button
+			Intent f = new Intent(this, list.class);
+			out_extras.putInt("method", FAVS_METHOD);
+			f.putExtras(out_extras);
+			startActivity(f);
+			break;
+		case R.id.settings_button:// case of pressing the settings button
+			Intent j = new Intent(this, settings.class);
+			startActivity(j);
+			break;		
 		}		
 	}
 }
