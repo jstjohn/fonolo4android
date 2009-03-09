@@ -1,4 +1,4 @@
-package com.android.fonolo;
+package com.android.fonolo4android;
 
 import java.io.IOException;
 import org.apache.commons.httpclient.HttpClient;

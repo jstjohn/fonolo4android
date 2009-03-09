@@ -1,4 +1,4 @@
-package com.android.fonolo;
+package com.android.fonolo4android;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -105,7 +105,7 @@ public class company extends Activity implements Button.OnClickListener, private
         super.onCreate(savedInstanceState);
         setContentView(R.layout.company);
         
-        //buttons
+        //set up buttons
         View new_search_button = this.findViewById(R.id.new_search_button);
         favs_button = (Button) this.findViewById(R.id.favs_button);
         favs_button.setOnClickListener(this);
@@ -116,7 +116,7 @@ public class company extends Activity implements Button.OnClickListener, private
         help_button.setOnClickListener(this);
         help_button.setId(411);
         
-        //database
+        //set up database
         mDbHelper = new storage_get_set(this);
         mDbHelper.open();       
         Cursor c = mDbHelper.fetchLogin();
