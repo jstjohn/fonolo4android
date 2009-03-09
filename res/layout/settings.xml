@@ -111,8 +111,18 @@ android:layout_alignParentLeft="true"
 >
 </TextView>
 <Button
+android:id="@+id/view_eula_button"
+android:layout_width="195px"
+android:layout_height="wrap_content"
+android:text="View License Agreement"
+android:textStyle="bold"
+android:layout_alignParentBottom="true"
+android:layout_alignParentRight="true"
+>
+</Button>
+<Button
 android:id="@+id/help_button"
-android:layout_width="fill_parent"
+android:layout_width="115px"
 android:layout_height="wrap_content"
 android:text="Help"
 android:textStyle="bold"
