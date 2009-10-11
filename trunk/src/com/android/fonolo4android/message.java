@@ -21,11 +21,11 @@ public class message extends Activity{
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.message);
+		setContentView(R2.layout.message);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,  
                 WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
 		
-		message_content = (TextView)this.findViewById(R.id.message_content);
+		message_content = (TextView)this.findViewById(R2.id.message_content);
 		//getting bundled content
 		Bundle extras = getIntent().getExtras();
 		message = extras.getString("message");

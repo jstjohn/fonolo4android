@@ -109,14 +109,14 @@ public class settings extends Activity implements private_constants, OnClickList
     @Override
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.settings);
+        setContentView(R2.layout.settings);
         /*
          * Store the information from the UI into the variables.
          */
-        output = (TextView)this.findViewById(R.id.output);
-        user = (TextView)this.findViewById(R.id.user_field);
-        pass = (TextView)this.findViewById(R.id.pass_field);
-        phone = (TextView)this.findViewById(R.id.number_field);
+        output = (TextView)this.findViewById(R2.id.output);
+        user = (TextView)this.findViewById(R2.id.user_field);
+        pass = (TextView)this.findViewById(R2.id.pass_field);
+        phone = (TextView)this.findViewById(R2.id.number_field);
         
         //set up database
 		mDbHelper = new storage_get_set(this);
@@ -142,19 +142,19 @@ public class settings extends Activity implements private_constants, OnClickList
 		}
         
         //Create buttons
-        View go_button = this.findViewById(R.id.go_button);
+        View go_button = this.findViewById(R2.id.go_button);
         go_button.setOnClickListener(this);
-        View help_button = this.findViewById(R.id.help_button);
+        View help_button = this.findViewById(R2.id.help_button);
         help_button.setOnClickListener(this);
-        View clear_button = this.findViewById(R.id.clear_button);
+        View clear_button = this.findViewById(R2.id.clear_button);
         clear_button.setOnClickListener(this);
-        View license_button = this.findViewById(R.id.view_eula_button);
+        View license_button = this.findViewById(R2.id.view_eula_button);
         license_button.setOnClickListener(this);
         }
     	// Setup the action caused by buttons listener 	
     	public void onClick(View v){  
     		switch (v.getId()){
-    		case R.id.go_button:
+    		case R2.id.go_button:
 	    		String uname = user.getText().toString(); 
 	    		String passwd = pass.getText().toString();
 	    		String raw_phone = phone.getText().toString();
@@ -201,7 +201,7 @@ public class settings extends Activity implements private_constants, OnClickList
 			        startLongRunningOperation(uname,passwd,phone_num);			        
 		        }
 		        break;
-    		case R.id.help_button:// case for when help button is pressed.
+    		case R2.id.help_button:// case for when help button is pressed.
     			Intent i = new Intent(this, help.class);
             	String help_message = "On this screen you will input your username, password " +
             			"and phone number that you set up on the fonolo website (www.fonolo.com) " +
@@ -212,13 +212,13 @@ public class settings extends Activity implements private_constants, OnClickList
             	i.putExtras(extras);
             	startActivity(i);
             	break;
-    		case R.id.clear_button:// case for when clear button is pressed
+    		case R2.id.clear_button:// case for when clear button is pressed
     			user.setText("");
     			pass.setText("");
     			phone.setText("");
     			mDbHelper.deleteLogin();
     			break;
-    		case R.id.view_eula_button:
+    		case R2.id.view_eula_button:
     			Intent e = new Intent(this, eula.class);
     			startActivity(e);
     			break;

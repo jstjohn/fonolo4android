@@ -103,16 +103,16 @@ public class company extends Activity implements Button.OnClickListener, private
     @Override
         public void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.company);
+        setContentView(R2.layout.company);
         
         //set up buttons
-        View new_search_button = this.findViewById(R.id.new_search_button);
-        favs_button = (Button) this.findViewById(R.id.favs_button);
+        View new_search_button = this.findViewById(R2.id.new_search_button);
+        favs_button = (Button) this.findViewById(R2.id.favs_button);
         favs_button.setOnClickListener(this);
         favs_button.setId(911);
         new_search_button.setOnClickListener(this);
         new_search_button.setId(611);
-        View help_button = this.findViewById(R.id.help_button);
+        View help_button = this.findViewById(R2.id.help_button);
         help_button.setOnClickListener(this);
         help_button.setId(411);
         
@@ -137,11 +137,11 @@ public class company extends Activity implements Button.OnClickListener, private
             }
         }
        
-        tl = (TableLayout)findViewById(R.id.tab_buttons);
+        tl = (TableLayout)findViewById(R2.id.tab_buttons);
        
         // store the data from the UI into the variables.
-        output = (TextView)this.findViewById(R.id.output);
-        company_name = (TextView)this.findViewById(R.id.company_name_text);
+        output = (TextView)this.findViewById(R2.id.output);
+        company_name = (TextView)this.findViewById(R2.id.company_name_text);
        
         //copy into all classes--------------------------
         Bundle extras = getIntent().getExtras();

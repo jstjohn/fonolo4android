@@ -26,10 +26,10 @@ public class eula extends Activity implements OnClickListener{
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.eula);
+		setContentView(R2.layout.eula);
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_BLUR_BEHIND,  
                 WindowManager.LayoutParams.FLAG_BLUR_BEHIND);
-		Button eula_button = (Button)this.findViewById(R.id.accept_eula_button);
+		Button eula_button = (Button)this.findViewById(R2.id.accept_eula_button);
 		eula_button.setOnClickListener(this);
 		mDbHelper = new storage_get_set(this);
 		mDbHelper.open();
@@ -51,7 +51,7 @@ public class eula extends Activity implements OnClickListener{
 				"responsible for fonolo's actions.";
 		
 		//for inserting the eula content into the page
-		eula_content = (TextView)this.findViewById(R.id.eula_content);
+		eula_content = (TextView)this.findViewById(R2.id.eula_content);
 		eula_content.setText(message);
 	}
 
@@ -61,7 +61,7 @@ public class eula extends Activity implements OnClickListener{
 			Intent q = new Intent(this, fonolo4android.class);
 			startActivity(q);
 			break;
-		case R.id.accept_eula_button:
+		case R2.id.accept_eula_button:
 			mDbHelper.setEulaTrue();
 			Intent i = new Intent(this,settings.class);
 			startActivity(i);
