@@ -50,7 +50,7 @@ public class list extends Activity implements Button.OnClickListener, private_co
     };
     protected void updateResultsInUi() {
         // choose table layout to display the company list.
-        TableLayout tl = (TableLayout)findViewById(R.id.table_buttons);
+        TableLayout tl = (TableLayout)findViewById(R2.id.table_buttons);
         if (list.size() == 0){
             Intent j = new Intent(this, message.class);
             String message = "Your search yielded no results.\n" +
@@ -107,13 +107,13 @@ public class list extends Activity implements Button.OnClickListener, private_co
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         
-        setContentView(R.layout.list); 
+        setContentView(R2.layout.list); 
         
         //button variables set up
-        View new_search_button = this.findViewById(R.id.new_search_button);
+        View new_search_button = this.findViewById(R2.id.new_search_button);
         new_search_button.setOnClickListener(this);
         new_search_button.setId(611);
-        View help_button = this.findViewById(R.id.help_button);
+        View help_button = this.findViewById(R2.id.help_button);
         help_button.setOnClickListener(this);
         help_button.setId(411);
         
@@ -200,7 +200,7 @@ public class list extends Activity implements Button.OnClickListener, private_co
         
         Cursor c = mDbHelper.fetchAllFavorites();
         // choose table layout to display the company list.
-        TableLayout tl = (TableLayout)findViewById(R.id.table_buttons);
+        TableLayout tl = (TableLayout)findViewById(R2.id.table_buttons);
         startManagingCursor(c);
         if(!c.equals(null)){
             if (c.getCount() == 0){  

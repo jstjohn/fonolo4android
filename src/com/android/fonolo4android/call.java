@@ -142,10 +142,10 @@ public class call extends Activity implements OnClickListener, private_constants
 	public void onCreate(Bundle savedInstanceState) {     // set up the layout. 
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.call);
+		setContentView(R2.layout.call);
 
-		output = (TextView)this.findViewById(R.id.output);
-		phone_call_details = (TextView)this.findViewById(R.id.phone_call_details);
+		output = (TextView)this.findViewById(R2.id.output);
+		phone_call_details = (TextView)this.findViewById(R2.id.phone_call_details);
 		// access the DB 
 		mDbHelper = new storage_get_set(this);
     	mDbHelper.open();
@@ -177,9 +177,9 @@ public class call extends Activity implements OnClickListener, private_constants
 		String node_name = extras.getString("node_name");
 		String company_name = extras.getString("company_name");
 		//Create buttons and setup a listener. 
-		call_button = (Button) this.findViewById(R.id.place_call); 
+		call_button = (Button) this.findViewById(R2.id.place_call); 
 		call_button.setOnClickListener(this);
-		View help_button = this.findViewById(R.id.help_button);
+		View help_button = this.findViewById(R2.id.help_button);
 		help_button.setOnClickListener(this);
 		//setup and display the output message to display the company name, and the name of the node you are reaching.
 		outMessage = company_name+": ";
@@ -194,14 +194,14 @@ public class call extends Activity implements OnClickListener, private_constants
 		switch (v.getId()){
 		case 199:
 			call_button.setText("Place Call");
-			call_button.setId(R.id.place_call);
+			call_button.setId(R2.id.place_call);
 			//start progress dialog
 			myProgressDialog = ProgressDialog.show(call.this,
                     "Please wait...", "Sending request to end call.", true);
 			startFonoloCallCommunication();
 			startFonoloCallCancel();
 			break;
-		case R.id.place_call:// if the place a call pressed, the do the following
+		case R2.id.place_call:// if the place a call pressed, the do the following
 			call_button.setText("End Call");
 			call_button.setId(199);
 			myProgressDialog = ProgressDialog.show(call.this,
@@ -209,7 +209,7 @@ public class call extends Activity implements OnClickListener, private_constants
 			startFonoloCallCommunication();
 			
 			break;
-		case R.id.help_button:// show the help window if the pressed button is help. 
+		case R2.id.help_button:// show the help window if the pressed button is help. 
 			String outmessage = "This is the call screen, after pressing Place Call, " +
 					"please wait for a call from fonolo. The call originates from 1(416)366-2500. " +
 					"the End Call button that replaces the Place Call button, may be pressed to notify " +

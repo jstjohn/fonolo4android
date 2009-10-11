@@ -33,18 +33,18 @@ public class home extends Activity implements OnClickListener, private_constants
 	@Override
 	protected void onCreate(Bundle savedInstanceState){
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.home);
+		setContentView(R2.layout.home);
  		
-		output = (TextView)this.findViewById(R.id.output);
-		search_text = (TextView)this.findViewById(R.id.search_box);
+		output = (TextView)this.findViewById(R2.id.output);
+		search_text = (TextView)this.findViewById(R2.id.search_box);
 		
 		// Define the Buttons, and setup the listener on them.
-		View help_button = this.findViewById(R.id.help_button);
+		View help_button = this.findViewById(R2.id.help_button);
 		help_button.setOnClickListener(this);
-		View search_button = this.findViewById(R.id.search_button);
+		View search_button = this.findViewById(R2.id.search_button);
 		search_button.setOnClickListener(this);
-		View favs_button = this.findViewById(R.id.favs_button);
-		View settings_button = this.findViewById(R.id.settings_button);
+		View favs_button = this.findViewById(R2.id.favs_button);
+		View settings_button = this.findViewById(R2.id.settings_button);
 		settings_button.setOnClickListener(this);
 		favs_button.setOnClickListener(this);
 		
@@ -85,7 +85,7 @@ public class home extends Activity implements OnClickListener, private_constants
 			}else{
 				//if username and password is there, no need to do anything, just proceed
 				switch (v.getId()){	//get the id of the button pressed.	
-				case R.id.help_button:// case of pressing the help button.
+				case R2.id.help_button:// case of pressing the help button.
 					Intent i = new Intent(this, help.class);
 					//Help message passed to the help page
 		        	String help_message = "This is the search screen. Here you will input a search " +
@@ -99,7 +99,7 @@ public class home extends Activity implements OnClickListener, private_constants
 		        	break;
 		        	
 		    	//case structure for deciding which code to run
-				case R.id.search_button:// case of pressing the search button.
+				case R2.id.search_button:// case of pressing the search button.
 					// check if the text view is empty, and show error message if so.
 					if(search_text.getText().toString().equals("")){
 						Intent j = new Intent(this, message.class);
@@ -119,13 +119,13 @@ public class home extends Activity implements OnClickListener, private_constants
 						startActivity(s);
 						break;
 					}
-				case R.id.favs_button:// case of pressing the favorites button
+				case R2.id.favs_button:// case of pressing the favorites button
 					Intent f = new Intent(this, list.class);
 					out_extras.putInt("method", FAVS_METHOD);
 					f.putExtras(out_extras);
 					startActivity(f);
 					break;
-				case R.id.settings_button:// case of pressing the settings button
+				case R2.id.settings_button:// case of pressing the settings button
 					Intent j = new Intent(this, settings.class);
 					startActivity(j);
 					break;		

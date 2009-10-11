@@ -23,7 +23,7 @@ public class fonolo4android extends Activity {
     @Override
 	public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R2.layout.main);
         try{
         	//set up database
 			mDbHelper = new storage_get_set(this);
