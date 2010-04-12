@@ -1,6 +1,5 @@
 package com.android.fonolo4android;
 
-
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
